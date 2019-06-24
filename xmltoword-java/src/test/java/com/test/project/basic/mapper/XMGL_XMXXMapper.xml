@@ -1,0 +1,1065 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.project.basic.mapper.XMGL_XMXXMapper">
+  <resultMap id="BaseResultMap" type="com.test.project.basic.entity.XMGL_XMXX">
+    <id column="ID" jdbcType="VARCHAR" property="ID" />
+    <result column="XMBH" jdbcType="VARCHAR" property="XMBH" />
+    <result column="YLXMC" jdbcType="VARCHAR" property="YLXMC" />
+    <result column="XMJC" jdbcType="VARCHAR" property="XMJC" />
+    <result column="XMMC" jdbcType="VARCHAR" property="XMMC" />
+    <result column="YZDW" jdbcType="VARCHAR" property="YZDW" />
+    <result column="SQBMID" jdbcType="VARCHAR" property="SQBMID" />
+    <result column="CDBMID" jdbcType="VARCHAR" property="CDBMID" />
+    <result column="XMJLID" jdbcType="VARCHAR" property="XMJLID" />
+    <result column="XMZLID" jdbcType="VARCHAR" property="XMZLID" />
+    <result column="JSJLID" jdbcType="VARCHAR" property="JSJLID" />
+    <result column="JSZLID" jdbcType="VARCHAR" property="JSZLID" />
+    <result column="CSJMGDFWRWYQ" jdbcType="VARCHAR" property="CSJMGDFWRWYQ" />
+    <result column="XMLX" jdbcType="INTEGER" property="XMLX" />
+    <result column="XMND" jdbcType="VARCHAR" property="XMND" />
+    <result column="HTBH" jdbcType="VARCHAR" property="HTBH" />
+    <result column="SSHY" jdbcType="INTEGER" property="SSHY" />
+    <result column="XMZT" jdbcType="INTEGER" property="XMZT" />
+    <result column="XDRQ" jdbcType="DATE" property="XDRQ" />
+    <result column="XMFZ" jdbcType="INTEGER" property="XMFZ" />
+    <result column="GSXM" jdbcType="INTEGER" property="GSXM" />
+    <result column="KSRQ" jdbcType="DATE" property="KSRQ" />
+    <result column="JZRQ" jdbcType="DATE" property="JZRQ" />
+    <result column="XMZL" jdbcType="CHAR" property="XMZL" />
+    <result column="BZ" jdbcType="VARCHAR" property="BZ" />
+    <result column="YLXSJID" jdbcType="VARCHAR" property="YLXSJID" />
+    <result column="SHZT" jdbcType="VARCHAR" property="SHZT" />
+    <result column="ZGLDID" jdbcType="VARCHAR" property="ZGLDID" />
+    <result column="XGLDID" jdbcType="VARCHAR" property="XGLDID" />
+    <result column="CDYWZX" jdbcType="VARCHAR" property="CDYWZX" />
+    <result column="CDYWZXFZRID" jdbcType="VARCHAR" property="CDYWZXFZRID" />
+    <result column="CDBMFZRID" jdbcType="VARCHAR" property="CDBMFZRID" />
+    <result column="WCZT" jdbcType="VARCHAR" property="WCZT" />
+    <result column="BXZT" jdbcType="VARCHAR" property="BXZT" />
+    <result column="SFQC" jdbcType="VARCHAR" property="SFQC" />
+    <result column="CDSYBID" jdbcType="VARCHAR" property="CDSYBID" />
+    <result column="XMJD" jdbcType="VARCHAR" property="XMJD" />
+    <result column="XMZJF" jdbcType="DECIMAL" property="XMZJF" />
+    <result column="HBJF" jdbcType="DECIMAL" property="HBJF" />
+    <result column="HBJFBL" jdbcType="VARCHAR" property="HBJFBL" />
+    <result column="SYBFZRID" jdbcType="VARCHAR" property="SYBFZRID" />
+    <result column="YSTJ" jdbcType="VARCHAR" property="YSTJ" />
+    <result column="SFSD" jdbcType="VARCHAR" property="SFSD" />
+    <result column="SFYX" jdbcType="VARCHAR" property="SFYX" />
+    <result column="CJSJ" jdbcType="TIMESTAMP" property="CJSJ" />
+    <result column="CJRID" jdbcType="VARCHAR" property="CJRID" />
+    <result column="SFXZXM" jdbcType="VARCHAR" property="SFXZXM" />
+    <result column="PID" jdbcType="VARCHAR" property="PID" />
+    <result column="HTMC" jdbcType="VARCHAR" property="HTMC" />
+    <result column="HTID" jdbcType="VARCHAR" property="HTID" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.test.project.basic.entity.XMGL_XMXX">
+    <result column="RWYQ" jdbcType="LONGVARCHAR" property="RWYQ" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, XMBH, YLXMC, XMJC, XMMC, YZDW, SQBMID, CDBMID, XMJLID, XMZLID, JSJLID, JSZLID, 
+    CSJMGDFWRWYQ, XMLX, XMND, HTBH, SSHY, XMZT, XDRQ, XMFZ, GSXM, KSRQ, JZRQ, XMZL, BZ, 
+    YLXSJID, SHZT, ZGLDID, XGLDID, CDYWZX, CDYWZXFZRID, CDBMFZRID, WCZT, BXZT, SFQC, 
+    CDSYBID, XMJD, XMZJF, HBJF, HBJFBL, SYBFZRID, YSTJ, SFSD, SFYX, CJSJ, CJRID, SFXZXM, 
+    PID, HTMC, HTID
+  </sql>
+  <sql id="Blob_Column_List">
+    RWYQ
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.test.project.basic.entity.XMGL_XMXXExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from XMGL_XMXX
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.test.project.basic.entity.XMGL_XMXXExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from XMGL_XMXX
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from XMGL_XMXX
+    where ID = #{ID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from XMGL_XMXX
+    where ID = #{ID,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.test.project.basic.entity.XMGL_XMXXExample">
+    delete from XMGL_XMXX
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.test.project.basic.entity.XMGL_XMXX">
+    insert into XMGL_XMXX (ID, XMBH, YLXMC, 
+      XMJC, XMMC, YZDW, SQBMID, 
+      CDBMID, XMJLID, XMZLID, 
+      JSJLID, JSZLID, CSJMGDFWRWYQ, 
+      XMLX, XMND, HTBH, SSHY, 
+      XMZT, XDRQ, XMFZ, GSXM, 
+      KSRQ, JZRQ, XMZL, BZ, 
+      YLXSJID, SHZT, ZGLDID, 
+      XGLDID, CDYWZX, CDYWZXFZRID, 
+      CDBMFZRID, WCZT, BXZT, 
+      SFQC, CDSYBID, XMJD, 
+      XMZJF, HBJF, HBJFBL, 
+      SYBFZRID, YSTJ, SFSD, 
+      SFYX, CJSJ, CJRID, 
+      SFXZXM, PID, HTMC, 
+      HTID, RWYQ)
+    values (#{ID,jdbcType=VARCHAR}, #{XMBH,jdbcType=VARCHAR}, #{YLXMC,jdbcType=VARCHAR}, 
+      #{XMJC,jdbcType=VARCHAR}, #{XMMC,jdbcType=VARCHAR}, #{YZDW,jdbcType=VARCHAR}, #{SQBMID,jdbcType=VARCHAR}, 
+      #{CDBMID,jdbcType=VARCHAR}, #{XMJLID,jdbcType=VARCHAR}, #{XMZLID,jdbcType=VARCHAR}, 
+      #{JSJLID,jdbcType=VARCHAR}, #{JSZLID,jdbcType=VARCHAR}, #{CSJMGDFWRWYQ,jdbcType=VARCHAR}, 
+      #{XMLX,jdbcType=INTEGER}, #{XMND,jdbcType=VARCHAR}, #{HTBH,jdbcType=VARCHAR}, #{SSHY,jdbcType=INTEGER}, 
+      #{XMZT,jdbcType=INTEGER}, #{XDRQ,jdbcType=DATE}, #{XMFZ,jdbcType=INTEGER}, #{GSXM,jdbcType=INTEGER}, 
+      #{KSRQ,jdbcType=DATE}, #{JZRQ,jdbcType=DATE}, #{XMZL,jdbcType=CHAR}, #{BZ,jdbcType=VARCHAR}, 
+      #{YLXSJID,jdbcType=VARCHAR}, #{SHZT,jdbcType=VARCHAR}, #{ZGLDID,jdbcType=VARCHAR}, 
+      #{XGLDID,jdbcType=VARCHAR}, #{CDYWZX,jdbcType=VARCHAR}, #{CDYWZXFZRID,jdbcType=VARCHAR}, 
+      #{CDBMFZRID,jdbcType=VARCHAR}, #{WCZT,jdbcType=VARCHAR}, #{BXZT,jdbcType=VARCHAR}, 
+      #{SFQC,jdbcType=VARCHAR}, #{CDSYBID,jdbcType=VARCHAR}, #{XMJD,jdbcType=VARCHAR}, 
+      #{XMZJF,jdbcType=DECIMAL}, #{HBJF,jdbcType=DECIMAL}, #{HBJFBL,jdbcType=VARCHAR}, 
+      #{SYBFZRID,jdbcType=VARCHAR}, #{YSTJ,jdbcType=VARCHAR}, #{SFSD,jdbcType=VARCHAR}, 
+      #{SFYX,jdbcType=VARCHAR}, #{CJSJ,jdbcType=TIMESTAMP}, #{CJRID,jdbcType=VARCHAR}, 
+      #{SFXZXM,jdbcType=VARCHAR}, #{PID,jdbcType=VARCHAR}, #{HTMC,jdbcType=VARCHAR}, 
+      #{HTID,jdbcType=VARCHAR}, #{RWYQ,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.project.basic.entity.XMGL_XMXX">
+    insert into XMGL_XMXX
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ID != null">
+        ID,
+      </if>
+      <if test="XMBH != null">
+        XMBH,
+      </if>
+      <if test="YLXMC != null">
+        YLXMC,
+      </if>
+      <if test="XMJC != null">
+        XMJC,
+      </if>
+      <if test="XMMC != null">
+        XMMC,
+      </if>
+      <if test="YZDW != null">
+        YZDW,
+      </if>
+      <if test="SQBMID != null">
+        SQBMID,
+      </if>
+      <if test="CDBMID != null">
+        CDBMID,
+      </if>
+      <if test="XMJLID != null">
+        XMJLID,
+      </if>
+      <if test="XMZLID != null">
+        XMZLID,
+      </if>
+      <if test="JSJLID != null">
+        JSJLID,
+      </if>
+      <if test="JSZLID != null">
+        JSZLID,
+      </if>
+      <if test="CSJMGDFWRWYQ != null">
+        CSJMGDFWRWYQ,
+      </if>
+      <if test="XMLX != null">
+        XMLX,
+      </if>
+      <if test="XMND != null">
+        XMND,
+      </if>
+      <if test="HTBH != null">
+        HTBH,
+      </if>
+      <if test="SSHY != null">
+        SSHY,
+      </if>
+      <if test="XMZT != null">
+        XMZT,
+      </if>
+      <if test="XDRQ != null">
+        XDRQ,
+      </if>
+      <if test="XMFZ != null">
+        XMFZ,
+      </if>
+      <if test="GSXM != null">
+        GSXM,
+      </if>
+      <if test="KSRQ != null">
+        KSRQ,
+      </if>
+      <if test="JZRQ != null">
+        JZRQ,
+      </if>
+      <if test="XMZL != null">
+        XMZL,
+      </if>
+      <if test="BZ != null">
+        BZ,
+      </if>
+      <if test="YLXSJID != null">
+        YLXSJID,
+      </if>
+      <if test="SHZT != null">
+        SHZT,
+      </if>
+      <if test="ZGLDID != null">
+        ZGLDID,
+      </if>
+      <if test="XGLDID != null">
+        XGLDID,
+      </if>
+      <if test="CDYWZX != null">
+        CDYWZX,
+      </if>
+      <if test="CDYWZXFZRID != null">
+        CDYWZXFZRID,
+      </if>
+      <if test="CDBMFZRID != null">
+        CDBMFZRID,
+      </if>
+      <if test="WCZT != null">
+        WCZT,
+      </if>
+      <if test="BXZT != null">
+        BXZT,
+      </if>
+      <if test="SFQC != null">
+        SFQC,
+      </if>
+      <if test="CDSYBID != null">
+        CDSYBID,
+      </if>
+      <if test="XMJD != null">
+        XMJD,
+      </if>
+      <if test="XMZJF != null">
+        XMZJF,
+      </if>
+      <if test="HBJF != null">
+        HBJF,
+      </if>
+      <if test="HBJFBL != null">
+        HBJFBL,
+      </if>
+      <if test="SYBFZRID != null">
+        SYBFZRID,
+      </if>
+      <if test="YSTJ != null">
+        YSTJ,
+      </if>
+      <if test="SFSD != null">
+        SFSD,
+      </if>
+      <if test="SFYX != null">
+        SFYX,
+      </if>
+      <if test="CJSJ != null">
+        CJSJ,
+      </if>
+      <if test="CJRID != null">
+        CJRID,
+      </if>
+      <if test="SFXZXM != null">
+        SFXZXM,
+      </if>
+      <if test="PID != null">
+        PID,
+      </if>
+      <if test="HTMC != null">
+        HTMC,
+      </if>
+      <if test="HTID != null">
+        HTID,
+      </if>
+      <if test="RWYQ != null">
+        RWYQ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ID != null">
+        #{ID,jdbcType=VARCHAR},
+      </if>
+      <if test="XMBH != null">
+        #{XMBH,jdbcType=VARCHAR},
+      </if>
+      <if test="YLXMC != null">
+        #{YLXMC,jdbcType=VARCHAR},
+      </if>
+      <if test="XMJC != null">
+        #{XMJC,jdbcType=VARCHAR},
+      </if>
+      <if test="XMMC != null">
+        #{XMMC,jdbcType=VARCHAR},
+      </if>
+      <if test="YZDW != null">
+        #{YZDW,jdbcType=VARCHAR},
+      </if>
+      <if test="SQBMID != null">
+        #{SQBMID,jdbcType=VARCHAR},
+      </if>
+      <if test="CDBMID != null">
+        #{CDBMID,jdbcType=VARCHAR},
+      </if>
+      <if test="XMJLID != null">
+        #{XMJLID,jdbcType=VARCHAR},
+      </if>
+      <if test="XMZLID != null">
+        #{XMZLID,jdbcType=VARCHAR},
+      </if>
+      <if test="JSJLID != null">
+        #{JSJLID,jdbcType=VARCHAR},
+      </if>
+      <if test="JSZLID != null">
+        #{JSZLID,jdbcType=VARCHAR},
+      </if>
+      <if test="CSJMGDFWRWYQ != null">
+        #{CSJMGDFWRWYQ,jdbcType=VARCHAR},
+      </if>
+      <if test="XMLX != null">
+        #{XMLX,jdbcType=INTEGER},
+      </if>
+      <if test="XMND != null">
+        #{XMND,jdbcType=VARCHAR},
+      </if>
+      <if test="HTBH != null">
+        #{HTBH,jdbcType=VARCHAR},
+      </if>
+      <if test="SSHY != null">
+        #{SSHY,jdbcType=INTEGER},
+      </if>
+      <if test="XMZT != null">
+        #{XMZT,jdbcType=INTEGER},
+      </if>
+      <if test="XDRQ != null">
+        #{XDRQ,jdbcType=DATE},
+      </if>
+      <if test="XMFZ != null">
+        #{XMFZ,jdbcType=INTEGER},
+      </if>
+      <if test="GSXM != null">
+        #{GSXM,jdbcType=INTEGER},
+      </if>
+      <if test="KSRQ != null">
+        #{KSRQ,jdbcType=DATE},
+      </if>
+      <if test="JZRQ != null">
+        #{JZRQ,jdbcType=DATE},
+      </if>
+      <if test="XMZL != null">
+        #{XMZL,jdbcType=CHAR},
+      </if>
+      <if test="BZ != null">
+        #{BZ,jdbcType=VARCHAR},
+      </if>
+      <if test="YLXSJID != null">
+        #{YLXSJID,jdbcType=VARCHAR},
+      </if>
+      <if test="SHZT != null">
+        #{SHZT,jdbcType=VARCHAR},
+      </if>
+      <if test="ZGLDID != null">
+        #{ZGLDID,jdbcType=VARCHAR},
+      </if>
+      <if test="XGLDID != null">
+        #{XGLDID,jdbcType=VARCHAR},
+      </if>
+      <if test="CDYWZX != null">
+        #{CDYWZX,jdbcType=VARCHAR},
+      </if>
+      <if test="CDYWZXFZRID != null">
+        #{CDYWZXFZRID,jdbcType=VARCHAR},
+      </if>
+      <if test="CDBMFZRID != null">
+        #{CDBMFZRID,jdbcType=VARCHAR},
+      </if>
+      <if test="WCZT != null">
+        #{WCZT,jdbcType=VARCHAR},
+      </if>
+      <if test="BXZT != null">
+        #{BXZT,jdbcType=VARCHAR},
+      </if>
+      <if test="SFQC != null">
+        #{SFQC,jdbcType=VARCHAR},
+      </if>
+      <if test="CDSYBID != null">
+        #{CDSYBID,jdbcType=VARCHAR},
+      </if>
+      <if test="XMJD != null">
+        #{XMJD,jdbcType=VARCHAR},
+      </if>
+      <if test="XMZJF != null">
+        #{XMZJF,jdbcType=DECIMAL},
+      </if>
+      <if test="HBJF != null">
+        #{HBJF,jdbcType=DECIMAL},
+      </if>
+      <if test="HBJFBL != null">
+        #{HBJFBL,jdbcType=VARCHAR},
+      </if>
+      <if test="SYBFZRID != null">
+        #{SYBFZRID,jdbcType=VARCHAR},
+      </if>
+      <if test="YSTJ != null">
+        #{YSTJ,jdbcType=VARCHAR},
+      </if>
+      <if test="SFSD != null">
+        #{SFSD,jdbcType=VARCHAR},
+      </if>
+      <if test="SFYX != null">
+        #{SFYX,jdbcType=VARCHAR},
+      </if>
+      <if test="CJSJ != null">
+        #{CJSJ,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CJRID != null">
+        #{CJRID,jdbcType=VARCHAR},
+      </if>
+      <if test="SFXZXM != null">
+        #{SFXZXM,jdbcType=VARCHAR},
+      </if>
+      <if test="PID != null">
+        #{PID,jdbcType=VARCHAR},
+      </if>
+      <if test="HTMC != null">
+        #{HTMC,jdbcType=VARCHAR},
+      </if>
+      <if test="HTID != null">
+        #{HTID,jdbcType=VARCHAR},
+      </if>
+      <if test="RWYQ != null">
+        #{RWYQ,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.test.project.basic.entity.XMGL_XMXXExample" resultType="java.lang.Long">
+    select count(*) from XMGL_XMXX
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update XMGL_XMXX
+    <set>
+      <if test="record.ID != null">
+        ID = #{record.ID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.XMBH != null">
+        XMBH = #{record.XMBH,jdbcType=VARCHAR},
+      </if>
+      <if test="record.YLXMC != null">
+        YLXMC = #{record.YLXMC,jdbcType=VARCHAR},
+      </if>
+      <if test="record.XMJC != null">
+        XMJC = #{record.XMJC,jdbcType=VARCHAR},
+      </if>
+      <if test="record.XMMC != null">
+        XMMC = #{record.XMMC,jdbcType=VARCHAR},
+      </if>
+      <if test="record.YZDW != null">
+        YZDW = #{record.YZDW,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SQBMID != null">
+        SQBMID = #{record.SQBMID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CDBMID != null">
+        CDBMID = #{record.CDBMID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.XMJLID != null">
+        XMJLID = #{record.XMJLID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.XMZLID != null">
+        XMZLID = #{record.XMZLID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.JSJLID != null">
+        JSJLID = #{record.JSJLID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.JSZLID != null">
+        JSZLID = #{record.JSZLID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CSJMGDFWRWYQ != null">
+        CSJMGDFWRWYQ = #{record.CSJMGDFWRWYQ,jdbcType=VARCHAR},
+      </if>
+      <if test="record.XMLX != null">
+        XMLX = #{record.XMLX,jdbcType=INTEGER},
+      </if>
+      <if test="record.XMND != null">
+        XMND = #{record.XMND,jdbcType=VARCHAR},
+      </if>
+      <if test="record.HTBH != null">
+        HTBH = #{record.HTBH,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SSHY != null">
+        SSHY = #{record.SSHY,jdbcType=INTEGER},
+      </if>
+      <if test="record.XMZT != null">
+        XMZT = #{record.XMZT,jdbcType=INTEGER},
+      </if>
+      <if test="record.XDRQ != null">
+        XDRQ = #{record.XDRQ,jdbcType=DATE},
+      </if>
+      <if test="record.XMFZ != null">
+        XMFZ = #{record.XMFZ,jdbcType=INTEGER},
+      </if>
+      <if test="record.GSXM != null">
+        GSXM = #{record.GSXM,jdbcType=INTEGER},
+      </if>
+      <if test="record.KSRQ != null">
+        KSRQ = #{record.KSRQ,jdbcType=DATE},
+      </if>
+      <if test="record.JZRQ != null">
+        JZRQ = #{record.JZRQ,jdbcType=DATE},
+      </if>
+      <if test="record.XMZL != null">
+        XMZL = #{record.XMZL,jdbcType=CHAR},
+      </if>
+      <if test="record.BZ != null">
+        BZ = #{record.BZ,jdbcType=VARCHAR},
+      </if>
+      <if test="record.YLXSJID != null">
+        YLXSJID = #{record.YLXSJID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SHZT != null">
+        SHZT = #{record.SHZT,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ZGLDID != null">
+        ZGLDID = #{record.ZGLDID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.XGLDID != null">
+        XGLDID = #{record.XGLDID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CDYWZX != null">
+        CDYWZX = #{record.CDYWZX,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CDYWZXFZRID != null">
+        CDYWZXFZRID = #{record.CDYWZXFZRID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CDBMFZRID != null">
+        CDBMFZRID = #{record.CDBMFZRID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.WCZT != null">
+        WCZT = #{record.WCZT,jdbcType=VARCHAR},
+      </if>
+      <if test="record.BXZT != null">
+        BXZT = #{record.BXZT,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SFQC != null">
+        SFQC = #{record.SFQC,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CDSYBID != null">
+        CDSYBID = #{record.CDSYBID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.XMJD != null">
+        XMJD = #{record.XMJD,jdbcType=VARCHAR},
+      </if>
+      <if test="record.XMZJF != null">
+        XMZJF = #{record.XMZJF,jdbcType=DECIMAL},
+      </if>
+      <if test="record.HBJF != null">
+        HBJF = #{record.HBJF,jdbcType=DECIMAL},
+      </if>
+      <if test="record.HBJFBL != null">
+        HBJFBL = #{record.HBJFBL,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SYBFZRID != null">
+        SYBFZRID = #{record.SYBFZRID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.YSTJ != null">
+        YSTJ = #{record.YSTJ,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SFSD != null">
+        SFSD = #{record.SFSD,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SFYX != null">
+        SFYX = #{record.SFYX,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CJSJ != null">
+        CJSJ = #{record.CJSJ,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.CJRID != null">
+        CJRID = #{record.CJRID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.SFXZXM != null">
+        SFXZXM = #{record.SFXZXM,jdbcType=VARCHAR},
+      </if>
+      <if test="record.PID != null">
+        PID = #{record.PID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.HTMC != null">
+        HTMC = #{record.HTMC,jdbcType=VARCHAR},
+      </if>
+      <if test="record.HTID != null">
+        HTID = #{record.HTID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.RWYQ != null">
+        RWYQ = #{record.RWYQ,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update XMGL_XMXX
+    set ID = #{record.ID,jdbcType=VARCHAR},
+      XMBH = #{record.XMBH,jdbcType=VARCHAR},
+      YLXMC = #{record.YLXMC,jdbcType=VARCHAR},
+      XMJC = #{record.XMJC,jdbcType=VARCHAR},
+      XMMC = #{record.XMMC,jdbcType=VARCHAR},
+      YZDW = #{record.YZDW,jdbcType=VARCHAR},
+      SQBMID = #{record.SQBMID,jdbcType=VARCHAR},
+      CDBMID = #{record.CDBMID,jdbcType=VARCHAR},
+      XMJLID = #{record.XMJLID,jdbcType=VARCHAR},
+      XMZLID = #{record.XMZLID,jdbcType=VARCHAR},
+      JSJLID = #{record.JSJLID,jdbcType=VARCHAR},
+      JSZLID = #{record.JSZLID,jdbcType=VARCHAR},
+      CSJMGDFWRWYQ = #{record.CSJMGDFWRWYQ,jdbcType=VARCHAR},
+      XMLX = #{record.XMLX,jdbcType=INTEGER},
+      XMND = #{record.XMND,jdbcType=VARCHAR},
+      HTBH = #{record.HTBH,jdbcType=VARCHAR},
+      SSHY = #{record.SSHY,jdbcType=INTEGER},
+      XMZT = #{record.XMZT,jdbcType=INTEGER},
+      XDRQ = #{record.XDRQ,jdbcType=DATE},
+      XMFZ = #{record.XMFZ,jdbcType=INTEGER},
+      GSXM = #{record.GSXM,jdbcType=INTEGER},
+      KSRQ = #{record.KSRQ,jdbcType=DATE},
+      JZRQ = #{record.JZRQ,jdbcType=DATE},
+      XMZL = #{record.XMZL,jdbcType=CHAR},
+      BZ = #{record.BZ,jdbcType=VARCHAR},
+      YLXSJID = #{record.YLXSJID,jdbcType=VARCHAR},
+      SHZT = #{record.SHZT,jdbcType=VARCHAR},
+      ZGLDID = #{record.ZGLDID,jdbcType=VARCHAR},
+      XGLDID = #{record.XGLDID,jdbcType=VARCHAR},
+      CDYWZX = #{record.CDYWZX,jdbcType=VARCHAR},
+      CDYWZXFZRID = #{record.CDYWZXFZRID,jdbcType=VARCHAR},
+      CDBMFZRID = #{record.CDBMFZRID,jdbcType=VARCHAR},
+      WCZT = #{record.WCZT,jdbcType=VARCHAR},
+      BXZT = #{record.BXZT,jdbcType=VARCHAR},
+      SFQC = #{record.SFQC,jdbcType=VARCHAR},
+      CDSYBID = #{record.CDSYBID,jdbcType=VARCHAR},
+      XMJD = #{record.XMJD,jdbcType=VARCHAR},
+      XMZJF = #{record.XMZJF,jdbcType=DECIMAL},
+      HBJF = #{record.HBJF,jdbcType=DECIMAL},
+      HBJFBL = #{record.HBJFBL,jdbcType=VARCHAR},
+      SYBFZRID = #{record.SYBFZRID,jdbcType=VARCHAR},
+      YSTJ = #{record.YSTJ,jdbcType=VARCHAR},
+      SFSD = #{record.SFSD,jdbcType=VARCHAR},
+      SFYX = #{record.SFYX,jdbcType=VARCHAR},
+      CJSJ = #{record.CJSJ,jdbcType=TIMESTAMP},
+      CJRID = #{record.CJRID,jdbcType=VARCHAR},
+      SFXZXM = #{record.SFXZXM,jdbcType=VARCHAR},
+      PID = #{record.PID,jdbcType=VARCHAR},
+      HTMC = #{record.HTMC,jdbcType=VARCHAR},
+      HTID = #{record.HTID,jdbcType=VARCHAR},
+      RWYQ = #{record.RWYQ,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update XMGL_XMXX
+    set ID = #{record.ID,jdbcType=VARCHAR},
+      XMBH = #{record.XMBH,jdbcType=VARCHAR},
+      YLXMC = #{record.YLXMC,jdbcType=VARCHAR},
+      XMJC = #{record.XMJC,jdbcType=VARCHAR},
+      XMMC = #{record.XMMC,jdbcType=VARCHAR},
+      YZDW = #{record.YZDW,jdbcType=VARCHAR},
+      SQBMID = #{record.SQBMID,jdbcType=VARCHAR},
+      CDBMID = #{record.CDBMID,jdbcType=VARCHAR},
+      XMJLID = #{record.XMJLID,jdbcType=VARCHAR},
+      XMZLID = #{record.XMZLID,jdbcType=VARCHAR},
+      JSJLID = #{record.JSJLID,jdbcType=VARCHAR},
+      JSZLID = #{record.JSZLID,jdbcType=VARCHAR},
+      CSJMGDFWRWYQ = #{record.CSJMGDFWRWYQ,jdbcType=VARCHAR},
+      XMLX = #{record.XMLX,jdbcType=INTEGER},
+      XMND = #{record.XMND,jdbcType=VARCHAR},
+      HTBH = #{record.HTBH,jdbcType=VARCHAR},
+      SSHY = #{record.SSHY,jdbcType=INTEGER},
+      XMZT = #{record.XMZT,jdbcType=INTEGER},
+      XDRQ = #{record.XDRQ,jdbcType=DATE},
+      XMFZ = #{record.XMFZ,jdbcType=INTEGER},
+      GSXM = #{record.GSXM,jdbcType=INTEGER},
+      KSRQ = #{record.KSRQ,jdbcType=DATE},
+      JZRQ = #{record.JZRQ,jdbcType=DATE},
+      XMZL = #{record.XMZL,jdbcType=CHAR},
+      BZ = #{record.BZ,jdbcType=VARCHAR},
+      YLXSJID = #{record.YLXSJID,jdbcType=VARCHAR},
+      SHZT = #{record.SHZT,jdbcType=VARCHAR},
+      ZGLDID = #{record.ZGLDID,jdbcType=VARCHAR},
+      XGLDID = #{record.XGLDID,jdbcType=VARCHAR},
+      CDYWZX = #{record.CDYWZX,jdbcType=VARCHAR},
+      CDYWZXFZRID = #{record.CDYWZXFZRID,jdbcType=VARCHAR},
+      CDBMFZRID = #{record.CDBMFZRID,jdbcType=VARCHAR},
+      WCZT = #{record.WCZT,jdbcType=VARCHAR},
+      BXZT = #{record.BXZT,jdbcType=VARCHAR},
+      SFQC = #{record.SFQC,jdbcType=VARCHAR},
+      CDSYBID = #{record.CDSYBID,jdbcType=VARCHAR},
+      XMJD = #{record.XMJD,jdbcType=VARCHAR},
+      XMZJF = #{record.XMZJF,jdbcType=DECIMAL},
+      HBJF = #{record.HBJF,jdbcType=DECIMAL},
+      HBJFBL = #{record.HBJFBL,jdbcType=VARCHAR},
+      SYBFZRID = #{record.SYBFZRID,jdbcType=VARCHAR},
+      YSTJ = #{record.YSTJ,jdbcType=VARCHAR},
+      SFSD = #{record.SFSD,jdbcType=VARCHAR},
+      SFYX = #{record.SFYX,jdbcType=VARCHAR},
+      CJSJ = #{record.CJSJ,jdbcType=TIMESTAMP},
+      CJRID = #{record.CJRID,jdbcType=VARCHAR},
+      SFXZXM = #{record.SFXZXM,jdbcType=VARCHAR},
+      PID = #{record.PID,jdbcType=VARCHAR},
+      HTMC = #{record.HTMC,jdbcType=VARCHAR},
+      HTID = #{record.HTID,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.project.basic.entity.XMGL_XMXX">
+    update XMGL_XMXX
+    <set>
+      <if test="XMBH != null">
+        XMBH = #{XMBH,jdbcType=VARCHAR},
+      </if>
+      <if test="YLXMC != null">
+        YLXMC = #{YLXMC,jdbcType=VARCHAR},
+      </if>
+      <if test="XMJC != null">
+        XMJC = #{XMJC,jdbcType=VARCHAR},
+      </if>
+      <if test="XMMC != null">
+        XMMC = #{XMMC,jdbcType=VARCHAR},
+      </if>
+      <if test="YZDW != null">
+        YZDW = #{YZDW,jdbcType=VARCHAR},
+      </if>
+      <if test="SQBMID != null">
+        SQBMID = #{SQBMID,jdbcType=VARCHAR},
+      </if>
+      <if test="CDBMID != null">
+        CDBMID = #{CDBMID,jdbcType=VARCHAR},
+      </if>
+      <if test="XMJLID != null">
+        XMJLID = #{XMJLID,jdbcType=VARCHAR},
+      </if>
+      <if test="XMZLID != null">
+        XMZLID = #{XMZLID,jdbcType=VARCHAR},
+      </if>
+      <if test="JSJLID != null">
+        JSJLID = #{JSJLID,jdbcType=VARCHAR},
+      </if>
+      <if test="JSZLID != null">
+        JSZLID = #{JSZLID,jdbcType=VARCHAR},
+      </if>
+      <if test="CSJMGDFWRWYQ != null">
+        CSJMGDFWRWYQ = #{CSJMGDFWRWYQ,jdbcType=VARCHAR},
+      </if>
+      <if test="XMLX != null">
+        XMLX = #{XMLX,jdbcType=INTEGER},
+      </if>
+      <if test="XMND != null">
+        XMND = #{XMND,jdbcType=VARCHAR},
+      </if>
+      <if test="HTBH != null">
+        HTBH = #{HTBH,jdbcType=VARCHAR},
+      </if>
+      <if test="SSHY != null">
+        SSHY = #{SSHY,jdbcType=INTEGER},
+      </if>
+      <if test="XMZT != null">
+        XMZT = #{XMZT,jdbcType=INTEGER},
+      </if>
+      <if test="XDRQ != null">
+        XDRQ = #{XDRQ,jdbcType=DATE},
+      </if>
+      <if test="XMFZ != null">
+        XMFZ = #{XMFZ,jdbcType=INTEGER},
+      </if>
+      <if test="GSXM != null">
+        GSXM = #{GSXM,jdbcType=INTEGER},
+      </if>
+      <if test="KSRQ != null">
+        KSRQ = #{KSRQ,jdbcType=DATE},
+      </if>
+      <if test="JZRQ != null">
+        JZRQ = #{JZRQ,jdbcType=DATE},
+      </if>
+      <if test="XMZL != null">
+        XMZL = #{XMZL,jdbcType=CHAR},
+      </if>
+      <if test="BZ != null">
+        BZ = #{BZ,jdbcType=VARCHAR},
+      </if>
+      <if test="YLXSJID != null">
+        YLXSJID = #{YLXSJID,jdbcType=VARCHAR},
+      </if>
+      <if test="SHZT != null">
+        SHZT = #{SHZT,jdbcType=VARCHAR},
+      </if>
+      <if test="ZGLDID != null">
+        ZGLDID = #{ZGLDID,jdbcType=VARCHAR},
+      </if>
+      <if test="XGLDID != null">
+        XGLDID = #{XGLDID,jdbcType=VARCHAR},
+      </if>
+      <if test="CDYWZX != null">
+        CDYWZX = #{CDYWZX,jdbcType=VARCHAR},
+      </if>
+      <if test="CDYWZXFZRID != null">
+        CDYWZXFZRID = #{CDYWZXFZRID,jdbcType=VARCHAR},
+      </if>
+      <if test="CDBMFZRID != null">
+        CDBMFZRID = #{CDBMFZRID,jdbcType=VARCHAR},
+      </if>
+      <if test="WCZT != null">
+        WCZT = #{WCZT,jdbcType=VARCHAR},
+      </if>
+      <if test="BXZT != null">
+        BXZT = #{BXZT,jdbcType=VARCHAR},
+      </if>
+      <if test="SFQC != null">
+        SFQC = #{SFQC,jdbcType=VARCHAR},
+      </if>
+      <if test="CDSYBID != null">
+        CDSYBID = #{CDSYBID,jdbcType=VARCHAR},
+      </if>
+      <if test="XMJD != null">
+        XMJD = #{XMJD,jdbcType=VARCHAR},
+      </if>
+      <if test="XMZJF != null">
+        XMZJF = #{XMZJF,jdbcType=DECIMAL},
+      </if>
+      <if test="HBJF != null">
+        HBJF = #{HBJF,jdbcType=DECIMAL},
+      </if>
+      <if test="HBJFBL != null">
+        HBJFBL = #{HBJFBL,jdbcType=VARCHAR},
+      </if>
+      <if test="SYBFZRID != null">
+        SYBFZRID = #{SYBFZRID,jdbcType=VARCHAR},
+      </if>
+      <if test="YSTJ != null">
+        YSTJ = #{YSTJ,jdbcType=VARCHAR},
+      </if>
+      <if test="SFSD != null">
+        SFSD = #{SFSD,jdbcType=VARCHAR},
+      </if>
+      <if test="SFYX != null">
+        SFYX = #{SFYX,jdbcType=VARCHAR},
+      </if>
+      <if test="CJSJ != null">
+        CJSJ = #{CJSJ,jdbcType=TIMESTAMP},
+      </if>
+      <if test="CJRID != null">
+        CJRID = #{CJRID,jdbcType=VARCHAR},
+      </if>
+      <if test="SFXZXM != null">
+        SFXZXM = #{SFXZXM,jdbcType=VARCHAR},
+      </if>
+      <if test="PID != null">
+        PID = #{PID,jdbcType=VARCHAR},
+      </if>
+      <if test="HTMC != null">
+        HTMC = #{HTMC,jdbcType=VARCHAR},
+      </if>
+      <if test="HTID != null">
+        HTID = #{HTID,jdbcType=VARCHAR},
+      </if>
+      <if test="RWYQ != null">
+        RWYQ = #{RWYQ,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{ID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.test.project.basic.entity.XMGL_XMXX">
+    update XMGL_XMXX
+    set XMBH = #{XMBH,jdbcType=VARCHAR},
+      YLXMC = #{YLXMC,jdbcType=VARCHAR},
+      XMJC = #{XMJC,jdbcType=VARCHAR},
+      XMMC = #{XMMC,jdbcType=VARCHAR},
+      YZDW = #{YZDW,jdbcType=VARCHAR},
+      SQBMID = #{SQBMID,jdbcType=VARCHAR},
+      CDBMID = #{CDBMID,jdbcType=VARCHAR},
+      XMJLID = #{XMJLID,jdbcType=VARCHAR},
+      XMZLID = #{XMZLID,jdbcType=VARCHAR},
+      JSJLID = #{JSJLID,jdbcType=VARCHAR},
+      JSZLID = #{JSZLID,jdbcType=VARCHAR},
+      CSJMGDFWRWYQ = #{CSJMGDFWRWYQ,jdbcType=VARCHAR},
+      XMLX = #{XMLX,jdbcType=INTEGER},
+      XMND = #{XMND,jdbcType=VARCHAR},
+      HTBH = #{HTBH,jdbcType=VARCHAR},
+      SSHY = #{SSHY,jdbcType=INTEGER},
+      XMZT = #{XMZT,jdbcType=INTEGER},
+      XDRQ = #{XDRQ,jdbcType=DATE},
+      XMFZ = #{XMFZ,jdbcType=INTEGER},
+      GSXM = #{GSXM,jdbcType=INTEGER},
+      KSRQ = #{KSRQ,jdbcType=DATE},
+      JZRQ = #{JZRQ,jdbcType=DATE},
+      XMZL = #{XMZL,jdbcType=CHAR},
+      BZ = #{BZ,jdbcType=VARCHAR},
+      YLXSJID = #{YLXSJID,jdbcType=VARCHAR},
+      SHZT = #{SHZT,jdbcType=VARCHAR},
+      ZGLDID = #{ZGLDID,jdbcType=VARCHAR},
+      XGLDID = #{XGLDID,jdbcType=VARCHAR},
+      CDYWZX = #{CDYWZX,jdbcType=VARCHAR},
+      CDYWZXFZRID = #{CDYWZXFZRID,jdbcType=VARCHAR},
+      CDBMFZRID = #{CDBMFZRID,jdbcType=VARCHAR},
+      WCZT = #{WCZT,jdbcType=VARCHAR},
+      BXZT = #{BXZT,jdbcType=VARCHAR},
+      SFQC = #{SFQC,jdbcType=VARCHAR},
+      CDSYBID = #{CDSYBID,jdbcType=VARCHAR},
+      XMJD = #{XMJD,jdbcType=VARCHAR},
+      XMZJF = #{XMZJF,jdbcType=DECIMAL},
+      HBJF = #{HBJF,jdbcType=DECIMAL},
+      HBJFBL = #{HBJFBL,jdbcType=VARCHAR},
+      SYBFZRID = #{SYBFZRID,jdbcType=VARCHAR},
+      YSTJ = #{YSTJ,jdbcType=VARCHAR},
+      SFSD = #{SFSD,jdbcType=VARCHAR},
+      SFYX = #{SFYX,jdbcType=VARCHAR},
+      CJSJ = #{CJSJ,jdbcType=TIMESTAMP},
+      CJRID = #{CJRID,jdbcType=VARCHAR},
+      SFXZXM = #{SFXZXM,jdbcType=VARCHAR},
+      PID = #{PID,jdbcType=VARCHAR},
+      HTMC = #{HTMC,jdbcType=VARCHAR},
+      HTID = #{HTID,jdbcType=VARCHAR},
+      RWYQ = #{RWYQ,jdbcType=LONGVARCHAR}
+    where ID = #{ID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.project.basic.entity.XMGL_XMXX">
+    update XMGL_XMXX
+    set XMBH = #{XMBH,jdbcType=VARCHAR},
+      YLXMC = #{YLXMC,jdbcType=VARCHAR},
+      XMJC = #{XMJC,jdbcType=VARCHAR},
+      XMMC = #{XMMC,jdbcType=VARCHAR},
+      YZDW = #{YZDW,jdbcType=VARCHAR},
+      SQBMID = #{SQBMID,jdbcType=VARCHAR},
+      CDBMID = #{CDBMID,jdbcType=VARCHAR},
+      XMJLID = #{XMJLID,jdbcType=VARCHAR},
+      XMZLID = #{XMZLID,jdbcType=VARCHAR},
+      JSJLID = #{JSJLID,jdbcType=VARCHAR},
+      JSZLID = #{JSZLID,jdbcType=VARCHAR},
+      CSJMGDFWRWYQ = #{CSJMGDFWRWYQ,jdbcType=VARCHAR},
+      XMLX = #{XMLX,jdbcType=INTEGER},
+      XMND = #{XMND,jdbcType=VARCHAR},
+      HTBH = #{HTBH,jdbcType=VARCHAR},
+      SSHY = #{SSHY,jdbcType=INTEGER},
+      XMZT = #{XMZT,jdbcType=INTEGER},
+      XDRQ = #{XDRQ,jdbcType=DATE},
+      XMFZ = #{XMFZ,jdbcType=INTEGER},
+      GSXM = #{GSXM,jdbcType=INTEGER},
+      KSRQ = #{KSRQ,jdbcType=DATE},
+      JZRQ = #{JZRQ,jdbcType=DATE},
+      XMZL = #{XMZL,jdbcType=CHAR},
+      BZ = #{BZ,jdbcType=VARCHAR},
+      YLXSJID = #{YLXSJID,jdbcType=VARCHAR},
+      SHZT = #{SHZT,jdbcType=VARCHAR},
+      ZGLDID = #{ZGLDID,jdbcType=VARCHAR},
+      XGLDID = #{XGLDID,jdbcType=VARCHAR},
+      CDYWZX = #{CDYWZX,jdbcType=VARCHAR},
+      CDYWZXFZRID = #{CDYWZXFZRID,jdbcType=VARCHAR},
+      CDBMFZRID = #{CDBMFZRID,jdbcType=VARCHAR},
+      WCZT = #{WCZT,jdbcType=VARCHAR},
+      BXZT = #{BXZT,jdbcType=VARCHAR},
+      SFQC = #{SFQC,jdbcType=VARCHAR},
+      CDSYBID = #{CDSYBID,jdbcType=VARCHAR},
+      XMJD = #{XMJD,jdbcType=VARCHAR},
+      XMZJF = #{XMZJF,jdbcType=DECIMAL},
+      HBJF = #{HBJF,jdbcType=DECIMAL},
+      HBJFBL = #{HBJFBL,jdbcType=VARCHAR},
+      SYBFZRID = #{SYBFZRID,jdbcType=VARCHAR},
+      YSTJ = #{YSTJ,jdbcType=VARCHAR},
+      SFSD = #{SFSD,jdbcType=VARCHAR},
+      SFYX = #{SFYX,jdbcType=VARCHAR},
+      CJSJ = #{CJSJ,jdbcType=TIMESTAMP},
+      CJRID = #{CJRID,jdbcType=VARCHAR},
+      SFXZXM = #{SFXZXM,jdbcType=VARCHAR},
+      PID = #{PID,jdbcType=VARCHAR},
+      HTMC = #{HTMC,jdbcType=VARCHAR},
+      HTID = #{HTID,jdbcType=VARCHAR}
+    where ID = #{ID,jdbcType=VARCHAR}
+  </update>
+</mapper>

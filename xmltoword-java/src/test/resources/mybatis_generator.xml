@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+  <!-- 文档标签有严格的顺序限制 -->
+<generatorConfiguration>
+    <context id="test" targetRuntime="MyBatis3" defaultModelType="flat">
+    	<!-- targetRuntime MyBatis3:*这是默认值*  MyBatis3Simple 不生成example-->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>  
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin> 
+         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin> 
+        <commentGenerator>
+            <!-- 这个元素用来去除指定生成的注释中是否包含生成的日期 false:表示保护 -->
+            <!-- 如果生成日期，会造成即使修改一个字段，整个实体类所有属性都会发生变化，不利于版本控制，所以设置为true -->
+            <property name="suppressDate" value="true" />
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!--数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://172.16.100.102:3306/gxsnxtoa" userId="gxsnxtoa" password="6j0GQF0kiLwyt">
+            </jdbcConnection>
+        <javaTypeResolver>
+            <!-- This property is used to specify whether MyBatis Generator should 
+                force the use of java.math.BigDecimal for DECIMAL and NUMERIC fields, -->
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!-- 生成模型的包名和位置 -->
+        <javaModelGenerator targetPackage="com.test.project.basic.entity" targetProject=".\src\test\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!-- 生成映射文件的包名和位置 -->
+        <sqlMapGenerator targetPackage="com.test.project.basic.mapper" targetProject=".\src\test\java">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.test.project.basic.mapper" targetProject=".\src\test\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+     
+        <!-- 要生成哪些表 -->
+
+        <table tableName="XMGL_XMXX" domainObjectName="XMGL_XMXX" >
+       		<property name="useActualColumnNames" value="true"/>
+        </table>
+       
+         <!-- 要生成哪些表 去example-->
+        <!-- <table tableName="record" domainObjectName="Record" enableCountByExample="false" 
+        enableUpdateByExample="false" enableDeleteByExample="false"
+    	enableSelectByExample="false" selectByExampleQueryId="false">
+        	<property name="useActualColumnNames" value="true"/>
+        </table> -->
+
+        <table tableName="SYSTEM_LOG_EXCEPTION" domainObjectName="SYSTEM_LOG_EXCEPTION"
+               enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="SYSTEM_LOG_OPERATION" domainObjectName="SYSTEM_LOG_OPERATION"
+               enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

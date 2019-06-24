@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.test.mapper.TestMapper">
+  <resultMap id="BaseResultMap" type="com.project.test.tablemodel.Test">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="test1" jdbcType="VARCHAR" property="test1" />
+    <result column="test2" jdbcType="VARCHAR" property="test2" />
+    <result column="test3" jdbcType="VARCHAR" property="test3" />
+    <result column="test4" jdbcType="VARCHAR" property="test4" />
+    <result column="test5" jdbcType="VARCHAR" property="test5" />
+    <result column="test6" jdbcType="VARCHAR" property="test6" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, test1, test2, test3, test4, test5, test6
+  </sql>
+  <select id="selectByExample" parameterType="com.project.test.tablemodel.TestExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from test
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from test
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from test
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.project.test.tablemodel.TestExample">
+    delete from test
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.project.test.tablemodel.Test">
+    insert into test (id, test1, test2, 
+      test3, test4, test5, 
+      test6)
+    values (#{id,jdbcType=VARCHAR}, #{test1,jdbcType=VARCHAR}, #{test2,jdbcType=VARCHAR}, 
+      #{test3,jdbcType=VARCHAR}, #{test4,jdbcType=VARCHAR}, #{test5,jdbcType=VARCHAR}, 
+      #{test6,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.test.tablemodel.Test">
+    insert into test
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="test1 != null">
+        test1,
+      </if>
+      <if test="test2 != null">
+        test2,
+      </if>
+      <if test="test3 != null">
+        test3,
+      </if>
+      <if test="test4 != null">
+        test4,
+      </if>
+      <if test="test5 != null">
+        test5,
+      </if>
+      <if test="test6 != null">
+        test6,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="test1 != null">
+        #{test1,jdbcType=VARCHAR},
+      </if>
+      <if test="test2 != null">
+        #{test2,jdbcType=VARCHAR},
+      </if>
+      <if test="test3 != null">
+        #{test3,jdbcType=VARCHAR},
+      </if>
+      <if test="test4 != null">
+        #{test4,jdbcType=VARCHAR},
+      </if>
+      <if test="test5 != null">
+        #{test5,jdbcType=VARCHAR},
+      </if>
+      <if test="test6 != null">
+        #{test6,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.project.test.tablemodel.TestExample" resultType="java.lang.Long">
+    select count(*) from test
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update test
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.test1 != null">
+        test1 = #{record.test1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.test2 != null">
+        test2 = #{record.test2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.test3 != null">
+        test3 = #{record.test3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.test4 != null">
+        test4 = #{record.test4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.test5 != null">
+        test5 = #{record.test5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.test6 != null">
+        test6 = #{record.test6,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update test
+    set id = #{record.id,jdbcType=VARCHAR},
+      test1 = #{record.test1,jdbcType=VARCHAR},
+      test2 = #{record.test2,jdbcType=VARCHAR},
+      test3 = #{record.test3,jdbcType=VARCHAR},
+      test4 = #{record.test4,jdbcType=VARCHAR},
+      test5 = #{record.test5,jdbcType=VARCHAR},
+      test6 = #{record.test6,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.test.tablemodel.Test">
+    update test
+    <set>
+      <if test="test1 != null">
+        test1 = #{test1,jdbcType=VARCHAR},
+      </if>
+      <if test="test2 != null">
+        test2 = #{test2,jdbcType=VARCHAR},
+      </if>
+      <if test="test3 != null">
+        test3 = #{test3,jdbcType=VARCHAR},
+      </if>
+      <if test="test4 != null">
+        test4 = #{test4,jdbcType=VARCHAR},
+      </if>
+      <if test="test5 != null">
+        test5 = #{test5,jdbcType=VARCHAR},
+      </if>
+      <if test="test6 != null">
+        test6 = #{test6,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.test.tablemodel.Test">
+    update test
+    set test1 = #{test1,jdbcType=VARCHAR},
+      test2 = #{test2,jdbcType=VARCHAR},
+      test3 = #{test3,jdbcType=VARCHAR},
+      test4 = #{test4,jdbcType=VARCHAR},
+      test5 = #{test5,jdbcType=VARCHAR},
+      test6 = #{test6,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
