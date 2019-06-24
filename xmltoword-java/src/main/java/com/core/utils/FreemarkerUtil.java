@@ -3,7 +3,6 @@ package com.core.utils;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
-import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,7 +16,6 @@ import java.net.URL;
  * @Description:
  */
 public class FreemarkerUtil {
-    private static final Logger logger = Logger.getLogger(FreemarkerUtil.class);
     public  static Configuration configuration;
     public  static final String MODELRELATIONPATH = "/model";
     static {
@@ -31,7 +29,7 @@ public class FreemarkerUtil {
             configuration.setDefaultEncoding("UTF-8");
             configuration.setDirectoryForTemplateLoading(new File(path));
         } catch (Exception e) {
-            logger.error("freemarker 预加载配置失败："+e);
+            e.printStackTrace();
         }
     }
     /**

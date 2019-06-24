@@ -25,33 +25,7 @@ public class StringUtil extends StringUtils {
 		
 	}
 	
-	
-//	@Test
-//	public void test(){
-//		String testdata1 = "进度上报1";
-//		String testdata2 = "计划编报_项目档案_招投标_附件";
-//		String testdata3 = "系统_用户";
-//		assertEquals("进度上报1", substringBefore(testdata1, "_", 1));
-//		assertEquals("计划编报", substringBefore(testdata2, "_", 1));
-//		assertEquals("系统", substringBefore(testdata3, "_", 1));
-//		
-//		
-//		assertEquals("进度上报1", substringBefore(testdata1, "_", 2));
-//		assertEquals("计划编报_项目档案", substringBefore(testdata2, "_", 2));
-//		assertEquals("系统_用户", substringBefore(testdata3, "_", 2));
-//		
-//		assertEquals(testdata1, substringBefore(testdata1, null, 2));
-//		assertEquals(null, substringBefore(null, "_", 2));
-//		assertEquals(testdata3, substringBefore(testdata3, "_", 0));
-//		
-//		assertEquals("进度上报1", substringBefore(testdata1, "_", -1));
-//		assertEquals("计划编报_项目档案_招投标", substringBefore(testdata2, "_", -1));
-//		assertEquals("系统", substringBefore(testdata3, "_", -1));
-//		
-//		assertEquals("进度上报1", substringBefore(testdata1, "_", -2));
-//		assertEquals("计划编报", substringBefore(testdata2, "_", -3));
-//	}
-	
+
 	
 
 }
