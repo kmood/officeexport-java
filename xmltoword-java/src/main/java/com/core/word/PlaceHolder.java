@@ -11,7 +11,7 @@ import java.util.TooManyListenersException;
  * @Description:
  */
 public class PlaceHolder {
-    public  static  final String[] PHARR = new String[]{"{","}","[","]","#"};
+    public  static  final String[] PHARR = new String[]{"{","}","[","]","#","*"};
     //需要转义的字符
     //左大括号
     public static final  String BRACE_L = "\\{";

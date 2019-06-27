@@ -4,6 +4,7 @@ package com.core.word;
 import com.core.utils.StringUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.dom4j.Element;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,35 +93,86 @@ public class XmlParserUtils {
         int a = data.indexOf('#');
         int f = data.indexOf('[');
         int d = data.indexOf('{');
-        int f_ = data.indexOf('[');
-        int d_ = data.indexOf('{');
-        if (x>d || x>f)  {
-            int i = 15;
-            substringBeforeAfterSize(data, x, i);
-        }
+        int f_ = data.indexOf(']');
+        int d_ = data.indexOf('}');
+        int size = 15;
+//        if ( d != -1 && d < f ){
+//
+//            if (x != -1 && (x<d || x<f))  {
+//                errorInfor = StringUtil.substringBeforeAfterSize(data, x, size);
+//            }
+//            if (a != -1 &&  (a<d || a<f))  {
+//                errorInfor = StringUtil.substringBeforeAfterSize(data, a, size);
+//            }
+//            if (j != -1 &&  (j<d ||j<f))  {
+//                errorInfor = StringUtil.substringBeforeAfterSize(data, j, size);
+//            }
+//            if (f_ != -1  && (f_<d || f_<f))  {
+//                errorInfor = StringUtil.substringBeforeAfterSize(data, f_, size);
+//            }
+//            if (d_ != -1  && (d_<d || d_<f))  {
+//                errorInfor = StringUtil.substringBeforeAfterSize(data, d_, size);
+//            }
+//        }
+//        if ( d != -1 && d < f ){
+//
+//            if (x != -1 && (x<d || x<f))  {
+//                errorInfor = StringUtil.substringBeforeAfterSize(data, x, size);
+//            }
+//            if (a != -1 &&  (a<d || a<f))  {
+//                errorInfor = StringUtil.substringBeforeAfterSize(data, a, size);
+//            }
+//            if (j != -1 &&  (j<d ||j<f))  {
+//                errorInfor = StringUtil.substringBeforeAfterSize(data, j, size);
+//            }
+//            if (f_ != -1  && (f_<d || f_<f))  {
+//                errorInfor = StringUtil.substringBeforeAfterSize(data, f_, size);
+//            }
+//            if (d_ != -1  && (d_<d || d_<f))  {
+//                errorInfor = StringUtil.substringBeforeAfterSize(data, d_, size);
+//            }
+//        }
+//        if (errorInfor != null && errorInfor.length() != 0) return errorInfor += "------- 部分存在语法错误 \n";
+
         char[] chars = data.toCharArray();
         ArrayList<Character> stack = new ArrayList<Character>();
         for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
-            if(true){}
-        }
+            int s = stack.size();
 
+            //入栈
+            if(c == '{' || c == '['){
+                stack.add(c);
+                continue;
+            }
+            if ((c == '*' || c == '#')  && (stack.get(s-1) == '[') || stack.get(s-1) == '{'){
+                stack.add(c);
+                continue;
+            }
+            //出栈
+            if (c == '}'  &&  stack.get(s-1) == '{') {
+                stack.remove(s-1);continue;
+            }
+            if (c == ']'  &&  stack.get(s-1) == '[') {
+                stack.remove(s-1);continue;
+            }
+            if (c == '*'  &&  stack.get(s-1) == '*') {
+                stack.remove(s-1);continue;
+            }
+            if (c == '#'  &&  stack.get(s-1) == '#') {
+                stack.remove(s-1);continue;
+            }
+            return StringUtil.substringBeforeAfterSize(data, i, size)+"------- 部分存在语法错误 \n";
+        }
         return null;
     }
 
-    private static String substringBeforeAfterSize(String data, int i, int size) {
-        String s;
-        String pre = "";
-        String sub = "";
-        int l = data.length();
-        if (l == 0) return "";
-        if (i>l-1) return data;
-        if (i < size) pre = data.substring(0,i);
-        else pre = data.substring(i-15,i);
-        if (i > l -size) sub = data.substring(i, l -1);
-        else  sub = data.substring(i, i+15);
-        return pre+sub;
+    @Test
+    public void testVarifyAll(){
+        System.out.println(VarifyAll("[##{}{}##]"));
     }
+
+
 
     /**
      * description: 验证是否存在占位符
