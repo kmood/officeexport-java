@@ -35,19 +35,25 @@ public class PlaceHolder {
     public static final  String BRACKET_R_ = "`~4~`";
     //#号
     public static final  String pound_ = "`~5~`";
+    //*号
+    public static final  String X_ = "`~6~`";
+    //@号
+    public static final  String A_ = "`~7~`";
 
     //占位符匹配
     //标识表格行数组
-    public static final  String ARRLIST_TABLE_L = "[[";
-    public static final  String ARRLIST_TABLE_R = "]]";
+    public static final  String ARRLIST_TABLE_L = "[#";
+    public static final  String ARRLIST_TABLE_R = "#]";
     //标识文本的数组
-    public static final  String ARRLIST_TEXT_R = "[";
-    public static final  String ARRLIST_TEXT_L = "]";
+    public static final  String ARRLIST_TEXT_R = "[*";
+    public static final  String ARRLIST_TEXT_L = "*]";
     //标识对象
-    public static final  String OBJECT_R = "}}";
-    public static final  String OBJECT_L = "{{";
+    public static final  String OBJECT_R = "}";
+    public static final  String OBJECT_L = "{";
     //标识数组对象名
-    public static final  String ARRLIST_NAME = "#";
+    public static final  String AS = "@";
+    public static final  String ARRLIST_TEXT_NAME = "*";
+    public static final  String ARRLIST_TABLE_NAME = "#";
 
     public static String ToESC(String xmlStr){
         if (StringUtils.isBlank(xmlStr)) return xmlStr;

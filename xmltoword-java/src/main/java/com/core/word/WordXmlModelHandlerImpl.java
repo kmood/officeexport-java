@@ -2,6 +2,7 @@ package com.core.word;
 
 
 import com.core.utils.FileUtils;
+import com.core.utils.StringUtil;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -24,30 +25,15 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
     String tempPath = ".//"+Thread.currentThread().getId()+"-"+System.currentTimeMillis()+".ftl";
     @Override
     public   void VerifyModel(String xmlPath) throws Exception {
-        String errorInfo = "";
+        StringBuilder errorInfo = new StringBuilder();
         SAXReader reader = new SAXReader();
-        Document document = reader.read(new File("C:\\Users\\admin\\Desktop\\ngccoa export\\附件9-低值易耗品购置申请表.xml"));
+        Document document = reader.read(new File(xmlPath));
         Element rootElement = document.getRootElement();
         //校验表格
-        List tableRowList = document.selectNodes("/w:wordDocument/w:body/wx:sect/w:tbl/w:tr");
+        List tableRowList = document.selectNodes("//w:tbl/w:tr");
         for (int i = 0; i < tableRowList.size(); i++) {
             String tableRowStr = "";
             Node node = (Node)tableRowList.get(i);
-
-            //验证{} 是否有效
-            List tableColuNodeList = node.selectNodes(".//w:tc");
-            for (int j = 0; j <tableColuNodeList.size() ; j++) {
-                String tableColStr = "";
-                Node tableColuNode = (Node)tableColuNodeList.get(j);
-                List textNodeList = tableColuNode.selectNodes(".//w:t");
-                for (int k = 0; k < textNodeList.size() ; k++) {
-                    Node TextNode = (Node)textNodeList.get(k);
-                    tableColStr += TextNode.getText();
-                }
-                if (!XmlParserUtils.VarifyBrace(tableColStr)) {
-                    errorInfo += "-----"+tableColStr +"-----\"{}\"不匹配。\n";
-                }
-            }
             //验证[] # 是否有效
             List TextNodeList = node.selectNodes(".//w:t");
             for (int j = 0; j < TextNodeList.size(); j++) {
@@ -55,26 +41,30 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
                 String text = TextNode.getText();
                 tableRowStr += text;
             }
-            if (!XmlParserUtils.VarifyBracket(tableRowStr)) errorInfo  += "-----"+tableRowStr +"-----\"[]\"占位符不匹配。\n";
-            if (!XmlParserUtils.VarifyPound(tableRowStr)) errorInfo  += "-----"+tableRowStr +"-----\"#\"占位符不匹配。\n";
+            if (!XmlParserUtils.VarifyBracket(tableRowStr)) errorInfo.append("-----"+tableRowStr +"-----\"[]\"占位符不匹配。\n");
+            if (!XmlParserUtils.VarifyPound(tableRowStr)) errorInfo.append("-----"+tableRowStr +"-----\"#\"占位符不匹配。\n");
         }
 
         //校验段落
-        List ParagList = document.selectNodes("/w:wordDocument/w:body/wx:sect/w:p");
+        List ParagList = document.selectNodes(".//wx:sect/w:p");
+        StringBuilder wpStr = new StringBuilder();
         for (int i = 0; i < ParagList.size(); i++) {
-            String tableRowStr = "";
+            StringBuilder wtStr = new StringBuilder();
             Node node = (Node)ParagList.get(i);
             List TextNodeList = node.selectNodes(".//w:t");
             for (int j = 0; j < TextNodeList.size(); j++) {
                 Node TextNode = (Node)TextNodeList.get(j);
                 String text = TextNode.getText();
-                tableRowStr += text;
+                wtStr.append(text);
+                wpStr.append(text);
             }
-            if (!XmlParserUtils.VarifyBrace(tableRowStr)) {
-                errorInfo += "-----"+tableRowStr +"-----\"{}\"占位符不匹配。\n";
+            String data = wtStr.toString();
+            if (XmlParserUtils.isInvalidOfBrace(data)) {
+                errorInfo.append( "-----"+StringUtil.removeInvisibleChar(data) +"-----\"{}\"占位符不匹配。\n");
             }
         }
-        if (errorInfo != "") throw new RuntimeException("模板占位符格式不正确：\n" +errorInfo);
+        if ()
+        if (errorInfo.length() != 0) throw new RuntimeException("模板占位符格式不正确：\n" +errorInfo.toString());
         return ;
     }
 
@@ -301,6 +291,7 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
             for (int j = 0; j < wtlist.size(); j++) {
                 Node wtlNode = (Node)wtlist.get(j);
                 String text = wtlNode.getText();
+                //
                 wtlNode.setText(text.replaceAll("\\[\\[#[\\s\\S]*#",""));
                 if (text != null && text.contains("[[#")) {
                     String value = XmlParserUtils.substringBetween(text, "[#", "#");
@@ -327,7 +318,7 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
                                 String text1 = e.getText();
                                 if (text1!= null && text1.contains("]]") && text1.contains(trim)){
                                     String s = XmlParserUtils.substringBeforeLast(XmlParserUtils.substringBeforeLast(text1, "#"), "#");
-                                    e.setText(text1.replaceAll("#"+trim+"#]]",""));
+                                    e.setText(text1.replaceAll("#"+trim+"#]",""));
                                 }
                             }
                         }

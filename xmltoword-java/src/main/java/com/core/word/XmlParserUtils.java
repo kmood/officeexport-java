@@ -1,6 +1,7 @@
 package com.core.word;
 
 
+import com.core.utils.StringUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.dom4j.Element;
 
@@ -20,7 +21,8 @@ public class XmlParserUtils {
      * @auther: SunBC
      * @date: 2019/6/18 14:34
      */
-    public static boolean VarifyBrace(String data){
+    public static boolean isInvalidOfBrace(String data){
+        data = StringUtil.removeInvisibleChar(data);
         char[] chars = data.toCharArray();
         int Brace_L_Num = 0;
         int Brace_R_Num = 0;
@@ -28,8 +30,26 @@ public class XmlParserUtils {
             if (chars[i] == '{') Brace_L_Num++;
             if (chars[i] == '}') Brace_R_Num++;
         }
-        if (Brace_R_Num != Brace_L_Num) return false;
-        return true;
+        if (Brace_R_Num == Brace_L_Num) return true;
+        return false;
+    }
+    /**
+     * 校验[##   ##]是否有效
+     *  description:
+     * @auther: SunBC
+     * @date: 2019/6/27 16:01
+     */
+    public static boolean isInvalidOfSingleBracket(String data){
+        data = StringUtil.removeInvisibleChar(data);
+        char[] chars = data.toCharArray();
+        int Brace_L_Num = 0;
+        int Brace_R_Num = 0;
+        for (int i = 0; i <chars.length ; i++) {
+            if (chars[i] == '{') Brace_L_Num++;
+            if (chars[i] == '}') Brace_R_Num++;
+        }
+        if (Brace_R_Num == Brace_L_Num) return true;
+        return false;
     }
     /**
      * description: 校验#是否匹配
@@ -63,26 +83,45 @@ public class XmlParserUtils {
     }
 
     public static String VarifyAll(String data){
-        String result = null;
-        char[] chars = data.toCharArray();
-        int Brace_L_Num = 0;
-        int Brace_R_Num = 0;
-        int Pound_Num = 0;
-        int Bracket_L_Num = 0;
-        int Bracket_R_Num = 0;
-        for (int i = 0; i <chars.length ; i++) {
-            if (chars[i] == '{') Brace_L_Num++;
-            if (chars[i] == '}') Brace_R_Num++;
-            if (chars[i] == '#') Pound_Num++;
-            if (chars[i] == '[') Bracket_L_Num++;
-            if (chars[i] == ']') Bracket_R_Num++;
+        data = StringUtil.removeInvisibleChar(data);
+        String errorInfor = "";
+        int length = data.length();
+        if (length == 0) return null;
+        int x = data.indexOf('*');
+        int j = data.indexOf('#');
+        int a = data.indexOf('#');
+        int f = data.indexOf('[');
+        int d = data.indexOf('{');
+        int f_ = data.indexOf('[');
+        int d_ = data.indexOf('{');
+        if (x>d || x>f)  {
+            int i = 15;
+            substringBeforeAfterSize(data, x, i);
         }
-        if (Brace_R_Num != Brace_L_Num) result += "\"{}\"";
-        if (Bracket_R_Num != Bracket_L_Num) result += "\"[]\"";
-        if (Pound_Num%2 != 0) result += "\"#\"";
-        if (result != null) return result;
+        char[] chars = data.toCharArray();
+        ArrayList<Character> stack = new ArrayList<Character>();
+        for (int i = 0; i < chars.length; i++) {
+            char c = chars[i];
+            if(true){}
+        }
+
         return null;
     }
+
+    private static String substringBeforeAfterSize(String data, int i, int size) {
+        String s;
+        String pre = "";
+        String sub = "";
+        int l = data.length();
+        if (l == 0) return "";
+        if (i>l-1) return data;
+        if (i < size) pre = data.substring(0,i);
+        else pre = data.substring(i-15,i);
+        if (i > l -size) sub = data.substring(i, l -1);
+        else  sub = data.substring(i, i+15);
+        return pre+sub;
+    }
+
     /**
      * description: 验证是否存在占位符
      * @auther: SunBC

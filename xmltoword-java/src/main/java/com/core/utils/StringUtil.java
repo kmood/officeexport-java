@@ -1,9 +1,6 @@
 package com.core.utils;
 
-//import static org.junit.Assert.assertEquals;
-
 import org.apache.commons.lang3.StringUtils;
-//import org.junit.Test;
 
 public class StringUtil extends StringUtils {
 	
@@ -23,6 +20,12 @@ public class StringUtil extends StringUtils {
 		}
 		return substringBeforeLast(result, "_");
 		
+	}
+
+	public static  String removeInvisibleChar(String str){
+		if (str == null) return null;
+		if (str.trim().length() == 0) return "";
+		return str.replaceAll("[\\x00-\\x1F | \\x7F ]","");
 	}
 	
 
