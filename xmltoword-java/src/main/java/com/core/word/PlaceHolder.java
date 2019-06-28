@@ -12,17 +12,38 @@ import java.util.TooManyListenersException;
  */
 public class PlaceHolder {
     public  static  final String[] PHARR = new String[]{"{","}","[","]","#"};
+    public  static  final String PHSTR = "[]{}*#";
     //需要转义的字符
     //左大括号
     public static final  String BRACE_L = "\\{";
     //右大括号
-    public static final  String BRACE_R = "\\}";
+    public static final  String BRACE_R = "}";
     //左方括号
     public static final  String BRACKET_L = "\\[";
     //右方括号
-    public static final  String BRACKET_R = "\\]";
+    public static final  String BRACKET_R = "]";
     //#号
-    public static final  String pound = "\\#";
+    public static final  String pound = "#";
+    //*号
+    public static final  String X = "\\*";
+    //@号
+    public static final  String A = "@";
+
+    //需要转义的字符
+    //左大括号
+    public static final  Character BRACE_LC = '{';
+    //右大括号
+    public static final  Character BRACE_RC = '}';
+    //左方括号
+    public static final  Character BRACKET_LC = '[';
+    //右方括号
+    public static final  Character BRACKET_RC = ']';
+    //#号
+    public static final  Character poundC = '#';
+    //*号
+    public static final  Character XC = '*';
+    //@号
+    public static final  Character AC = '@';
 
     //转义后
     //左大括号
@@ -50,6 +71,7 @@ public class PlaceHolder {
     //标识对象
     public static final  String OBJECT_R = "}";
     public static final  String OBJECT_L = "{";
+
     //标识数组对象名
     public static final  String AS = "@";
     public static final  String ARRLIST_TEXT_NAME = "*";
@@ -62,6 +84,9 @@ public class PlaceHolder {
         xmlStr = xmlStr.replaceAll(BRACKET_L, BRACKET_L_);
         xmlStr = xmlStr.replaceAll(BRACKET_R, BRACKET_R_);
         xmlStr = xmlStr.replaceAll(pound, pound_);
+        xmlStr = xmlStr.replaceAll(X, X_);
+        xmlStr = xmlStr.replaceAll(A, A_);
+        xmlStr = xmlStr.replaceAll(A, A_);
         return xmlStr;
     }
     public static String FromESC(String xmlStr){

@@ -15,7 +15,7 @@ public class FileUtils {
 	 * @time 2018年10月16日 下午6:53:31
 	 */
 	public static String readToStringByFilepath(String filePath)throws Exception{
-		String data ="";
+		StringBuilder data = new StringBuilder();
 		FileInputStream input =  null;
 		try {
 			File file = new File(filePath);
@@ -24,13 +24,13 @@ public class FileUtils {
 			byte [] b = new byte [1024];
 			int len = 0;
 			while ((len = input.read(b)) != -1){
-				data += new String (b, 0 , len);
+				data.append(b);
 			}
 		} catch (Exception e) {
 			throw e;
 		}finally {
 			input.close();
 		}
-		return data;
+		return data.toString();
 	}
 }

@@ -85,41 +85,63 @@ public class XmlParserUtils {
     public static String VarifyAll(String data){
         data = StringUtil.removeInvisibleChar(data);
         String errorInfor = "";
+        char errorChar = ' ' ;
+        int errorIndex = 0;
         int length = data.length();
         if (length == 0) return null;
-        int x = data.indexOf('*');
-        int j = data.indexOf('#');
-        int a = data.indexOf('#');
-        int f = data.indexOf('[');
-        int d = data.indexOf('{');
-        int f_ = data.indexOf('[');
-        int d_ = data.indexOf('{');
-        if (x>d || x>f)  {
-            int i = 15;
-            substringBeforeAfterSize(data, x, i);
-        }
         char[] chars = data.toCharArray();
         ArrayList<Character> stack = new ArrayList<Character>();
+        ArrayList<Character> charArr = new ArrayList<Character>();
+        ArrayList<Integer> indexArr = new ArrayList<Integer>();
         for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
-            if(true){}
+            if (c == PlaceHolder.AC ||
+                    c == PlaceHolder.BRACE_LC ||
+                    c == PlaceHolder.BRACE_RC||
+                    c == PlaceHolder.BRACKET_LC||
+                    c == PlaceHolder.BRACKET_RC||
+                    c == PlaceHolder.XC||
+                    c == PlaceHolder.poundC){
+                charArr.add(c);
+                indexArr.add(i);
+            }
         }
-
+        for (int i = 0; i < charArr.size(); i++) {
+            Character c = charArr.get(i);
+            // 第一次循环时碰到 *#@ ]} 错误跳出
+            if (i == 0 && (c == PlaceHolder.AC ||
+                    c == PlaceHolder.BRACE_RC||
+                    c == PlaceHolder.BRACKET_RC||
+                    c == PlaceHolder.XC||
+                    c == PlaceHolder.poundC)) {
+                errorChar = c;
+                errorIndex = i;
+                break;
+            }
+            //栈为空时，直接入栈
+            int s = stack.size();
+            if (s == 0){
+                stack.add(c);
+                break;
+            }
+            //判断错误情况
+            if (c == '}' && stack.get(s) != '{'  ) {
+                errorChar = c;
+                errorIndex = i;
+                break;
+            }
+            if (c == ']' && stack.get(s) != '['  ) {
+                errorChar = c;
+                errorIndex = i;
+                break;
+            }
+            if (c == '@' && c !)
+            if (c == '*' )
+        }
         return null;
     }
+    private static   boolean XIsEffective(char stackPop , char c1 ,char ){
 
-    private static String substringBeforeAfterSize(String data, int i, int size) {
-        String s;
-        String pre = "";
-        String sub = "";
-        int l = data.length();
-        if (l == 0) return "";
-        if (i>l-1) return data;
-        if (i < size) pre = data.substring(0,i);
-        else pre = data.substring(i-15,i);
-        if (i > l -size) sub = data.substring(i, l -1);
-        else  sub = data.substring(i, i+15);
-        return pre+sub;
     }
 
     /**
