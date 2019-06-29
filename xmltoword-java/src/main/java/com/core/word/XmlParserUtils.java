@@ -4,7 +4,6 @@ package com.core.word;
 import com.core.utils.StringUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.dom4j.Element;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,92 +85,62 @@ public class XmlParserUtils {
     public static String VarifyAll(String data){
         data = StringUtil.removeInvisibleChar(data);
         String errorInfor = "";
+        char errorChar = ' ' ;
+        int errorIndex = 0;
         int length = data.length();
         if (length == 0) return null;
-        int x = data.indexOf('*');
-        int j = data.indexOf('#');
-        int a = data.indexOf('#');
-        int f = data.indexOf('[');
-        int d = data.indexOf('{');
-        int f_ = data.indexOf(']');
-        int d_ = data.indexOf('}');
-        int size = 15;
-//        if ( d != -1 && d < f ){
-//
-//            if (x != -1 && (x<d || x<f))  {
-//                errorInfor = StringUtil.substringBeforeAfterSize(data, x, size);
-//            }
-//            if (a != -1 &&  (a<d || a<f))  {
-//                errorInfor = StringUtil.substringBeforeAfterSize(data, a, size);
-//            }
-//            if (j != -1 &&  (j<d ||j<f))  {
-//                errorInfor = StringUtil.substringBeforeAfterSize(data, j, size);
-//            }
-//            if (f_ != -1  && (f_<d || f_<f))  {
-//                errorInfor = StringUtil.substringBeforeAfterSize(data, f_, size);
-//            }
-//            if (d_ != -1  && (d_<d || d_<f))  {
-//                errorInfor = StringUtil.substringBeforeAfterSize(data, d_, size);
-//            }
-//        }
-//        if ( d != -1 && d < f ){
-//
-//            if (x != -1 && (x<d || x<f))  {
-//                errorInfor = StringUtil.substringBeforeAfterSize(data, x, size);
-//            }
-//            if (a != -1 &&  (a<d || a<f))  {
-//                errorInfor = StringUtil.substringBeforeAfterSize(data, a, size);
-//            }
-//            if (j != -1 &&  (j<d ||j<f))  {
-//                errorInfor = StringUtil.substringBeforeAfterSize(data, j, size);
-//            }
-//            if (f_ != -1  && (f_<d || f_<f))  {
-//                errorInfor = StringUtil.substringBeforeAfterSize(data, f_, size);
-//            }
-//            if (d_ != -1  && (d_<d || d_<f))  {
-//                errorInfor = StringUtil.substringBeforeAfterSize(data, d_, size);
-//            }
-//        }
-//        if (errorInfor != null && errorInfor.length() != 0) return errorInfor += "------- 部分存在语法错误 \n";
-
         char[] chars = data.toCharArray();
         ArrayList<Character> stack = new ArrayList<Character>();
+        ArrayList<Character> charArr = new ArrayList<Character>();
+        ArrayList<Integer> indexArr = new ArrayList<Integer>();
         for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
+            if (c == PlaceHolder.AC ||
+                    c == PlaceHolder.BRACE_LC ||
+                    c == PlaceHolder.BRACE_RC||
+                    c == PlaceHolder.BRACKET_LC||
+                    c == PlaceHolder.BRACKET_RC||
+                    c == PlaceHolder.XC||
+                    c == PlaceHolder.poundC){
+                charArr.add(c);
+                indexArr.add(i);
+            }
+        }
+        for (int i = 0; i < charArr.size(); i++) {
+            Character c = charArr.get(i);
+            // 第一次循环时碰到 *#@ ]} 错误跳出
+            if (i == 0 && (c == PlaceHolder.AC ||
+                    c == PlaceHolder.BRACE_RC||
+                    c == PlaceHolder.BRACKET_RC||
+                    c == PlaceHolder.XC||
+                    c == PlaceHolder.poundC)) {
+                errorChar = c;
+                errorIndex = i;
+                break;
+            }
+            //栈为空时，直接入栈
             int s = stack.size();
-
-            //入栈
-            if(c == '{' || c == '['){
+            if (s == 0){
                 stack.add(c);
-                continue;
+                break;
             }
-            if ((c == '*' || c == '#')  && (stack.get(s-1) == '[') || stack.get(s-1) == '{'){
-                stack.add(c);
-                continue;
+            //判断错误情况
+            if (c == '}' && stack.get(s) != '{'  ) {
+                errorChar = c;
+                errorIndex = i;
+                break;
             }
-            //出栈
-            if (c == '}'  &&  stack.get(s-1) == '{') {
-                stack.remove(s-1);continue;
+            if (c == ']' && stack.get(s) != '['  ) {
+                errorChar = c;
+                errorIndex = i;
+                break;
             }
-            if (c == ']'  &&  stack.get(s-1) == '[') {
-                stack.remove(s-1);continue;
-            }
-            if (c == '*'  &&  stack.get(s-1) == '*') {
-                stack.remove(s-1);continue;
-            }
-            if (c == '#'  &&  stack.get(s-1) == '#') {
-                stack.remove(s-1);continue;
-            }
-            return StringUtil.substringBeforeAfterSize(data, i, size)+"------- 部分存在语法错误 \n";
+            if (c == '@' && c !)
+            if (c == '*' )
         }
         return null;
     }
-
-    @Test
-    public void testVarifyAll(){
-        System.out.println(VarifyAll("[##{}{}##]"));
-    }
-
+    private static   boolean XIsEffective(char stackPop , char c1 ,char ){
 
 
     /**

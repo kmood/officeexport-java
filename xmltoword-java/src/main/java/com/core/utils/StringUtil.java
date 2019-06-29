@@ -1,7 +1,6 @@
 package com.core.utils;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Test;
 
 public class StringUtil extends StringUtils {
 	
@@ -29,42 +28,21 @@ public class StringUtil extends StringUtils {
 		return str.replaceAll("[\\x00-\\x1F | \\x7F ]","");
 	}
 
-	/**
-	 *
-	 * @param data  字符串
-	 * @param i  字符串下标
-	 * @param size 截取的长度
-	 * @return 放回结果最大长度为2*size
-	 */
 	public static String substringBeforeAfterSize(String data, int i, int size) {
 		String s;
 		String pre = "";
 		String sub = "";
-		if (data == null && data.length() == 0) return "";
 		int l = data.length();
-
-		if (i>l-1) return data.substring(l-size, l);
-		if (i<=0) return data;
-
-		if (i <= size) pre = data.substring(0,i);
-		else pre = data.substring(i-size,i);
-		if (i >= l -size) sub = data.substring(i, l);
-		else  sub = data.substring(i, i+size);
+		if (l == 0) return "";
+		if (i>l-1) return data;
+		if (i < size) pre = data.substring(0,i);
+		else pre = data.substring(i-15,i);
+		if (i > l -size) sub = data.substring(i, l -1);
+		else  sub = data.substring(i, i+15);
 		return pre+sub;
 	}
 
-	@Test
-	public void testSubstringBeforeAfterSize(){
-		System.out.println(substringBeforeAfterSize("123456789",0,5));
-		System.out.println(substringBeforeAfterSize("123456789",4,5));
-		System.out.println(substringBeforeAfterSize("123456789",5,5));
-		System.out.println(substringBeforeAfterSize("123456789123",6,5));
-		System.out.println(substringBeforeAfterSize("123456789123",8,5));
-		System.out.println(substringBeforeAfterSize("123456789",9,5));
-		System.out.println(substringBeforeAfterSize("123456789",5,10));
 
-	}
 
-	
 
 }

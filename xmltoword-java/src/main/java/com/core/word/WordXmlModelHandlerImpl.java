@@ -63,7 +63,6 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
                 errorInfo.append( "-----"+StringUtil.removeInvisibleChar(data) +"-----\"{}\"占位符不匹配。\n");
             }
         }
-
         if (errorInfo.length() != 0) throw new RuntimeException("模板占位符格式不正确：\n" +errorInfo.toString());
         return ;
     }
