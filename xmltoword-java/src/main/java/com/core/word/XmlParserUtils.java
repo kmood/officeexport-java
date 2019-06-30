@@ -4,6 +4,7 @@ package com.core.word;
 import com.core.utils.StringUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.dom4j.Element;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,6 +94,7 @@ public class XmlParserUtils {
         ArrayList<Character> stack = new ArrayList<Character>();
         ArrayList<Character> charArr = new ArrayList<Character>();
         ArrayList<Integer> indexArr = new ArrayList<Integer>();
+
         for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
             if (c == PlaceHolder.AC ||
@@ -106,7 +108,8 @@ public class XmlParserUtils {
                 indexArr.add(i);
             }
         }
-        for (int i = 0; i < charArr.size(); i++) {
+        int dl = charArr.size() ;
+        for (int i = 0; i < dl; i++) {
             Character c = charArr.get(i);
             // 第一次循环时碰到 *#@ ]} 错误跳出
             if (i == 0 && (c == PlaceHolder.AC ||
@@ -122,26 +125,184 @@ public class XmlParserUtils {
             int s = stack.size();
             if (s == 0){
                 stack.add(c);
-                break;
+                continue;
             }
             //判断错误情况
-            if (c == '}' && stack.get(s) != '{'  ) {
+            if (c == '}' && !BELIsEffective(charArr,stack,i)  ) {
                 errorChar = c;
                 errorIndex = i;
                 break;
             }
-            if (c == ']' && stack.get(s) != '['  ) {
+            if (c == ']' && !BLIsEffective(charArr,stack,i)  ) {
                 errorChar = c;
                 errorIndex = i;
                 break;
             }
-            if (c == '@' && c !)
-            if (c == '*' )
+            if (c == '{' && !BERIsEffective(charArr,stack,i)  ) {
+                errorChar = c;
+                errorIndex = i;
+                break;
+            }
+            if (c == '[' && !BRIsEffective(charArr,stack,i)  ) {
+                errorChar = c;
+                errorIndex = i;
+                break;
+            }
+            if (c == '@' && !AIsEffective(charArr,stack,i)){
+                errorChar = c;
+                errorIndex = i;
+                break;
+            }
+            if (c == '*' && !XJIsEffective(charArr,stack,i ,'*')){
+                errorChar = c;
+                errorIndex = i;
+                break;
+            }
+            if (c == '#' &&  !XJIsEffective(charArr,stack,i,'#')){
+                errorChar = c;
+                errorIndex = i;
+                break;
+            }
+            //进栈
+            if (c == '[' || c == '{' || (c == '*' && stack.get(s-1) != '*') || (c == '#' && stack.get(s-1) != '#') ) stack.add(c);
+            if (c == ']' || c == '}' || (c == '*' && stack.get(s-1) == '*') || (c == '#' && stack.get(s-1) == '#') ) stack.remove(s - 1);
         }
-        return null;
+        if(errorChar != ' ')errorInfor += StringUtil.substringBeforeAfterSize(data,indexArr.get(errorIndex),10) +"------'"+errorChar+"' 存在语法错误,注意将特殊字符进行转义";
+        return errorInfor;
     }
-    private static   boolean XIsEffective(char stackPop , char c1 ,char ){
+    @Test
+    public void testVarifyAll(){
+        System.out.println(VarifyAll("{}[*tets@t* ttttttt8*tttttttttt{}tttttttt {} tttttt*test*   ]"));
+        System.out.println(VarifyAll("{}[*tets@t* t[tttttt8tttttttttt{}tttttttt {} tttttt*test*   ]"));
+    }
 
+    /**
+     * 判断{ 的有效性
+     * @param charArr
+     * @param stack
+     * @param i
+     * @return
+     */
+    private static   boolean BERIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i){
+        int dl = charArr.size();
+        int l = stack.size();
+        if (dl == i+1 ) return false ;
+        if (charArr.get(i +1) == '}') return true;
+        return  false;
+    }
+
+    /**
+     * 判断}的有效性
+     * @param charArr
+     * @param stack
+     * @param i
+     * @return
+     */
+    private static   boolean BELIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i){
+        int dl = charArr.size();
+        int l = stack.size();
+        if(l == 0) return false;
+        if (stack.get(l-1) == '{') return true;
+        return  false;
+    }
+    /**
+     * 判断[ 的有效性
+     * @param charArr
+     * @param stack
+     * @param i
+     * @return
+     */
+    private static   boolean BRIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i){
+        int dl = charArr.size();
+        int l = stack.size();
+        if (dl < i+4 ) return false ;
+        if (charArr.get(i +1) == '*' && charArr.get(i +2) == '@' && charArr.get(i +3) == '*' ) return true;
+        return  false;
+    }
+
+    /**
+     * 判断】的有效性
+     * @param charArr
+     * @param stack
+     * @param i
+     * @return
+     */
+    private static   boolean BLIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i){
+        int dl = charArr.size();
+        int l = stack.size();
+        if(l == 0) return false;
+        if (charArr.get(i-1) == '*' && charArr.get(i -2) == '*' && stack.get(l-1) == '[') return true;
+        return  false;
+    }
+
+    /**
+     * 判断@的有效性
+     * @param charArr
+     * @param stack
+     * @param i
+     * @return
+     */
+    private static   boolean AIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i){
+        int dl = charArr.size();
+        int l = stack.size();
+        if (l < 2 || dl == i+1 ) return false ;
+        if (stack.get(l-1) == '*' && stack.get(l-2) == '[' && charArr.get(i +1) == '*' ) return true;
+        if (stack.get(l-1) == '#' && stack.get(l-2) == '[' && charArr.get(i +1) == '#' ) return true;
+        return  false;
+
+    }
+    @Test
+    public  void  testAIsEffective(){
+        ArrayList<Character> stack = new ArrayList<Character>();
+        stack.add('[');
+        stack.add('*');
+        ArrayList<Character> charArr = new ArrayList<Character>();
+        charArr.add('@');
+        charArr.add('#');
+        boolean b = AIsEffective(charArr, stack, 0);
+        System.out.println(b);
+    }
+
+    /**
+     * 判断 * # 的有效性
+     * @param charArr
+     * @param stack
+     * @param i
+     * @param c
+     * @return
+     */
+    private static   boolean XJIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i,char c){
+        int dl = charArr.size();
+        int l = stack.size();
+        if (l == 0 || dl == i+1 || i == 0 ) return false ;
+        //[*@*{}{}**]
+        if (stack.get(l-1) == '[' && charArr.get(i-1) == '[' && charArr.get(i +1 ) == '@') return true;
+        if (stack.get(l-1) == c && charArr.get(i-1) == '@' ) return true;
+        if (stack.get(l-1) == '[' && charArr.get(i +1 ) == c && dl>i+2 && charArr.get(i+2 ) == ']') return true;
+        if (stack.get(l-1) == c && l>1 && stack.get(l-2) == '[' && charArr.get(i-1) == c && charArr.get(i +1 ) == ']') return true;
+        return  false;
+
+    }
+    @Test
+    public void  testXIsEffective(){
+        ArrayList<Character> stack = new ArrayList<Character>();
+        stack.add('[');
+        stack.add('*');
+
+        ArrayList<Character> charArr = new ArrayList<Character>();
+        charArr.add('[');
+        charArr.add('*');
+        charArr.add('*');
+        charArr.add('@');
+        charArr.add('*');
+        charArr.add('{');
+        charArr.add('}');
+        charArr.add('*');
+        charArr.add('*');
+        charArr.add(']');
+        boolean b = XJIsEffective(charArr, stack, 2,'*');
+        System.out.println(b);
+    }
 
     /**
      * description: 验证是否存在占位符
