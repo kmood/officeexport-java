@@ -22,10 +22,9 @@ import java.util.List;
  * @Description:
  */
 public class WordXmlModelHandlerImpl implements XmlModelHandler{
-    String tempPath = ".//"+Thread.currentThread().getId()+"-"+System.currentTimeMillis()+".ftl";
     @Override
     public   void VerifyModel(String xmlPath) throws Exception {
-        StringBuilder errorInfo = new StringBuilder();
+        String  errorInfo = "";
         SAXReader reader = new SAXReader();
         Document document = reader.read(new File(xmlPath));
         Element rootElement = document.getRootElement();
@@ -39,31 +38,26 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
             for (int j = 0; j < TextNodeList.size(); j++) {
                 Node TextNode = (Node)TextNodeList.get(j);
                 String text = TextNode.getText();
-                tableRowStr += text;
+                tableRowStr += StringUtil.removeInvisibleChar(text);
             }
-            if (!XmlParserUtils.VarifyBracket(tableRowStr)) errorInfo.append("-----"+tableRowStr +"-----\"[]\"占位符不匹配。\n");
-            if (!XmlParserUtils.VarifyPound(tableRowStr)) errorInfo.append("-----"+tableRowStr +"-----\"#\"占位符不匹配。\n");
+            errorInfo =  XmlParserUtils.VarifyAll(tableRowStr);
+            if (errorInfo.length() != 0) break;
         }
 
         //校验段落
         List ParagList = document.selectNodes(".//wx:sect/w:p");
         StringBuilder wpStr = new StringBuilder();
         for (int i = 0; i < ParagList.size(); i++) {
-            StringBuilder wtStr = new StringBuilder();
             Node node = (Node)ParagList.get(i);
             List TextNodeList = node.selectNodes(".//w:t");
             for (int j = 0; j < TextNodeList.size(); j++) {
                 Node TextNode = (Node)TextNodeList.get(j);
                 String text = TextNode.getText();
-                wtStr.append(text);
-                wpStr.append(text);
-            }
-            String data = wtStr.toString();
-            if (XmlParserUtils.isInvalidOfBrace(data)) {
-                errorInfo.append( "-----"+StringUtil.removeInvisibleChar(data) +"-----\"{}\"占位符不匹配。\n");
+                wpStr.append(StringUtil.removeInvisibleChar(text));
             }
         }
-        if (errorInfo.length() != 0) throw new RuntimeException("模板占位符格式不正确：\n" +errorInfo.toString());
+        errorInfo= XmlParserUtils.VarifyAll(wpStr.toString());
+        if (errorInfo.length() != 0) throw new SyntaxException(errorInfo);
         return ;
     }
 
@@ -328,7 +322,14 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
 
         }
     }
-
+    @Test
+    public void testVerifyModel(){
+        try {
+            VerifyModel("");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Test
     public void ConverToFreemakerTest(){
         try {
