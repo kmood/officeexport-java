@@ -1,7 +1,9 @@
 package com.core.word;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TooManyListenersException;
 
@@ -98,6 +100,103 @@ public class PlaceHolder {
         xmlStr = xmlStr.replaceAll(pound_, pound);
         return xmlStr;
     }
+
+    /**
+     * 判断{ 的有效性
+     * @param charArr
+     * @param stack
+     * @param i
+     * @return
+     */
+    public static   boolean BERIsEffective(ArrayList<Character> charArr , ArrayList<Character> stack, int i){
+        int dl = charArr.size();
+        int l = stack.size();
+        if (dl == i+1 ) return false ;
+        if (charArr.get(i +1) == '}') return true;
+        return  false;
+    }
+
+    /**
+     * 判断}的有效性
+     * @param charArr
+     * @param stack
+     * @param i
+     * @return
+     */
+    public static   boolean BELIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i){
+        int dl = charArr.size();
+        int l = stack.size();
+        if(l == 0) return false;
+        if (stack.get(l-1) == '{') return true;
+        return  false;
+    }
+    /**
+     * 判断[ 的有效性
+     * @param charArr
+     * @param stack
+     * @param i
+     * @return
+     */
+    public static   boolean BRIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i){
+        int dl = charArr.size();
+        int l = stack.size();
+        if (dl < i+4 ) return false ;
+        if (charArr.get(i +1) == '*' && charArr.get(i +2) == '@' && charArr.get(i +3) == '*' ) return true;
+        return  false;
+    }
+
+    /**
+     * 判断】的有效性
+     * @param charArr
+     * @param stack
+     * @param i
+     * @return
+     */
+    public static   boolean BLIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i){
+        int dl = charArr.size();
+        int l = stack.size();
+        if(l == 0) return false;
+        if (charArr.get(i-1) == '*' && charArr.get(i -2) == '*' && stack.get(l-1) == '[') return true;
+        return  false;
+    }
+
+    /**
+     * 判断@的有效性
+     * @param charArr
+     * @param stack
+     * @param i
+     * @return
+     */
+    public static   boolean AIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i){
+        int dl = charArr.size();
+        int l = stack.size();
+        if (l < 2 || dl == i+1 ) return false ;
+        if (stack.get(l-1) == '*' && stack.get(l-2) == '[' && charArr.get(i +1) == '*' ) return true;
+        if (stack.get(l-1) == '#' && stack.get(l-2) == '[' && charArr.get(i +1) == '#' ) return true;
+        return  false;
+
+    }
+    /**
+     * 判断 * # 的有效性
+     * @param charArr
+     * @param stack
+     * @param i
+     * @param c
+     * @return
+     */
+    public static   boolean XJIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i,char c){
+        int dl = charArr.size();
+        int l = stack.size();
+        if (l == 0 || dl == i+1 || i == 0 ) return false ;
+        //[*@*{}{}**]
+        if (stack.get(l-1) == '[' && charArr.get(i-1) == '[' && charArr.get(i +1 ) == '@') return true;
+        if (stack.get(l-1) == c && charArr.get(i-1) == '@' ) return true;
+        if (stack.get(l-1) == '[' && charArr.get(i +1 ) == c && dl>i+2 && charArr.get(i+2 ) == ']') return true;
+        if (stack.get(l-1) == c && l>1 && stack.get(l-2) == '[' && charArr.get(i-1) == c && charArr.get(i +1 ) == ']') return true;
+        return  false;
+
+    }
+
 
 
 

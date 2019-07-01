@@ -1,7 +1,14 @@
 package com.core.utils;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dom4j.Element;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class StringUtil extends StringUtils {
 	
@@ -53,18 +60,100 @@ public class StringUtil extends StringUtils {
         return pre+sub;
     }
 
-    @Test
-    public void testSubstringBeforeAfterSize(){
-        System.out.println(substringBeforeAfterSize("123456789",0,5));
-        System.out.println(substringBeforeAfterSize("123456789",4,5));
-        System.out.println(substringBeforeAfterSize("123456789",5,5));
-        System.out.println(substringBeforeAfterSize("123456789123",6,5));
-        System.out.println(substringBeforeAfterSize("123456789123",8,5));
-        System.out.println(substringBeforeAfterSize("123456789",9,5));
-        System.out.println(substringBeforeAfterSize("123456789",5,10));
 
+
+    public static String substringBefore(final String str, final String separator) {
+        if (str == null || str.length() == 0 || separator == null) {
+            return str;
+        }
+        if (separator.isEmpty()) {
+            return "";
+        }
+        final int pos = str.indexOf(separator);
+        if (pos == -1) {
+            return str;
+        }
+        return str.substring(0, pos);
     }
 
+    public static String substringBeforeLast(final String str, final String separator) {
+        if (str == null || "".equals(str) || separator == null || "".equals(separator)) {
+            return str;
+        }
+        final int pos = str.lastIndexOf(separator);
+        if (pos == -1) {
+            return str;
+        }
+        return str.substring(0, pos);
+    }
 
+    public static String substringBetween(final String str, final String open, final String close) {
+        if (str == null || open == null || close == null) {
+            return null;
+        }
+        final int start = str.indexOf(open);
+        if (start != -1) {
+            final int end = str.indexOf(close, start + open.length());
+            if (end != -1) {
+                return str.substring(start + open.length(), end);
+            }
+        }
+        return null;
+    }
+    /**
+     ** <pre>
+     *      * (null, *)      = null
+     *      * ("", *)        = ""
+     *      * (*, null)      = ""
+     *      * ("abc", "a")   = "bc"
+     *      * ("abcba", "b") = "cba"
+     *      * ("abc", "c")   = ""
+     *      * ("abc", "d")   = ""
+     *      * ("abc", "")    = "abc"
+
+     */
+    public static String substringAfter(final String str, final String separator) {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
+        if (separator == null) {
+            return "";
+        }
+        final int pos = str.indexOf(separator);
+        if (pos == -1) {
+            return "";
+        }
+        return str.substring(pos + separator.length());
+    }
+    public static String[] substringsBetween(final String str, final String open, final String close) {
+        if (str == null ||open == null || open.length() == 0 || close == null || close.length() == 0) {
+            return null;
+        }
+        final int strLen = str.length();
+        if (strLen == 0) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
+        }
+        final int closeLen = close.length();
+        final int openLen = open.length();
+        final List<String> list = new ArrayList<>();
+        int pos = 0;
+        while (pos < strLen - closeLen) {
+            int start = str.indexOf(open, pos);
+            if (start < 0) {
+                break;
+            }
+            start += openLen;
+            final int end = str.indexOf(close, start);
+            if (end < 0) {
+                break;
+            }
+            list.add(str.substring(start, end));
+            pos = end + closeLen;
+        }
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.toArray(new String [list.size()]);
+    }
 
 }
