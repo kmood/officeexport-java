@@ -367,17 +367,71 @@ public class XmlParserUtils {
 
     public static void PlaceHodlerHandle(Node WPNode){
         List WTList = WPNode.selectNodes(".//w:t");
-        String textTotal = "";
         Node WTNodeNew = null;
-        for (int j = 0; j < WTList.size(); j++) {
+        int s = WTList.size();
+        for (int j = 0; j < s; j++) {
             WTNodeNew = (Node)WTList.get(j);
             String text = WTNodeNew.getText();
-            textTotal  += text;
-            //可避免无占位符的段落
-            if(PlaceHolder.ContainPlaceHolder(textTotal))WTNodeNew.setText("");
-            else textTotal = "";
+            int fi = text.lastIndexOf('[');
+            int di = text.lastIndexOf('{');
+            if (fi > di){
+                WTNodeNew.setText(text.substring(0,fi));
+                String temp = text.substring(fi, text.length());
+                for (int i = j; i < s; i++) {
+                    Node WTNodeNew_ = (Node)WTList.get(i);
+                    String t = WTNodeNew_.getText();
+                    temp += t;
+                    if ((StringUtil.countMatches(temp,'*') > 1 || StringUtil.countMatches(temp,'#') > 1)
+                            && StringUtil.countMatches(temp,'@')>0){
+                        WTNodeNew_.setText(temp);
+                        j = i;
+                        break;
+                    }else{
+                        WTNodeNew_.setText("");
+                    }
+                }
+            }
+            if (fi < di){
+                String temp = text.substring(di, text.length());
+                if (temp.contains("}")) {}
+                else{
+                    WTNodeNew.setText(text.substring(0,di));
+                    for (int i = j; i < s; i++) {
+                        Node WTNodeNew_ = (Node)WTList.get(i);
+                        String t = WTNodeNew_.getText();
+                        temp += t;
+                        if (StringUtil.countMatches(temp,'}') > 0 ){
+                            WTNodeNew_.setText(temp);
+                            j = i;
+                            break;
+                        }else{
+                            WTNodeNew_.setText("");
+                        }
+                    }
+                }
+            }
         }
-        if (!"".equals(textTotal)) WTNodeNew.setText(textTotal);
+        for (int j = s-1; j >= 0; j--) {
+            WTNodeNew = (Node)WTList.get(j);
+            String text = WTNodeNew.getText();
+            int fi = text.indexOf(']');
+            if (fi != -1 && StringUtil.countMatches(text,'*') < 2 && StringUtil.countMatches(text,'#') < 2 ){
+                WTNodeNew.setText(text.substring(fi, text.length()));
+                String temp = text.substring(0,fi);
+                for (int i = j; i >= 0; i--) {
+                    Node WTNodeNew_ = (Node)WTList.get(i);
+                    String t = WTNodeNew_.getText();
+                    temp = t + temp;
+                    if ((StringUtil.countMatches(temp,'*') > 1 || StringUtil.countMatches(temp,'#') > 1)){
+                        WTNodeNew_.setText(temp);
+                        j = i;
+                        break;
+                    }else{
+                        WTNodeNew_.setText("");
+                    }
+                }
+            }
+        }
     }
 
 }

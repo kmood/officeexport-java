@@ -16,7 +16,7 @@ public class TestWordXmlModelHandlerImpl {
     @Test
     public void TestConverToFreemaker(){
         try {
-            w.ConverToFreemaker("");
+            w.ConverToFreemaker("C:\\Users\\admin\\Desktop\\ngccoaexport\\附件8-固定资产处置申请表.xml");
         } catch (Exception e) {
             e.printStackTrace();
         }

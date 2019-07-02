@@ -70,12 +70,12 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
             List list = document.selectNodes("//w:p");
             for (int i = 0; i <list.size() ; i++) {
                 Node WPNode = (Node)list.get(i);
-
+                XmlParserUtils.PlaceHodlerHandle(WPNode);
             }
             //转换[[ 到list标签
-            XmlParserUtils.DoubleBracketToListConversion(document);
+//            XmlParserUtils.DoubleBracketToListConversion(document);
             //转换[ 到list标签
-            XmlParserUtils.BracketToListConversion(document);
+//            XmlParserUtils.BracketToListConversion(document);
             String xmlFtlPath = xmlPath.replace(".xml", ".ftl");
             FileWriter fileWiter = new FileWriter(xmlFtlPath);
             writer = new XMLWriter(fileWiter);
