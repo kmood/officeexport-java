@@ -11,6 +11,10 @@ import java.util.*;
  * @Description:
  */
 public class test {
+    @Test
+    public  void test(){
+        System.out.println("123#312#".lastIndexOf('#'));
+    }
 
 
 }

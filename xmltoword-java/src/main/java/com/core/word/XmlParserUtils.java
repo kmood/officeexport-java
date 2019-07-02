@@ -381,8 +381,17 @@ public class XmlParserUtils {
                     Node WTNodeNew_ = (Node)WTList.get(i);
                     String t = WTNodeNew_.getText();
                     temp += t;
-                    if ((StringUtil.countMatches(temp,'*') > 1 || StringUtil.countMatches(temp,'#') > 1)
-                            && StringUtil.countMatches(temp,'@')>0){
+                    int i1 = StringUtil.countMatches(temp, '*');
+                    int i2 = StringUtil.countMatches(temp, '#');
+                    if ((i1 > 1 || i2 > 1)&& StringUtil.countMatches(temp,'@')>0){
+                        if (temp.contains("#")) {
+                            int endIndex = temp.indexOf('#', temp.indexOf('#'))+1;
+                            temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) + temp.substring(endIndex,temp.length());
+                        }
+                        if (temp.contains("*")) {
+                            int endIndex = temp.indexOf('*', temp.indexOf('*'))+1;
+                            temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) + temp.substring(endIndex,temp.length());
+                        }
                         WTNodeNew_.setText(temp);
                         j = i;
                         break;
@@ -423,6 +432,14 @@ public class XmlParserUtils {
                     String t = WTNodeNew_.getText();
                     temp = t + temp;
                     if ((StringUtil.countMatches(temp,'*') > 1 || StringUtil.countMatches(temp,'#') > 1)){
+                        if (temp.contains("#")) {
+                            int endIndex = temp.lastIndexOf('#', temp.indexOf('#'))+1;
+                            temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) + temp.substring(endIndex,temp.length());
+                        }
+                        if (temp.contains("*")) {
+                            int endIndex = temp.indexOf('*', temp.indexOf('*'))+1;
+                            temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) + temp.substring(endIndex,temp.length());
+                        }
                         WTNodeNew_.setText(temp);
                         j = i;
                         break;

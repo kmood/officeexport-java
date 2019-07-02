@@ -73,9 +73,9 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
                 XmlParserUtils.PlaceHodlerHandle(WPNode);
             }
             //转换[[ 到list标签
-//            XmlParserUtils.DoubleBracketToListConversion(document);
+            XmlParserUtils.DoubleBracketToListConversion(document);
             //转换[ 到list标签
-//            XmlParserUtils.BracketToListConversion(document);
+            XmlParserUtils.BracketToListConversion(document);
             String xmlFtlPath = xmlPath.replace(".xml", ".ftl");
             FileWriter fileWiter = new FileWriter(xmlFtlPath);
             writer = new XMLWriter(fileWiter);
