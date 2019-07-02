@@ -2,6 +2,7 @@ package com.core.word;
 
 
 import com.core.utils.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -269,15 +270,27 @@ public class XmlParserUtils {
             Node wpNode = (Node)wpNodeList.get(i);
             List wtlist = wpNode.selectNodes(".//w:t");
             String text = null;
+            String[] Xarr = null;
+            String[] Jarr = null;
             for (int j = 0; j < wtlist.size(); j++) {
                 Node node = (Node)wtlist.get(j);
                 String text1 = node.getText();
                 if (text1 != null && text1.contains("[#")){
                     text = text1;
                     //清除[##
-                    node.setText(text1.replace("[#"+StringUtil.substringBetween(text1,"[#","#")+"#",""));
+                    Jarr = StringUtil.substringsBetween(text1,"[#","#");
+                    for (String s :Jarr)
+                        node.setText(text1.replace("[#"+s+"#",""));
+                }
+                if (text1 != null && text1.contains("[*")){
+                    text = text1;
+                    //清除[##
+                    Xarr = StringUtil.substringsBetween(text1, "[*", "*");
+                    for (String s :Xarr)
+                        node.setText(text1.replace("[*"+s+"*",""));
                 }
             }
+            
             Element wpEle = (Element)wpNode;
             Element beginEle = null;
             Element endEle = null;
