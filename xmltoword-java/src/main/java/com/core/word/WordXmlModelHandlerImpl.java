@@ -70,18 +70,7 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
             List list = document.selectNodes("//w:p");
             for (int i = 0; i <list.size() ; i++) {
                 Node WPNode = (Node)list.get(i);
-                List WTList = WPNode.selectNodes(".//w:t");
-                String textTotal = "";
-                Node WTNodeNew = null;
-                for (int j = 0; j < WTList.size(); j++) {
-                    WTNodeNew = (Node)WTList.get(j);
-                    String text = WTNodeNew.getText();
-                    textTotal  += text;
-                    //可避免无占位符的段落
-                    if(XmlParserUtils.ContainPlaceHolder(textTotal))WTNodeNew.setText("");
-                    else textTotal = "";
-                }
-                if (!"".equals(textTotal)) WTNodeNew.setText(textTotal);
+
             }
             //转换[[ 到list标签
             XmlParserUtils.DoubleBracketToListConversion(document);

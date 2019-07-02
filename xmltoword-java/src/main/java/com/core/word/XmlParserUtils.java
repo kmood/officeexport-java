@@ -2,11 +2,9 @@ package com.core.word;
 
 
 import com.core.utils.StringUtil;
-import org.apache.commons.lang3.ArrayUtils;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,13 +37,7 @@ public class XmlParserUtils {
 
         for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
-            if (c == PlaceHolder.AC ||
-                    c == PlaceHolder.BRACE_LC ||
-                    c == PlaceHolder.BRACE_RC||
-                    c == PlaceHolder.BRACKET_LC||
-                    c == PlaceHolder.BRACKET_RC||
-                    c == PlaceHolder.XC||
-                    c == PlaceHolder.poundC){
+            if (PlaceHolder.PHSTR.indexOf(c) != -1){
                 charArr.add(c);
                 indexArr.add(i);
             }
@@ -58,7 +50,8 @@ public class XmlParserUtils {
                     c == PlaceHolder.BRACE_RC||
                     c == PlaceHolder.BRACKET_RC||
                     c == PlaceHolder.XC||
-                    c == PlaceHolder.poundC)) {
+                    c == PlaceHolder.POUNDC||
+                    c == PlaceHolder.DC)) {
                 errorChar = c;
                 errorIndex = i;
                 break;
@@ -105,29 +98,29 @@ public class XmlParserUtils {
                 errorIndex = i;
                 break;
             }
+            if (c == '$' &&  !PlaceHolder.DIsEffective(charArr,stack,i)){
+                errorChar = c;
+                errorIndex = i;
+                break;
+            }
             //进栈
-            if (c == '[' || c == '{' || (c == '*' && stack.get(s-1) != '*') || (c == '#' && stack.get(s-1) != '#') ) stack.add(c);
+            if (c == '[' || c == '{'
+                    || (c == '*' && stack.get(s-1) != '*')
+                    || (c == '#' && stack.get(s-1) != '#')
+                    || (c == '$' && stack.get(s-1) != '$')
+                    )
+                stack.add(c);
             //出栈
-            if (c == ']' || c == '}' || (c == '*' && stack.get(s-1) == '*') || (c == '#' && stack.get(s-1) == '#') ) stack.remove(s - 1);
+            if (c == ']' || c == '}'
+                    || (c == '*' && stack.get(s-1) == '*')
+                    || (c == '#' && stack.get(s-1) == '#')
+                    || (c == '$' && stack.get(s-1) == '$')
+                    )
+                stack.remove(s - 1);
         }
         if(errorChar != ' ')errorInfor += StringUtil.substringBeforeAfterSize(data,indexArr.get(errorIndex),10) +"------'"+errorChar+"' 存在语法错误,注意将特殊字符进行转义";
         return errorInfor;
     }
-
-
-
-    /**
-     * description: 验证是否存在占位符
-     * @auther: SunBC
-     * @date: 2019/6/18 19:13
-     */
-    public static boolean ContainPlaceHolder(String data){
-        for (String ph :PlaceHolder.PHARR) {
-            if (data.contains(ph)) return true;
-        }
-        return false;
-    }
-
 
     /**
      * description:
@@ -369,9 +362,22 @@ public class XmlParserUtils {
                     }
                 }
             }
-
-
         }
+    }
+
+    public static void PlaceHodlerHandle(Node WPNode){
+        List WTList = WPNode.selectNodes(".//w:t");
+        String textTotal = "";
+        Node WTNodeNew = null;
+        for (int j = 0; j < WTList.size(); j++) {
+            WTNodeNew = (Node)WTList.get(j);
+            String text = WTNodeNew.getText();
+            textTotal  += text;
+            //可避免无占位符的段落
+            if(PlaceHolder.ContainPlaceHolder(textTotal))WTNodeNew.setText("");
+            else textTotal = "";
+        }
+        if (!"".equals(textTotal)) WTNodeNew.setText(textTotal);
     }
 
 }
