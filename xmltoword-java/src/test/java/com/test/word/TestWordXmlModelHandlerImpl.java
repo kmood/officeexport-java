@@ -1,6 +1,7 @@
 package com.test.word;
 
 import com.core.word.WordXmlModelHandlerImpl;
+import com.core.word.XmlModelParser;
 import org.junit.Test;
 
 /**
@@ -24,7 +25,7 @@ public class TestWordXmlModelHandlerImpl {
     @Test
     public void TestXmlPlaceHolderHandler(){
         try {
-            w.XmlPlaceHolderHandler("");
+            w.XmlPlaceHolderHandler("C:\\Users\\admin\\Desktop\\ngccoaexport\\附件8-固定资产处置申请表.ftl");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -40,9 +41,7 @@ public class TestWordXmlModelHandlerImpl {
     @Test
     public void TestVerifyModelTotal(){
         try {
-            w.VerifyModel("");
-            w.ConverToFreemaker("");
-            w.XmlPlaceHolderHandler("");
+            String compile = XmlModelParser.Compile("C:\\Users\\admin\\Desktop\\test.xml");
         } catch (Exception e) {
             e.printStackTrace();
         }

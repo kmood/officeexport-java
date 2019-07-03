@@ -24,7 +24,7 @@ import java.util.List;
 public class WordXmlModelHandlerImpl implements XmlModelHandler{
     @Override
     public  void VerifyModel(String xmlPath) throws Exception {
-        String  errorInfo = "";
+        String  errorInfo = null;
         SAXReader reader = new SAXReader();
         Document document = reader.read(new File(xmlPath));
         Element rootElement = document.getRootElement();
@@ -41,7 +41,7 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
                 tableRowStr += StringUtil.removeInvisibleChar(text);
             }
             errorInfo =  XmlParserUtils.VarifySyntax(tableRowStr);
-            if (errorInfo.length() != 0) throw new SyntaxException(errorInfo);
+            if (errorInfo != null && errorInfo.length() != 0) throw new SyntaxException(errorInfo);
         }
 
         //校验段落
@@ -57,7 +57,7 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
             }
         }
         errorInfo= XmlParserUtils.VarifySyntax(wpStr.toString());
-        if (errorInfo.length() != 0) throw new SyntaxException(errorInfo);
+        if (errorInfo != null && errorInfo.length() != 0) throw new SyntaxException(errorInfo);
         return ;
     }
 
@@ -72,14 +72,13 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
                 Node WPNode = (Node)list.get(i);
                 XmlParserUtils.PlaceHodlerHandle(WPNode);
             }
-            //转换[[ 到list标签
-            XmlParserUtils.DoubleBracketToListConversion(document);
             //转换[ 到list标签
             XmlParserUtils.BracketToListConversion(document);
             String xmlFtlPath = xmlPath.replace(".xml", ".ftl");
             FileWriter fileWiter = new FileWriter(xmlFtlPath);
             writer = new XMLWriter(fileWiter);
             writer.write( document );
+            writer.flush();
             return xmlFtlPath;
         }catch (Exception e){
             throw e;

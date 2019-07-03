@@ -1,7 +1,10 @@
 package com.core.utils;
 
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.Reader;
 
 public class FileUtils {
 	/**
@@ -16,20 +19,19 @@ public class FileUtils {
 	 */
 	public static String readToStringByFilepath(String filePath)throws Exception{
 		StringBuilder data = new StringBuilder();
-		FileInputStream input =  null;
+		Reader reader  =  null;
 		try {
 			File file = new File(filePath);
-			input = new FileInputStream(file);
-			
-			byte [] b = new byte [1024];
+			reader = new FileReader(file);
+			char [] c = new char [1024];
 			int len = 0;
-			while ((len = input.read(b)) != -1){
-				data.append(b);
+			while ((len = reader.read(c)) != -1){
+				data.append(String.copyValueOf(c,0,len));
 			}
 		} catch (Exception e) {
 			throw e;
 		}finally {
-			input.close();
+			reader.close();
 		}
 		return data.toString();
 	}

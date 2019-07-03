@@ -27,7 +27,7 @@ public class XmlParserUtils {
     public static String VarifySyntax(String data){
         data = StringUtil.removeInvisibleChar(data);
         String errorInfor = "";
-        char errorChar = ' ' ;
+        Character errorChar = null ;
         int errorIndex = 0;
         int length = data.length();
         if (length == 0) return null;
@@ -119,7 +119,7 @@ public class XmlParserUtils {
                     )
                 stack.remove(s - 1);
         }
-        if(errorChar != ' ')errorInfor += StringUtil.substringBeforeAfterSize(data,indexArr.get(errorIndex),10) +"------'"+errorChar+"' 存在语法错误,注意将特殊字符进行转义";
+        if(errorChar != null)errorInfor += StringUtil.substringBeforeAfterSize(data,indexArr.get(errorIndex),10) +"------'"+errorChar+"' 存在语法错误,注意将特殊字符进行转义";
         return errorInfor;
     }
 
@@ -211,7 +211,7 @@ public class XmlParserUtils {
             String xmlStrSubfix = StringUtil.substringAfter(xmlStrTemp, "<#list");
             String tagContent = StringUtil.substringBefore(xmlStrSubfix, ">");
             String cont = StringUtil.substringBetween(tagContent, "content=\"", "\"");
-            xmlStrNew += cont + " >";
+            xmlStrNew += cont.replaceAll("@"," as ") + " >";
             xmlStrTemp = StringUtil.substringAfter(xmlStrSubfix, ">");
         }
         xmlStrNew += xmlStrTemp;
@@ -228,7 +228,7 @@ public class XmlParserUtils {
             String xmlStrSubfix = StringUtil.substringAfter(xmlStr, "<#if");
             String tagContent = StringUtil.substringBefore(xmlStrSubfix, ">");
             String cont = StringUtil.substringBetween(tagContent, "content=\"", "\"");
-            xmlStrTemp += cont + " >";
+            xmlStrTemp += StringUtils.substringBefore(cont,"@") + ")?? >";
             xmlStr = StringUtil.substringAfter(xmlStrSubfix, ">");
         }
         xmlStrTemp += xmlStr;
@@ -239,10 +239,10 @@ public class XmlParserUtils {
     public static String BraceTagHandle(String xmlStr) {
         if (xmlStr == null) return null;
         if (xmlStr.length() == 0) return "";
-        String[] arr = StringUtil.substringsBetween(xmlStr, "{{", "}}");
+        String[] arr = StringUtil.substringsBetween(xmlStr, "{", "}");
         if (arr == null ) return xmlStr;
         for (String str:arr ) {
-            String replaceStr = "{{"+str+"}}";
+            String replaceStr = "{"+str+"}";
             //去除不显示字符
             str = str.replaceAll("[\\x00-\\x1F | \\x7F ]","");
             String s = "${(" + str + ")!\"\"}";
@@ -252,7 +252,7 @@ public class XmlParserUtils {
             }
             String cond = "";
             int length = str.length();
-            for (int one = str.indexOf('.'); one < length -2 && one != -1 ; one = str.indexOf('.',one+1)) {
+            for (int one = str.indexOf('.'); one < length -1 && one != -1 ; one = str.indexOf('.',one+1)) {
                 cond += " (";
                 cond += str.substring(0, one);
                 cond +=")?? &&";
@@ -269,115 +269,90 @@ public class XmlParserUtils {
         for (int i = 0; i < wpNodeList.size(); i++) {
             Node wpNode = (Node)wpNodeList.get(i);
             List wtlist = wpNode.selectNodes(".//w:t");
-            String text = null;
             String[] Xarr = null;
             String[] Jarr = null;
             for (int j = 0; j < wtlist.size(); j++) {
                 Node node = (Node)wtlist.get(j);
                 String text1 = node.getText();
                 if (text1 != null && text1.contains("[#")){
-                    text = text1;
                     //清除[##
-                    Jarr = StringUtil.substringsBetween(text1,"[#","#");
+                    Jarr = StringUtil.substringsBetween(text1,"[#", "#");
                     for (String s :Jarr)
-                        node.setText(text1.replace("[#"+s+"#",""));
+                        node.setText(text1.replace("[#"+s+ "#",""));
                 }
                 if (text1 != null && text1.contains("[*")){
-                    text = text1;
-                    //清除[##
+                    //清除[**
                     Xarr = StringUtil.substringsBetween(text1, "[*", "*");
                     for (String s :Xarr)
                         node.setText(text1.replace("[*"+s+"*",""));
                 }
             }
-            
-            Element wpEle = (Element)wpNode;
-            Element beginEle = null;
-            Element endEle = null;
-            String value = null;
-            if (text != null && text.contains("[#")){
-                beginEle = wpEle;
-                value = StringUtil.substringBetween(text, "[#", "#");
-                String valueTrim = StringUtil.substringBefore(value, " as").trim();
-                String s1 = "#" + valueTrim + "#]";
-                for (int j = i; j < wpNodeList.size(); j++) {
-                    Node temp = (Node)wpNodeList.get(j);
-                    List wtlisttemp = temp.selectNodes(".//w:t");
-                    for (int k = 0; k < wtlisttemp.size(); k++) {
-                        Node node = (Node)wtlisttemp.get(k);
-                        String text1 = node.getText();
-                        if (text1 != null && text1.contains(s1)){
-                            //清除##]
-                            String text1New = node.getText().replace("#" + valueTrim + "#]", "");
-                            node.setText(text1New);
-                            endEle= (Element) temp; // wp标签
-                        }
-                    }
+            if(Jarr != null){
+                String s = "#";
+                for (int g = 0; g < Jarr.length; g++) {
+                    converList(wpNodeList, i, (Element) wpNode, Jarr[g], s);
                 }
             }
-            if (beginEle != null){
-                String errInfo = value != null ?"未匹配到[#"+value+"#结束符":"";
-                if (endEle == null) throw new RuntimeException("模板占位符格式不正确：-----"+beginEle.getText()+"-----"+errInfo);
-                HashMap<String, String> listAttMap = new HashMap<>();
-                listAttMap.put("type","list");
-                listAttMap.put("content"," "+value+ " ");
-                HashMap<String, String> ifAttMap = new HashMap<>();
-                ifAttMap.put("type","if");
-                ifAttMap.put("content"," ("+StringUtil.substringBefore(value," " ).trim() +")??");
-                String name = "#list";
-
-                Element element = XmlParserUtils.AddParentNode(beginEle, endEle, name, listAttMap);
-                XmlParserUtils.AddParentNode(element,"#if",ifAttMap);
+            if (Xarr != null ){
+                String s = "*";
+                for (int g = 0; g < Xarr.length; g++) {
+                    converList(wpNodeList, i, (Element) wpNode, Xarr[g], s);
+                }
             }
+
         }
     }
 
-
-    public static void DoubleBracketToListConversion(Document document) {
-        List tblList = document.selectNodes("//w:tbl");
-        for (int i = 0; i < tblList.size(); i++) {
-            Node tblNode = (Node)tblList.get(i);
-            List wtlist = tblNode.selectNodes(".//w:t");
-            for (int j = 0; j < wtlist.size(); j++) {
-                Node wtlNode = (Node)wtlist.get(j);
-                String text = wtlNode.getText();
-                //
-                wtlNode.setText(text.replaceAll("\\[\\[#[\\s\\S]*#",""));
-                if (text != null && text.contains("[[#")) {
-                    String value = StringUtil.substringBetween(text, "[#", "#");
-                    boolean f = true;
-                    for (Element parent = wtlNode.getParent(); parent != null&& f; parent = parent.getParent()){
-                        String name = parent.getName();
-                        if ("tr".equals(name)){
-                            f = true;
-                            HashMap<String, String> listAttMap = new HashMap<>();
-                            listAttMap.put("type","list");
-                            listAttMap.put("content"," "+value+ " ");
-                            XmlParserUtils.AddParentNode(parent,"#list",listAttMap);
-                            Element listNode = parent.getParent();
-                            HashMap<String, String> ifAttMap = new HashMap<>();
-                            ifAttMap.put("type","if");
-                            String trim = StringUtil.substringBefore(value, " as").trim();
-                            ifAttMap.put("content"," ("+ trim +")??");
-
-                            XmlParserUtils.AddParentNode(listNode,"#if",ifAttMap);
-                            //清除##]]
-                            List list = listNode.selectNodes(".//w:t");
-                            for (int k = 0; k < list.size(); k++) {
-                                Element e = (Element)list.get(k);
-                                String text1 = e.getText();
-                                if (text1!= null && text1.contains("]]") && text1.contains(trim)){
-                                    String s = StringUtil.substringBeforeLast(StringUtil.substringBeforeLast(text1, "#"), "#");
-                                    e.setText(text1.replaceAll("#"+trim+"#]",""));
-                                }
-                            }
-                        }
+    private static void converList(List wpNodeList, int i, Element wpNode, String value, String s) {
+        Element beginEle = wpNode;
+        if ("#".equals(s)) {
+            while (beginEle != null && !"tr".equals(beginEle.getName())){
+                beginEle = beginEle.getParent();
+            }
+        }
+        Element endEle = null;
+        String valueTrim = StringUtil.substringBefore(StringUtil.removeInvisibleChar(value), "@").trim();
+        String t = s + valueTrim + s+"]";
+        for (int j = i; j < wpNodeList.size(); j++) {
+            Node temp = (Node)wpNodeList.get(j);
+            List wtlisttemp = temp.selectNodes(".//w:t");
+            for (int k = 0; k < wtlisttemp.size(); k++) {
+                Node node = (Node)wtlisttemp.get(k);
+                String text1 = node.getText();
+                if (text1 != null && StringUtil.removeInvisibleChar(text1).contains(t)){
+                    String[] vArr = StringUtil.substringsBetween(text1, s, "]");
+                    for (String str : vArr){
+                        String s1 = valueTrim + s;
+                        if (s1.equals(StringUtil.removeInvisibleChar(str))) node.setText(text1.replace(s + str + "]", ""));
                     }
+                    endEle= (Element) temp; // wp标签
                 }
             }
         }
+        if (endEle == null) throw new SyntaxException(beginEle.getText()+"-----'"+value+"'未匹配到结束符");
+        if ("#".equals(s)) {
+            while (endEle != null && !"tr".equals(endEle.getName())){
+                endEle = endEle.getParent();
+            }
+        }
+        HashMap<String, String> listAttMap = new HashMap<>();
+        listAttMap.put("type","list");
+        listAttMap.put("content"," "+value+ " ");
+        HashMap<String, String> ifAttMap = new HashMap<>();
+        ifAttMap.put("type","if");
+        ifAttMap.put("content"," ("+StringUtil.substringBefore(value," " ).trim() +")??");
+        String name = "#list";
+
+        Element element = XmlParserUtils.AddParentNode(beginEle, endEle, name, listAttMap);
+        XmlParserUtils.AddParentNode(element,"#if",ifAttMap);
     }
 
+
+    /**
+     * description: 整合占位符
+     * @auther: SunBC
+     * @date: 2019/7/3 10:16
+     */
     public static void PlaceHodlerHandle(Node WPNode){
         List WTList = WPNode.selectNodes(".//w:t");
         Node WTNodeNew = null;
@@ -405,6 +380,7 @@ public class XmlParserUtils {
                             int endIndex = temp.indexOf('*', temp.indexOf('*'))+1;
                             temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) + temp.substring(endIndex,temp.length());
                         }
+
                         WTNodeNew_.setText(temp);
                         j = i;
                         break;
@@ -437,7 +413,9 @@ public class XmlParserUtils {
             WTNodeNew = (Node)WTList.get(j);
             String text = WTNodeNew.getText();
             int fi = text.indexOf(']');
-            if (fi != -1 && StringUtil.countMatches(text,'*') < 2 && StringUtil.countMatches(text,'#') < 2 ){
+            int i1 = StringUtil.countMatches(text, '*');
+            int i2 = StringUtil.countMatches(text, '#');
+            if (fi != -1 && i1 < 2 && i2 < 2 ){
                 WTNodeNew.setText(text.substring(fi, text.length()));
                 String temp = text.substring(0,fi);
                 for (int i = j; i >= 0; i--) {
