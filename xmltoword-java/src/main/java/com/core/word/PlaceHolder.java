@@ -156,6 +156,7 @@ public class PlaceHolder {
         int l = stack.size();
         if (dl < i+4 ) return false ;
         if (charArr.get(i +1) == '*' && charArr.get(i +2) == '@' && charArr.get(i +3) == '*' ) return true;
+        if (charArr.get(i +1) == '#' && charArr.get(i +2) == '@' && charArr.get(i +3) == '#' ) return true;
         return  false;
     }
 

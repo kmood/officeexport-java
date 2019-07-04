@@ -15,9 +15,17 @@ public class TestWordXmlModelHandlerImpl {
         w = new WordXmlModelHandlerImpl();
     }
     @Test
+    public void TestVerifyModel(){
+        try {
+            w.VerifyModel("C:\\Users\\admin\\Desktop\\test.xml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
     public void TestConverToFreemaker(){
         try {
-            w.ConverToFreemaker("C:\\Users\\admin\\Desktop\\ngccoaexport\\附件8-固定资产处置申请表.xml");
+            w.ConverToFreemaker("C:\\Users\\admin\\Desktop\\test.xml");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -25,19 +33,12 @@ public class TestWordXmlModelHandlerImpl {
     @Test
     public void TestXmlPlaceHolderHandler(){
         try {
-            w.XmlPlaceHolderHandler("C:\\Users\\admin\\Desktop\\ngccoaexport\\附件8-固定资产处置申请表.ftl");
+            w.XmlPlaceHolderHandler("C:\\Users\\admin\\Desktop\\test.xml");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    @Test
-    public void TestVerifyModel(){
-        try {
-            w.VerifyModel("C:\\Users\\admin\\Desktop\\ngccoaexport\\附件8-固定资产处置申请表.xml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
     @Test
     public void TestVerifyModelTotal(){
         try {

@@ -361,8 +361,10 @@ public class XmlParserUtils {
             WTNodeNew = (Node)WTList.get(j);
             String text = WTNodeNew.getText();
             int fi = text.lastIndexOf('[');
-            int di = text.lastIndexOf('{');
-            if (fi > di){
+            int xi = text.lastIndexOf("*");
+            int ji = text.lastIndexOf("#");
+
+            if (fi > xi || fi >ji){
                 WTNodeNew.setText(text.substring(0,fi));
                 String temp = text.substring(fi, text.length());
                 for (int i = j; i < s; i++) {
@@ -371,16 +373,40 @@ public class XmlParserUtils {
                     temp += t;
                     int i1 = StringUtil.countMatches(temp, '*');
                     int i2 = StringUtil.countMatches(temp, '#');
-                    if ((i1 > 1 || i2 > 1)&& StringUtil.countMatches(temp,'@')>0){
+                    if (i1 > 1 || i2 > 1){
                         if (temp.contains("#")) {
-                            int endIndex = temp.indexOf('#', temp.indexOf('#'))+1;
-                            temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) + temp.substring(endIndex,temp.length());
+                            int endIndex = temp.indexOf('#', temp.indexOf('#')+1)+1;
+                            t = temp.substring(endIndex,temp.length());
+                            temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex));
                         }
                         if (temp.contains("*")) {
-                            int endIndex = temp.indexOf('*', temp.indexOf('*'))+1;
-                            temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) + temp.substring(endIndex,temp.length());
+                            int endIndex = temp.indexOf('*', temp.indexOf('*')+1)+1;
+                            t = temp.substring(endIndex,temp.length());
+                            temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) ;
                         }
-
+                        WTNodeNew.setText(WTNodeNew.getText()+temp);
+                        WTNodeNew_.setText(t);
+                        j = i;
+                        break;
+                    }else{
+                        WTNodeNew_.setText("");
+                    }
+                }
+            }
+        }
+        for (int j = 0; j < s; j++) {
+            WTNodeNew = (Node)WTList.get(j);
+            String text = WTNodeNew.getText();
+            int di = text.lastIndexOf('{');
+            int di_ = text.lastIndexOf('}');
+            if (di > di_){
+                String temp = text.substring(di, text.length());
+                for (int i = j+1; i < s; i++) {
+                    Node WTNodeNew_ = (Node)WTList.get(i);
+                    String t = WTNodeNew_.getText();
+                    temp += t;
+                    if (StringUtil.countMatches(temp,'}') > 0 ){
+                        WTNodeNew.setText(text.substring(0,di));
                         WTNodeNew_.setText(temp);
                         j = i;
                         break;
@@ -389,48 +415,33 @@ public class XmlParserUtils {
                     }
                 }
             }
-            if (fi < di){
-                String temp = text.substring(di, text.length());
-                if (temp.contains("}")) {}
-                else{
-                    WTNodeNew.setText(text.substring(0,di));
-                    for (int i = j; i < s; i++) {
-                        Node WTNodeNew_ = (Node)WTList.get(i);
-                        String t = WTNodeNew_.getText();
-                        temp += t;
-                        if (StringUtil.countMatches(temp,'}') > 0 ){
-                            WTNodeNew_.setText(temp);
-                            j = i;
-                            break;
-                        }else{
-                            WTNodeNew_.setText("");
-                        }
-                    }
-                }
-            }
         }
         for (int j = s-1; j >= 0; j--) {
             WTNodeNew = (Node)WTList.get(j);
             String text = WTNodeNew.getText();
             int fi = text.indexOf(']');
-            int i1 = StringUtil.countMatches(text, '*');
-            int i2 = StringUtil.countMatches(text, '#');
-            if (fi != -1 && i1 < 2 && i2 < 2 ){
-                WTNodeNew.setText(text.substring(fi, text.length()));
-                String temp = text.substring(0,fi);
+            if (fi == -1) continue;
+            String text_ = text.substring(0, fi + 1);
+            int i1 = StringUtil.countMatches(text_, '*');
+            int i2 = StringUtil.countMatches(text_, '#');
+            if (i1 > i2 || i2 >i1 ){
+                WTNodeNew.setText(text.substring(fi+1, text.length()));
+                String temp = text.substring(0,fi+1);
                 for (int i = j; i >= 0; i--) {
                     Node WTNodeNew_ = (Node)WTList.get(i);
                     String t = WTNodeNew_.getText();
                     temp = t + temp;
                     if ((StringUtil.countMatches(temp,'*') > 1 || StringUtil.countMatches(temp,'#') > 1)){
-                        if (temp.contains("#")) {
-                            int endIndex = temp.lastIndexOf('#', temp.indexOf('#'))+1;
-                            temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) + temp.substring(endIndex,temp.length());
-                        }
-                        if (temp.contains("*")) {
-                            int endIndex = temp.indexOf('*', temp.indexOf('*'))+1;
-                            temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) + temp.substring(endIndex,temp.length());
-                        }
+//                        if (temp.contains("#")) {
+//                            int endIndex = temp.lastIndexOf('#', temp.lastIndexOf('#')-1);
+//                            t = temp.substring(endIndex,temp.length());
+//                            temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) ;
+//                        }
+//                        if (temp.contains("*") ) {
+//                            int endIndex = temp.lastIndexOf('*', temp.lastIndexOf('*')-1);
+//                            t = temp.substring(endIndex,temp.length());
+//                            temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) + temp.substring(endIndex,temp.length());
+//                        }
                         WTNodeNew_.setText(temp);
                         j = i;
                         break;

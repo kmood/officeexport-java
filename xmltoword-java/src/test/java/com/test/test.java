@@ -13,7 +13,7 @@ import java.util.*;
 public class test {
     @Test
     public  void test(){
-        System.out.println("123#312#".lastIndexOf('#'));
+        System.out.println("123#312#".lastIndexOf('#',"123#312#".lastIndexOf("#")-1));
     }
 
 
