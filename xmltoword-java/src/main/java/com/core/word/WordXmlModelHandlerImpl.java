@@ -28,22 +28,6 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
         SAXReader reader = new SAXReader();
         Document document = reader.read(new File(xmlPath));
         Element rootElement = document.getRootElement();
-        //校验表格
-//        List tableRowList = document.selectNodes("//w:tbl/w:tr");
-//        for (int i = 0; i < tableRowList.size(); i++) {
-//            String tableRowStr = "";
-//            Node node = (Node)tableRowList.get(i);
-//            //验证[] # 是否有效
-//            List TextNodeList = node.selectNodes(".//w:t");
-//            for (int j = 0; j < TextNodeList.size(); j++) {
-//                Node TextNode = (Node)TextNodeList.get(j);
-//                String text = TextNode.getText();
-//                tableRowStr += StringUtil.removeInvisibleChar(text);
-//            }
-//            errorInfo =  XmlParserUtils.VarifySyntax(tableRowStr);
-//            if (errorInfo != null && errorInfo.length() != 0) throw new SyntaxException(errorInfo);
-//        }
-
         //校验段落
         List ParagList = document.selectNodes(".//w:p");
         StringBuilder wpStr = new StringBuilder();

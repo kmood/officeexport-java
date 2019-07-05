@@ -14,6 +14,7 @@ public class test {
     @Test
     public  void test(){
         System.out.println("123#312#".lastIndexOf('#',"123#312#".lastIndexOf("#")-1));
+        System.out.println(this.getClass().getClassLoader().getResource("./").getPath());
     }
 
 

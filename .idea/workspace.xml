@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9f5ba4d-a21f-4d24-9f9c-c1baf1d116e8" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/StringUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/StringUtil.java" afterDir="false" />
+    <list default="true" id="c9f5ba4d-a21f-4d24-9f9c-c1baf1d116e8" name="Default" comment="优化架构，增加单元测试">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jaxen_jaxen_1_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_7.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_freemarker_freemarker_2_3_28.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__xml_apis_xml_apis_1_0_b2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/XmlToWord.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/XmlToWord.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/FreemarkerUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/FreemarkerUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/WordXmlModelHandlerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/WordXmlModelHandlerImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlParserUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlParserUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/freemaker/exportword/TestExport.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/freemaker/exportword/TestExport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmltoword-java/src/test/resources/model/lxqrs-test.ftl" beforeDir="false" />
     </list>
+    <ignored path="$PROJECT_DIR$/xmltoword-java/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,46 +34,99 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="WordXmlModelHandlerImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/WordXmlModelHandlerImpl.java">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="XmlModelHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlModelHandler.java">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="FileUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/FileUtils.java">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="XmlModelParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlModelParser.java">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="XmlParserUtils.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlParserUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="519">
-              <caret line="103" column="29" lean-forward="true" selection-start-line="103" selection-start-column="29" selection-end-line="103" selection-end-column="29" />
+            <state relative-caret-position="1269">
+              <caret line="60" column="25" selection-start-line="60" selection-start-column="25" selection-end-line="60" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestWordXmlModelHandlerImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/word/TestWordXmlModelHandlerImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1134">
+              <caret line="44" column="90" selection-start-line="44" selection-start-column="28" selection-end-line="44" selection-end-column="90" />
               <folding>
-                <element signature="e#3067#3073#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StringUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/StringUtil.java">
+      <file leaf-file-name="XmlModelParser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlModelParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1134">
-              <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+            <state relative-caret-position="324">
+              <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XmlParserUtils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlParserUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="11475">
+              <caret line="434" column="26" selection-start-line="434" selection-start-column="26" selection-end-line="434" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/test.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="16" column="87" selection-start-line="16" selection-start-column="87" selection-end-line="16" selection-end-column="87" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestExport.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/freemaker/exportword/TestExport.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="59" column="49" selection-start-line="59" selection-start-column="49" selection-end-line="59" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlaceHolder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/PlaceHolder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5589">
+              <caret line="209" selection-start-line="209" selection-end-line="209" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FreemarkerUtil.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/FreemarkerUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-424">
+              <caret line="18" column="32" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>-</find>
+      <find>ConverToFreemaker</find>
+      <find>BracketToListConversion</find>
+      <find>value1</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>'</replace>
+      <replace>$</replace>
+    </replaceStrings>
   </component>
   <component name="GOROOT" path="D:\Go" />
   <component name="Git.Settings">
@@ -65,16 +135,36 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/placeholder/TestPlaceHolder.java" />
+        <option value="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/utils/TestStringUtil.java" />
+        <option value="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/word/TestXmlParserUtils.java" />
         <option value="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/StringUtil.java" />
+        <option value="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/FileUtils.java" />
+        <option value="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/PlaceHolder.java" />
+        <option value="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/word/TestWordXmlModelHandlerImpl.java" />
         <option value="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlParserUtils.java" />
+        <option value="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/WordXmlModelHandlerImpl.java" />
+        <option value="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/test.java" />
+        <option value="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/freemaker/exportword/TestExport.java" />
+        <option value="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/FreemarkerUtil.java" />
       </list>
     </option>
+  </component>
+  <component name="Jenkins.Settings">
+    <option name="lastSelectedView" value="all" />
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
   </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
@@ -93,37 +183,26 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XmlToWord" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XmlToWord" type="462c0819:PsiDirectoryNode" />
               <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XmlToWord" type="462c0819:PsiDirectoryNode" />
               <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XmlToWord" type="462c0819:PsiDirectoryNode" />
               <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XmlToWord" type="462c0819:PsiDirectoryNode" />
               <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
@@ -131,49 +210,98 @@
             </path>
             <path>
               <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XmlToWord" type="462c0819:PsiDirectoryNode" />
               <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XmlToWord" type="462c0819:PsiDirectoryNode" />
-              <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XmlToWord" type="462c0819:PsiDirectoryNode" />
-              <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XmlToWord" type="462c0819:PsiDirectoryNode" />
               <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="word" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="exportword" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="word" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XmlToWord" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xmltoword-java" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+              <item name="test-classes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -182,14 +310,20 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="configurable.Global.GOPATH.is.expanded" value="true" />
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15659575" />
+    <property name="project.structure.side.proportion" value="0.20029028" />
     <property name="settings.editor.selected.configurable" value="vcs.Subversion.Network" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\project\git project\XmlToWord\xmltoword-java\src\test\resources\model" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -203,9 +337,101 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.TestExport.exportWord">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration name="TestExport" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="XmlToWord" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.test.freemaker.exportword.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.test.freemaker.exportword" />
+      <option name="MAIN_CLASS_NAME" value="com.test.freemaker.exportword.TestExport" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="TestExport.exportWord" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="XmlToWord" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.test.freemaker.exportword.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.test.freemaker.exportword" />
+      <option name="MAIN_CLASS_NAME" value="com.test.freemaker.exportword.TestExport" />
+      <option name="METHOD_NAME" value="exportWord" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="TestWordXmlModelHandlerImpl.TestVerifyModel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="XmlToWord" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.test.word.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.test.word" />
+      <option name="MAIN_CLASS_NAME" value="com.test.word.TestWordXmlModelHandlerImpl" />
+      <option name="METHOD_NAME" value="TestVerifyModel" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="TestWordXmlModelHandlerImpl.TestVerifyModelTotal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="XmlToWord" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.test.word.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.test.word" />
+      <option name="MAIN_CLASS_NAME" value="com.test.word.TestWordXmlModelHandlerImpl" />
+      <option name="METHOD_NAME" value="TestVerifyModelTotal" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -214,6 +440,29 @@
       <option name="MAIN_CLASS_NAME" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="test.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="XmlToWord" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.test" />
+      <option name="MAIN_CLASS_NAME" value="com.test.test" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -245,6 +494,22 @@
       <properties />
       <listeners />
     </configuration>
+    <list>
+      <item itemvalue="JUnit.TestWordXmlModelHandlerImpl.TestVerifyModelTotal" />
+      <item itemvalue="JUnit.TestExport.exportWord" />
+      <item itemvalue="JUnit.TestWordXmlModelHandlerImpl.TestVerifyModel" />
+      <item itemvalue="JUnit.TestExport" />
+      <item itemvalue="JUnit.test.test" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestExport.exportWord" />
+        <item itemvalue="JUnit.test.test" />
+        <item itemvalue="JUnit.TestExport" />
+        <item itemvalue="JUnit.TestWordXmlModelHandlerImpl.TestVerifyModelTotal" />
+        <item itemvalue="JUnit.TestWordXmlModelHandlerImpl.TestVerifyModel" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration>C:\Users\admin\AppData\Roaming\Subversion</configuration>
@@ -258,11 +523,83 @@
       <updated>1561682576831</updated>
       <workItem from="1561682586163" duration="2050000" />
       <workItem from="1561686439891" duration="9000" />
+      <workItem from="1561952096941" duration="5104000" />
+      <workItem from="1562028254776" duration="24347000" />
+      <workItem from="1562115171322" duration="50148000" />
+      <workItem from="1562303710952" duration="1531000" />
     </task>
+    <task id="LOCAL-00001" summary="优化架构，增加单元测试">
+      <created>1561958243384</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1561958243384</updated>
+    </task>
+    <task id="LOCAL-00002" summary="增加合并单元格语法以及语法校验">
+      <created>1562054435746</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1562054435746</updated>
+    </task>
+    <task id="LOCAL-00003" summary="调整占位符处理工具，保证占位符格式即样式">
+      <created>1562073582876</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1562073582876</updated>
+    </task>
+    <task id="LOCAL-00004" summary="修改语法转换策略">
+      <created>1562147480009</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1562147480009</updated>
+    </task>
+    <task id="LOCAL-00005" summary="添加循环嵌套功能">
+      <created>1562246191939</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1562246191939</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="TestExport_exportWord - 2019.07.05 at 11h 45m 41s.xml">
+      <configuration name="TestExport.exportWord" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestWordXmlModelHandlerImpl_TestVerifyModelTotal - 2019.07.05 at 11h 46m 34s.xml">
+      <configuration name="TestWordXmlModelHandlerImpl.TestVerifyModelTotal" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestExport - 2019.07.05 at 11h 46m 41s.xml">
+      <configuration name="TestExport" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestExport_exportWord - 2019.07.05 at 11h 46m 50s.xml">
+      <configuration name="TestExport.exportWord" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestExport_exportWord - 2019.07.05 at 12h 51m 41s.xml">
+      <configuration name="TestExport.exportWord" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestExport_exportWord - 2019.07.05 at 12h 51m 50s.xml">
+      <configuration name="TestExport.exportWord" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="test_test - 2019.07.05 at 13h 03m 46s.xml">
+      <configuration name="test.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="test_test - 2019.07.05 at 13h 06m 41s.xml">
+      <configuration name="test.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestExport_exportWord - 2019.07.05 at 13h 10m 05s.xml">
+      <configuration name="TestExport.exportWord" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestExport_exportWord - 2019.07.05 at 13h 15m 33s.xml">
+      <configuration name="TestExport.exportWord" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2059000" />
+    <option name="totallyTimeSpent" value="83189000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -270,46 +607,249 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32827735" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2990249" />
+      <window_info anchor="bottom" id="Version Control" order="7" visible="true" weight="0.3618635" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info anchor="right" id="Jenkins" order="3" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2468017" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="BPMNPalette" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.2751896" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Messages" order="7" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Designer" order="2" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info id="Image Layers" order="3" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="9" weight="0.32936078" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="BPMNPalette" order="5" />
+      <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32936078" />
+      <window_info anchor="right" id="Maven Projects" order="7" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2468017" />
+      <window_info anchor="right" id="Database" order="8" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
+      <window_info anchor="right" id="Jenkins" order="10" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.3997833" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="增加合并单元格语法以及语法校验" />
+    <MESSAGE value="调整占位符处理工具，保证占位符格式即样式" />
+    <MESSAGE value="优化架构，增加单元测试" />
+    <MESSAGE value="修改语法转换策略" />
+    <MESSAGE value="添加循环嵌套功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加循环嵌套功能" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlParserUtils.java</url>
+          <line>358</line>
+          <properties />
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlParserUtils.java</url>
+          <line>418</line>
+          <properties />
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="71" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/word/TestPlaceHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1053">
+          <caret line="42" column="30" lean-forward="true" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/StringUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4023">
+          <caret line="157" lean-forward="true" selection-start-line="157" selection-end-line="157" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlParserUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11043">
+          <caret line="417" column="106" lean-forward="true" selection-start-line="417" selection-start-column="106" selection-end-line="417" selection-end-column="106" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/PlaceHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4941">
+          <caret line="185" column="7" lean-forward="true" selection-start-line="185" selection-start-column="7" selection-end-line="185" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/word/TestWordXmlModelHandlerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/WordXmlModelHandlerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2187">
+          <caret line="94" column="29" lean-forward="true" selection-start-line="94" selection-start-column="29" selection-end-line="94" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlModelHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/SyntaxException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlModelParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/word/TestWordXmlModelHandlerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlParserUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="864">
+          <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/StringUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4050">
+          <caret line="158" selection-start-line="158" selection-end-line="158" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/utils/TestStringUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="15" column="15" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/word/TestXmlParserUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/freemaker/exportword/TestExport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/WordXmlModelHandlerImpl.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlModelHandler.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/FileUtils.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlModelParser.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/StringUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1107">
+          <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlParserUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2565">
+          <caret line="103" column="29" lean-forward="true" selection-start-line="103" selection-start-column="29" selection-end-line="103" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/WordXmlModelHandlerImpl.java">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -333,38 +873,165 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2565">
           <caret line="102" column="29" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="29" />
-          <folding>
-            <element signature="e#3067#3073#0" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/utils/TestStringUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="15" column="15" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/word/TestXmlParserUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7-sources.jar!/org/apache/commons/lang3/StringUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="208" column="26" selection-start-line="208" selection-start-column="26" selection-end-line="208" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/dom4j/dom4j/1.6.1/dom4j-1.6.1-sources.jar!/org/dom4j/Element.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3193">
+          <caret line="466" column="11" selection-start-line="466" selection-start-column="11" selection-end-line="466" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/dom4j/dom4j/1.6.1/dom4j-1.6.1-sources.jar!/org/dom4j/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="342" column="10" selection-start-line="342" selection-start-column="10" selection-end-line="342" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/FileUtils.java">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="28" column="56" selection-start-line="28" selection-start-column="56" selection-end-line="28" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/SyntaxException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlModelHandler.java">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="7" column="28" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlModelParser.java">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/word/TestPlaceHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="891">
+          <caret line="42" selection-start-line="42" selection-end-line="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="471">
+          <caret line="1966" selection-start-line="1966" selection-end-line="1966" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/freemarker/freemarker/2.3.28/freemarker-2.3.28-sources.jar!/freemarker/cache/FileTemplateLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="121" selection-start-line="121" selection-end-line="121" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/StringUtil.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="127" column="27" selection-start-line="127" selection-start-column="27" selection-end-line="127" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/PlaceHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5589">
+          <caret line="209" selection-start-line="209" selection-end-line="209" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlModelParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/resources/model/export.xml" />
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/resources/model/test.xml" />
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/word/TestWordXmlModelHandlerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1134">
-          <caret line="42" column="5" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+          <caret line="44" column="90" selection-start-line="44" selection-start-column="28" selection-end-line="44" selection-end-column="90" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/lang/ClassLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="1087" column="15" selection-start-line="1087" selection-start-column="15" selection-end-line="1087" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/WordXmlModelHandlerImpl.java">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1269">
+          <caret line="60" column="25" selection-start-line="60" selection-start-column="25" selection-end-line="60" selection-end-column="25" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlParserUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="103" column="29" lean-forward="true" selection-start-line="103" selection-start-column="29" selection-end-line="103" selection-end-column="29" />
-          <folding>
-            <element signature="e#3067#3073#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="11475">
+          <caret line="434" column="26" selection-start-line="434" selection-start-column="26" selection-end-line="434" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="16" column="87" selection-start-line="16" selection-start-column="87" selection-end-line="16" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/freemarker/freemarker/2.3.28/freemarker-2.3.28-sources.jar!/freemarker/template/Configuration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="2596" column="20" selection-start-line="2596" selection-start-column="20" selection-end-line="2596" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/freemaker/exportword/TestExport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="59" column="49" selection-start-line="59" selection-start-column="49" selection-end-line="59" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/FreemarkerUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-424">
+          <caret line="18" column="32" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -389,7 +1056,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.20029028" />
               </list>
             </option>
           </splitter-proportions>
@@ -448,7 +1115,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.20029028" />
               </list>
             </option>
           </splitter-proportions>

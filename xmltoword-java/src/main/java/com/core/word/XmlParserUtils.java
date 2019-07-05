@@ -424,7 +424,7 @@ public class XmlParserUtils {
             String text_ = text.substring(0, fi + 1);
             int i1 = StringUtil.countMatches(text_, '*');
             int i2 = StringUtil.countMatches(text_, '#');
-            if (i1 > i2 || i2 >i1 ){
+            if (text_.contains("]") && ((i1 <2 && i1 >0) || (i2 <2 && i2 >0) || (i1 == 0 && i2 == 0))){
                 WTNodeNew.setText(text.substring(fi+1, text.length()));
                 String temp = text.substring(0,fi+1);
                 for (int i = j; i >= 0; i--) {
@@ -432,16 +432,6 @@ public class XmlParserUtils {
                     String t = WTNodeNew_.getText();
                     temp = t + temp;
                     if ((StringUtil.countMatches(temp,'*') > 1 || StringUtil.countMatches(temp,'#') > 1)){
-//                        if (temp.contains("#")) {
-//                            int endIndex = temp.lastIndexOf('#', temp.lastIndexOf('#')-1);
-//                            t = temp.substring(endIndex,temp.length());
-//                            temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) ;
-//                        }
-//                        if (temp.contains("*") ) {
-//                            int endIndex = temp.lastIndexOf('*', temp.lastIndexOf('*')-1);
-//                            t = temp.substring(endIndex,temp.length());
-//                            temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) + temp.substring(endIndex,temp.length());
-//                        }
                         WTNodeNew_.setText(temp);
                         j = i;
                         break;

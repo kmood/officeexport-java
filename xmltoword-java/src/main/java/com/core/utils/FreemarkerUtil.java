@@ -18,6 +18,7 @@ import java.net.URL;
 public class FreemarkerUtil {
     public  static Configuration configuration;
     public  static final String MODELRELATIONPATH = "C:\\Users\\admin\\Desktop";
+
     static {
         try {
 //            URL url = FreemarkerUtil.class.getClassLoader().getResource(MODELRELATIONPATH);
