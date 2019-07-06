@@ -6,4 +6,5 @@ package com.core.freemaker;
  * @Description:
  */
 public class Config {
+    
 }

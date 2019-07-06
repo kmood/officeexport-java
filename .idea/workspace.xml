@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9f5ba4d-a21f-4d24-9f9c-c1baf1d116e8" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/freemaker/Config.java" afterDir="false" />
+    <list default="true" id="c9f5ba4d-a21f-4d24-9f9c-c1baf1d116e8" name="Default" comment="设计freemarker导出架构">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/WordXmlModelHandlerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/WordXmlModelHandlerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlModelHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlModelHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/word/TestWordXmlModelHandlerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/word/TestWordXmlModelHandlerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/freemaker/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/freemaker/Config.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/xmltoword-java/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -73,8 +69,8 @@
       <file leaf-file-name="Config.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/freemaker/Config.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="216">
+              <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -155,12 +151,12 @@
         <option value="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/test.java" />
         <option value="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/freemaker/exportword/TestExport.java" />
         <option value="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/freemaker/Configuration.java" />
-        <option value="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/freemaker/Config.java" />
         <option value="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/freemaker/GlobalConfig.java" />
         <option value="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/XmlModelHandler.java" />
         <option value="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/word/WordXmlModelHandlerImpl.java" />
         <option value="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/utils/FreemarkerUtil.java" />
         <option value="$PROJECT_DIR$/xmltoword-java/src/test/java/com/test/word/TestWordXmlModelHandlerImpl.java" />
+        <option value="$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/freemaker/Config.java" />
       </list>
     </option>
   </component>
@@ -340,7 +336,7 @@
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15659575" />
     <property name="project.structure.side.proportion" value="0.20029028" />
-    <property name="settings.editor.selected.configurable" value="vcs.Subversion.Network" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -548,7 +544,7 @@
       <workItem from="1561952096941" duration="5104000" />
       <workItem from="1562028254776" duration="24347000" />
       <workItem from="1562115171322" duration="50148000" />
-      <workItem from="1562303710952" duration="9607000" />
+      <workItem from="1562303710952" duration="10918000" />
     </task>
     <task id="LOCAL-00001" summary="优化架构，增加单元测试">
       <created>1561958243384</created>
@@ -592,7 +588,21 @@
       <option name="project" value="LOCAL" />
       <updated>1562305372811</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="设计freemarker导出架构">
+      <created>1562418460196</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1562418460196</updated>
+    </task>
+    <task id="LOCAL-00008" summary="设计freemarker导出架构">
+      <created>1562418890505</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1562418890505</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -628,7 +638,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91265000" />
+    <option name="totallyTimeSpent" value="92576000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -643,13 +653,13 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2990249" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2990249" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3618635" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info anchor="right" id="Jenkins" order="3" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2468017" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2468017" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="BPMNPalette" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -721,7 +731,8 @@
     <MESSAGE value="修改语法转换策略" />
     <MESSAGE value="添加循环嵌套功能" />
     <MESSAGE value="增加表格列表嵌套循环的单元测试" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加表格列表嵌套循环的单元测试" />
+    <MESSAGE value="设计freemarker导出架构" />
+    <option name="LAST_COMMIT_MESSAGE" value="设计freemarker导出架构" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1074,8 +1085,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/xmltoword-java/src/main/java/com/core/freemaker/Config.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="216">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
         </state>
       </provider>
     </entry>
