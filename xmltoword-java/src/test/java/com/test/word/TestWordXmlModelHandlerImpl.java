@@ -25,7 +25,7 @@ public class TestWordXmlModelHandlerImpl {
     @Test
     public void TestConverToFreemaker(){
         try {
-            w.ConverToFreemaker("C:\\Users\\admin\\Desktop\\test.xml");
+            w.ConverToFreemaker("C:\\Users\\admin\\Desktop\\test.xml",null);
         } catch (Exception e) {
             e.printStackTrace();
         }

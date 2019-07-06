@@ -46,7 +46,7 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
     }
 
     @Override
-    public String ConverToFreemaker(String xmlPath) throws  Exception{
+    public String ConverToFreemaker(String xmlPath,String ftlOutputPath) throws  Exception{
         XMLWriter writer = null;
         try {
             SAXReader reader = new SAXReader();
@@ -58,12 +58,12 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
             }
             //转换[ 到list标签
             XmlParserUtils.BracketToListConversion(document);
-            String xmlFtlPath = xmlPath.replace(".xml", ".ftl");
-            FileWriter fileWiter = new FileWriter(xmlFtlPath);
+            if (ftlOutputPath == null) ftlOutputPath = xmlPath.replace(".xml", ".ftl");
+            FileWriter fileWiter = new FileWriter(ftlOutputPath);
             writer = new XMLWriter(fileWiter);
             writer.write( document );
             writer.flush();
-            return xmlFtlPath;
+            return ftlOutputPath;
         }catch (Exception e){
             throw e;
         }finally {
@@ -97,7 +97,7 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
 
     public String WordXmlModelHandle(String xmlPath) throws Exception{
         VerifyModel(xmlPath);
-        String xmlFtlpath = ConverToFreemaker(xmlPath);
+        String xmlFtlpath = ConverToFreemaker(xmlPath,null);
         XmlPlaceHolderHandler(xmlFtlpath);
         return xmlFtlpath;
     }
