@@ -50,21 +50,21 @@ public class PlaceHolder {
 
     //转义后
     //左大括号
-    public static final  String BRACE_L_ = "`~1~`";
+    public static final  String BRACE_L_ = "\\1";
     //右大括号
-    public static final  String BRACE_R_ = "`~2~`";
+    public static final  String BRACE_R_ = "\\2";
     //左方括号
-    public static final  String BRACKET_L_ = "`~3~`";
+    public static final  String BRACKET_L_ = "\\3";
     //右方括号
-    public static final  String BRACKET_R_ = "`~4~`";
+    public static final  String BRACKET_R_ = "\\4";
     //#号
-    public static final  String POUND_ = "`~5~`";
+    public static final  String POUND_ = "\\5";
     //*号
-    public static final  String X_ = "`~6~`";
+    public static final  String X_ = "\\6";
     //@号
-    public static final  String A_ = "`~7~`";
+    public static final  String A_ = "\\7";
     //$号
-    public static final  String D_ = "`~8~`";
+    public static final  String D_ = "\\8";
 
     //占位符匹配
     //标识表格行数组
