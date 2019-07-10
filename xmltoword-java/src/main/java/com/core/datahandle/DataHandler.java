@@ -1,4 +1,4 @@
-package com.core.freemaker;
+package com.core.datahandle;
 
 /**
  * @Auther: SunBC

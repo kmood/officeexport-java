@@ -1,4 +1,4 @@
-package com.core.freemaker;
+package com.core.datahandle;
 
 import com.core.utils.StringUtil;
 import freemarker.cache.FileTemplateLoader;
@@ -16,21 +16,21 @@ import java.util.ArrayList;
  * @Date: 2019/7/5 15:09
  * @Description:
  */
-public class GlobalConfig {
+public class FMConfiguration {
     private volatile Configuration configuration ;
     private Version FMVersion = Configuration.VERSION_2_3_28;
     private TemplateExceptionHandler FMExceptionHandler = TemplateExceptionHandler.RETHROW_HANDLER;
     private String FMEncoding = "UTF-8";
     private volatile ArrayList<String > FMModelPathArr = new ArrayList();
 
-    public GlobalConfig(Configuration configuration) {
+    public FMConfiguration(Configuration configuration) {
         if (configuration != null ){
             this.configuration = configuration;
         }
     }
-    public GlobalConfig(Version FMVersion,String encoding,TemplateExceptionHandler ExceptionHandler ) {
+    public FMConfiguration(Version FMVersion, String encoding, TemplateExceptionHandler ExceptionHandler ) {
         if (configuration == null ){
-            synchronized (GlobalConfig.class){
+            synchronized (FMConfiguration.class){
                 if (configuration == null ){
                     if (FMVersion != null)configuration = new Configuration(Configuration.VERSION_2_3_28);
                     if (encoding != null)configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
@@ -39,9 +39,9 @@ public class GlobalConfig {
             }
         }
     }
-    public GlobalConfig() {
+    public FMConfiguration() {
         if (configuration == null ){
-            synchronized (GlobalConfig.class){
+            synchronized (FMConfiguration.class){
                 if (configuration == null ){
                     configuration = new Configuration(Configuration.VERSION_2_3_28);
                     configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
