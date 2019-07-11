@@ -23,9 +23,9 @@ public class FMConfiguration {
     private static String FMEncoding = "UTF-8";
     private static volatile ArrayList<String > FMModelPathArr = new ArrayList();
 
-    public static void Init(Configuration configuration) {
-        if (configuration != null ){
-            configuration = configuration;
+    public static void Init(Configuration config) {
+        if (config != null ){
+            configuration = config;
         }
     }
     public static void Init(Version FMVersion, String encoding, TemplateExceptionHandler ExceptionHandler ) {

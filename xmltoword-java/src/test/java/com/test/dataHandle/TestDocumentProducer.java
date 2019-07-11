@@ -1,6 +1,7 @@
 package com.test.dataHandle;
 
 import com.core.datahandle.DocumentProducer;
+import com.core.utils.FreemarkerUtil;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -27,7 +28,17 @@ public class TestDocumentProducer {
             e.printStackTrace();
         }
     }
-
+    @Test
+    public void TestDocumentProducerCustomer(){
+        try {
+            HashMap<String, Object> data = getData();
+            DocumentProducer dp = new DocumentProducer(FreemarkerUtil.configuration,path);
+            dp.Complie(xmlPath);
+            dp.produce(data,ExportFilePath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private HashMap<String, Object> getData() {
         ArrayList<Map<String, Object>> mapList = new ArrayList<>();
         HashMap<String, Object> map1 = new HashMap<>();

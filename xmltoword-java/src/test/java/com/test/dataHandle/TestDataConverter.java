@@ -22,7 +22,7 @@ public class TestDataConverter {
         System.out.println("转换前数据--"+data);
 
         Config config = new Config();
-        config.setKeyHandler("test6", new DataHandler() {
+        config.setKeyHandler("test5", new DataHandler() {
             @Override
             public Object ObjHandle(Object DataValue) {
                 return "word Export-a-处理过后";

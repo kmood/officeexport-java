@@ -42,6 +42,7 @@ public class test {
 //            Map map3 = gson.fromJson(s, new TypeToken<HashMap<String, Object>>() {
 //            }.getType());
 //            System.out.println("$.lis2222t[2]222[0]2[0]".replaceAll("\\[[0-9]{1,}]","*"));
+            System.out.println("$.test5".replaceAll("\\$\\.",""));
         } catch (Exception e) {
             e.printStackTrace();
         }

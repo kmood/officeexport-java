@@ -14,8 +14,8 @@ import java.io.OutputStreamWriter;
 public class DocumentProducer {
     private ThreadLocal<String> ActualModelPathLocal = new ThreadLocal<>();
     private ThreadLocal<String> ActualModelNameLocal = new ThreadLocal<>();
-    public DocumentProducer(Configuration configuration,String ActualModelPath){
-        FMConfiguration.Init(configuration);
+    public DocumentProducer(Configuration CustomerConfig,String ActualModelPath){
+        FMConfiguration.Init(CustomerConfig);
         ActualModelPathLocal.set(ActualModelPath);
     }
     public DocumentProducer(String ActualModelPath)throws Exception{

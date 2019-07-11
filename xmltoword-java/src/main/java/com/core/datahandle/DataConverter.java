@@ -26,7 +26,7 @@ public class DataConverter {
         HashMap<String, String> keyGlobalConfrMap = conf.getKeyGlobalConfrMap();
         GsonBuilder g = new GsonBuilder();
         GsonBuilder gsonBuilder = g.serializeNulls();
-        if (keyGlobalConfrMap.containsKey(GlobalConfItemEnum.D_F))
+        if (keyGlobalConfrMap !=null && keyGlobalConfrMap.containsKey(GlobalConfItemEnum.D_F))
             gsonBuilder.setDateFormat(keyGlobalConfrMap.get(GlobalConfItemEnum.D_F));
         gsonBuilder.registerTypeAdapter(
                 new TypeToken<HashMap<String, Object>>() {
@@ -39,8 +39,9 @@ public class DataConverter {
                     @Override
                     public Object read(JsonReader in) throws IOException {
                         JsonToken token = in.peek();
-                        String path = in.getPath().replaceAll("$.","");
-                        String path_ = path.replaceAll("\\[[0-9]{1,}]", "*").replaceAll("$.","");
+                        String ActPath = in.getPath();
+                        String path = ActPath.replaceAll("\\$\\.","");
+                        String path_ = path.replaceAll("\\[[0-9]{1,}]", "*").replaceAll("\\$\\.","");
                         switch (token) {
                             case BEGIN_ARRAY:
                                 List<Object> list = new ArrayList<Object>();
@@ -49,8 +50,8 @@ public class DataConverter {
                                     list.add(read(in));
                                 }
                                 in.endArray();
-                                if(keyConfMap.containsKey(path)) return keyConfMap.get(path).ObjHandle(list);
-                                if(keyConfMap.containsKey(path_)) return keyConfMap.get(path_).ObjHandle(list);
+                                if(keyConfMap !=null && keyConfMap.containsKey(path)) return keyConfMap.get(path).ObjHandle(list);
+                                if(keyConfMap !=null &&keyConfMap.containsKey(path_)) return keyConfMap.get(path_).ObjHandle(list);
                                 return list;
                             case BEGIN_OBJECT:
                                 Map<String, Object> map = new HashMap<String, Object>();
@@ -59,13 +60,13 @@ public class DataConverter {
                                     map.put(in.nextName(), read(in));
                                 }
                                 in.endObject();
-                                if(keyConfMap.containsKey(path)) return keyConfMap.get(path).ObjHandle(map);
-                                if(keyConfMap.containsKey(path_)) return keyConfMap.get(path_).ObjHandle(map);
+                                if(keyConfMap !=null &&keyConfMap.containsKey(path)) return keyConfMap.get(path).ObjHandle(map);
+                                if(keyConfMap !=null &&keyConfMap.containsKey(path_)) return keyConfMap.get(path_).ObjHandle(map);
                                 return map;
                             case STRING:
                                 String s = in.nextString();
-                                if(keyConfMap.containsKey(path)) return keyConfMap.get(path).ObjHandle(s);
-                                if(keyConfMap.containsKey(path_)) return keyConfMap.get(path_).ObjHandle(s);
+                                if(keyConfMap !=null &&keyConfMap.containsKey(path)) return keyConfMap.get(path).ObjHandle(s);
+                                if(keyConfMap !=null &&keyConfMap.containsKey(path_)) return keyConfMap.get(path_).ObjHandle(s);
                                 return s;
                             case NUMBER:
                                 /**
@@ -73,8 +74,8 @@ public class DataConverter {
                                  */
 
                                 double dbNum = in.nextDouble();
-                                if(keyConfMap.containsKey(path)) return keyConfMap.get(path).ObjHandle(dbNum);
-                                if(keyConfMap.containsKey(path_)) return keyConfMap.get(path_).ObjHandle(dbNum);
+                                if(keyConfMap !=null &&keyConfMap.containsKey(path)) return keyConfMap.get(path).ObjHandle(dbNum);
+                                if(keyConfMap !=null &&keyConfMap.containsKey(path_)) return keyConfMap.get(path_).ObjHandle(dbNum);
                                 // 数字超过long的最大值，返回浮点类型
                                 if (dbNum > Long.MAX_VALUE) {
                                     return dbNum;
@@ -90,8 +91,8 @@ public class DataConverter {
                                 return in.nextBoolean();
                             case NULL:
                                 in.nextNull();
-                                if(keyConfMap.containsKey(path)) return keyConfMap.get(path).ObjHandle(null);
-                                if(keyConfMap.containsKey(path_)) return keyConfMap.get(path_).ObjHandle(null);
+                                if(keyConfMap !=null && keyConfMap.containsKey(path)) return keyConfMap.get(path).ObjHandle(null);
+                                if(keyConfMap !=null && keyConfMap.containsKey(path_)) return keyConfMap.get(path_).ObjHandle(null);
                                 return null;
                             default:
                                 throw new IllegalStateException();

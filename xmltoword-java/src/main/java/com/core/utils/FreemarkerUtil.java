@@ -17,19 +17,14 @@ import java.net.URL;
  */
 public class FreemarkerUtil {
     public  static Configuration configuration;
-    public  static final String MODELRELATIONPATH = "C:\\Users\\admin\\Desktop";
+    public  static final String MODELRELATIONPATH = FreemarkerUtil.class.getClassLoader().getResource("./model/").getPath();
 
     static {
         try {
-//            URL url = FreemarkerUtil.class.getClassLoader().getResource(MODELRELATIONPATH);
-//            if (url == null) throw new RuntimeException("模板路径不存在");
-//            String uri = url.toURI().getPath();
-//            String path = uri.replace("/", File.separator);
-            String path = MODELRELATIONPATH;
             configuration = new Configuration(Configuration.VERSION_2_3_28);
             configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
             configuration.setDefaultEncoding("UTF-8");
-            configuration.setDirectoryForTemplateLoading(new File(path));
+            configuration.setDirectoryForTemplateLoading(new File(MODELRELATIONPATH));
         } catch (Exception e) {
             e.printStackTrace();
         }

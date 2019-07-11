@@ -14,11 +14,17 @@ public class Config {
         return GlobalConfigocal.get();
     }
     public Config setKeyHandler(String path,DataHandler handler){
-        configLocal.get().put(StringUtil.removeInvisibleChar(path),handler);
+        HashMap<String, DataHandler> dataHandlerHashMap = configLocal.get();
+        if (dataHandlerHashMap == null) dataHandlerHashMap = new HashMap<>();
+        dataHandlerHashMap.put(StringUtil.removeInvisibleChar(path),handler);
+        configLocal.set(dataHandlerHashMap);
         return this;
     }
     public Config setGlobalKeyHandler(GlobalConfItemEnum confItemEnum,String format){
-        GlobalConfigocal.get().put(confItemEnum.getName(),format);
+        HashMap<String, String> StringHashMap = GlobalConfigocal.get();
+        if (StringHashMap == null ) StringHashMap = new HashMap<>();
+        StringHashMap.put(confItemEnum.getName(),format);
+        GlobalConfigocal.set(StringHashMap);
         return this;
     }
 
