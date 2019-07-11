@@ -8,9 +8,9 @@ import com.core.utils.FileUtils;
  * @Description:
  */
 public class XmlModelParser {
-    public static String Compile(String filePath)throws Exception{
+    public static String Compile(String filePath,String ActualModelPath)throws Exception{
         WordXmlModelHandlerImpl wordXmlModelHandler = new WordXmlModelHandlerImpl();
-        String path = wordXmlModelHandler.WordXmlModelHandle(filePath);
+        String path = wordXmlModelHandler.WordXmlModelHandle(filePath,ActualModelPath);
         return path;
     }
 

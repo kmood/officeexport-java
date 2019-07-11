@@ -6,7 +6,7 @@ package com.core.word;
  * @Description:
  */
 public interface XmlModelHandler {
-    public void VerifyModel(String xmlPath) throws Exception;
-    public String ConverToFreemaker(String xmlPath,String ftlOutputPath)throws Exception;
-    public void XmlPlaceHolderHandler(String xmlPath) throws Exception;
+     void VerifyModel(String xmlPath) throws Exception;
+     String ConverToFreemaker(String xmlPath,String ftlOutputPath)throws Exception;
+     void XmlPlaceHolderHandler(String xmlPath) throws Exception;
 }

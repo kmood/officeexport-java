@@ -4,6 +4,7 @@ package com.core.word;
 import com.core.utils.FileUtils;
 import com.core.utils.StringUtil;
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
@@ -13,6 +14,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class WordXmlModelHandlerImpl implements XmlModelHandler{
     @Override
-    public  void VerifyModel(String xmlPath) throws Exception {
+    public  void VerifyModel(String xmlPath)throws DocumentException {
         String  errorInfo = null;
         SAXReader reader = new SAXReader();
         Document document = reader.read(new File(xmlPath));
@@ -46,11 +48,12 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
     }
 
     @Override
-    public String ConverToFreemaker(String xmlPath,String ftlOutputPath) throws  Exception{
+    public String ConverToFreemaker(String xmlPath,String ftlOutputPath)throws DocumentException,IOException {
         XMLWriter writer = null;
         try {
             SAXReader reader = new SAXReader();
-            Document document = reader.read(new File(xmlPath));
+            File file = new File(xmlPath);
+            Document document = reader.read(file);
             List list = document.selectNodes("//w:p");
             for (int i = 0; i <list.size() ; i++) {
                 Node WPNode = (Node)list.get(i);
@@ -59,13 +62,13 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
             //转换[ 到list标签
             XmlParserUtils.BracketToListConversion(document);
             if (ftlOutputPath == null) ftlOutputPath = xmlPath.replace(".xml", ".ftl");
+            String name = file.getName();
+            ftlOutputPath = ftlOutputPath + name +".ftl";
             FileWriter fileWiter = new FileWriter(ftlOutputPath);
             writer = new XMLWriter(fileWiter);
             writer.write( document );
             writer.flush();
             return ftlOutputPath;
-        }catch (Exception e){
-            throw e;
         }finally {
             if (writer != null )
                 writer.close();
@@ -73,7 +76,7 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
     }
 
     @Override
-    public void XmlPlaceHolderHandler(String xmlFtlPath) throws Exception{
+    public void XmlPlaceHolderHandler(String xmlFtlPath) throws IOException{
         XMLWriter writer = null;
         FileOutputStream out = null;
         try {
@@ -84,8 +87,6 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
             out = new FileOutputStream(xmlFtlPath);
             out.write(xmModelStr.getBytes());
             out.flush();
-        }catch (Exception e){
-            throw e;
         }finally {
             if(out != null){
                 out.close();
@@ -95,9 +96,9 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
 
 
 
-    public String WordXmlModelHandle(String xmlPath) throws Exception{
+    public String WordXmlModelHandle(String xmlPath,String ActualModelPath) throws IOException,DocumentException{
         VerifyModel(xmlPath);
-        String xmlFtlpath = ConverToFreemaker(xmlPath,null);
+        String xmlFtlpath = ConverToFreemaker(xmlPath,ActualModelPath);
         XmlPlaceHolderHandler(xmlFtlpath);
         return xmlFtlpath;
     }

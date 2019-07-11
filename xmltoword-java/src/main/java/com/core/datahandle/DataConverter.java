@@ -21,7 +21,7 @@ import java.util.Map;
  * @Description:
  */
 public class DataConverter {
-    public Object convert(Object obj,Config conf){
+    public static Object convert(Object obj,Config conf){
         HashMap<String, DataHandler> keyConfMap = conf.getKeyConfMap();
         HashMap<String, String> keyGlobalConfrMap = conf.getKeyGlobalConfrMap();
         GsonBuilder g = new GsonBuilder();

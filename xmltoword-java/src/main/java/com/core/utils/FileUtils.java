@@ -1,11 +1,6 @@
 package com.core.utils;
 
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.Reader;
-
+import java.io.*;
 public class FileUtils {
 	/**
 	 * 
@@ -17,7 +12,7 @@ public class FileUtils {
 	 * @author SunBC
 	 * @time 2018年10月16日 下午6:53:31
 	 */
-	public static String readToStringByFilepath(String filePath)throws Exception{
+	public static String readToStringByFilepath(String filePath)throws IOException {
 		StringBuilder data = new StringBuilder();
 		Reader reader  =  null;
 		try {
@@ -28,9 +23,8 @@ public class FileUtils {
 			while ((len = reader.read(c)) != -1){
 				data.append(String.copyValueOf(c,0,len));
 			}
-		} catch (Exception e) {
-			throw e;
-		}finally {
+		} finally {
+			if (reader != null)
 			reader.close();
 		}
 		return data.toString();

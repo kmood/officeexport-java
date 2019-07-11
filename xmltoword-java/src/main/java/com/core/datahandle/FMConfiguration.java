@@ -17,18 +17,18 @@ import java.util.ArrayList;
  * @Description:
  */
 public class FMConfiguration {
-    private volatile Configuration configuration ;
-    private Version FMVersion = Configuration.VERSION_2_3_28;
-    private TemplateExceptionHandler FMExceptionHandler = TemplateExceptionHandler.RETHROW_HANDLER;
-    private String FMEncoding = "UTF-8";
-    private volatile ArrayList<String > FMModelPathArr = new ArrayList();
+    private static volatile Configuration configuration ;
+    private static Version FMVersion = Configuration.VERSION_2_3_28;
+    private static TemplateExceptionHandler FMExceptionHandler = TemplateExceptionHandler.RETHROW_HANDLER;
+    private static String FMEncoding = "UTF-8";
+    private static volatile ArrayList<String > FMModelPathArr = new ArrayList();
 
-    public FMConfiguration(Configuration configuration) {
+    public static void Init(Configuration configuration) {
         if (configuration != null ){
-            this.configuration = configuration;
+            configuration = configuration;
         }
     }
-    public FMConfiguration(Version FMVersion, String encoding, TemplateExceptionHandler ExceptionHandler ) {
+    public static void Init(Version FMVersion, String encoding, TemplateExceptionHandler ExceptionHandler ) {
         if (configuration == null ){
             synchronized (FMConfiguration.class){
                 if (configuration == null ){
@@ -39,7 +39,7 @@ public class FMConfiguration {
             }
         }
     }
-    public FMConfiguration() {
+    public static void Init() {
         if (configuration == null ){
             synchronized (FMConfiguration.class){
                 if (configuration == null ){
@@ -50,7 +50,7 @@ public class FMConfiguration {
             }
         }
     }
-    public Configuration addFMModelPath(String fmModelPath) throws Exception{
+    public static Configuration addFMModelPath(String fmModelPath) throws Exception{
         if (StringUtil.isBlank(fmModelPath)) return configuration;
         int length = fmModelPath.length();
         if (fmModelPath.lastIndexOf("\\")  != length-1 || fmModelPath.lastIndexOf("/")  != length-1 )
@@ -68,5 +68,7 @@ public class FMConfiguration {
         }
         return configuration;
     }
-
+    public static Configuration getConfiguration() {
+        return configuration;
+    }
 }
