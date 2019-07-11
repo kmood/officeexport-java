@@ -53,16 +53,18 @@ public class FMConfiguration {
     public static Configuration addFMModelPath(String fmModelPath) throws Exception{
         if (StringUtil.isBlank(fmModelPath)) return configuration;
         int length = fmModelPath.length();
-        if (fmModelPath.lastIndexOf("\\")  != length-1 || fmModelPath.lastIndexOf("/")  != length-1 )
-            fmModelPath = fmModelPath.substring(0,length-1);
+        fmModelPath = fmModelPath.replace("\\",File.separator);
+        fmModelPath = fmModelPath.replace("/",File.separator);
         if (FMModelPathArr.contains(fmModelPath)) return configuration;
         TemplateLoader tl = configuration.getTemplateLoader();
-        if (tl instanceof  MultiTemplateLoader) {
+        if (tl == null || tl instanceof  MultiTemplateLoader) {
             FMModelPathArr.add(fmModelPath);
             TemplateLoader[] loaders = new TemplateLoader[FMModelPathArr.size()];
             for (int i = 0; i < FMModelPathArr.size(); i++) {
                 loaders[i] = new FileTemplateLoader(new File(FMModelPathArr.get(i)));
             }
+            MultiTemplateLoader mtl = new MultiTemplateLoader(loaders);
+            configuration.setTemplateLoader(mtl);
         }else{
             throw new RuntimeException("freemaker 配置对应的模板加载器类型不一致，若使用自定义配置，请调整模板位置！无需调用方法！");
         }

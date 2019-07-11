@@ -38,7 +38,6 @@ public class TestXmlParserUtils {
     }
     @Test
     public  void testIfTagHandle(){
-
         String s = XmlParserUtils.IfTagHandle("ttt<#if type=\"if\" content=\" (test1)??\">tttt");
         String s1 = XmlParserUtils.IfTagHandle("");
         String s2 = XmlParserUtils.IfTagHandle(null);

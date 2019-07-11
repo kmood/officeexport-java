@@ -28,7 +28,8 @@ public class DocumentProducer {
         WordXmlModelHandlerImpl wordXmlModelHandler = new WordXmlModelHandlerImpl();
         String path = wordXmlModelHandler.WordXmlModelHandle(XmlModelPath,ActualModelPathLocal.get());
         File file = new File(path);
-        ActualModelNameLocal.set(file.getName());
+        String name = file.getName();
+        ActualModelNameLocal.set(name);
         return path;
     }
     public void produce(Object data,String ProduceFilePath)throws IOException,TemplateException {

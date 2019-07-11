@@ -1,32 +1,34 @@
-package com.test.freemaker.exportword;
+package com.test.dataHandle;
 
-import com.core.utils.FreemarkerUtil;
-import com.core.word.XmlModelParser;
-import freemarker.template.Template;
+import com.core.datahandle.DocumentProducer;
 import org.junit.Test;
 
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @Auther: SunBC
- * @Date: 2019/4/16 10:09
+ * @Date: 2019/7/11 13:08
  * @Description:
  */
-public class TestExport {
-    /**
-     * description: 测试[# 表格循环嵌套
-     * @auther: SunBC
-     * @date: 2019/7/4 21:16
-     */
+public class TestDocumentProducer {
+    String path = this.getClass().getClassLoader().getResource("./model/").getPath();
+    String xmlPath = this.getClass().getClassLoader().getResource("./model/testWordTableList.xml").getPath();
+    String ExportFilePath = this.getClass().getClassLoader().getResource("./model/testWordTableList.xml").getPath()+".doc";
     @Test
-    public  void exportWord()throws Exception{
-        String path = this.getClass().getClassLoader().getResource("./model/testWordTableList.xml").getPath();
-        XmlModelParser.Compile(path);
+    public void TestDocumentProducer(){
+        try {
+            HashMap<String, Object> data = getData();
+            DocumentProducer dp = new DocumentProducer(path);
+            dp.Complie(xmlPath);
+            dp.produce(data,ExportFilePath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private HashMap<String, Object> getData() {
         ArrayList<Map<String, Object>> mapList = new ArrayList<>();
         HashMap<String, Object> map1 = new HashMap<>();
         map1.put("a","word Export-a");
@@ -55,9 +57,6 @@ public class TestExport {
         map.put("test5",mapList2);
         map.put("test0","word Export-test0");
         map.put("test1","word Export-test1");
-        String exportPath = path.substring(0, path.indexOf(".")) + ".doc";
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(exportPath), "utf-8");
-        Template template = FreemarkerUtil.configuration.getTemplate("testWordTableList.ftl");
-        template.process(map,outputStreamWriter);
+        return map;
     }
 }
