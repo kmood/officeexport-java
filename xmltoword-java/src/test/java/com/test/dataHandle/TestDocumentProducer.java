@@ -17,6 +17,11 @@ public class TestDocumentProducer {
     String path = this.getClass().getClassLoader().getResource("./model/").getPath();
     String xmlPath = this.getClass().getClassLoader().getResource("./model/testWordTableList.xml").getPath();
     String ExportFilePath = this.getClass().getClassLoader().getResource("./model/testWordTableList.xml").getPath()+".doc";
+    /**
+     * description: 基本导出测试
+     * @auther: SunBC
+     * @date: 2019/7/12 16:54
+     */
     @Test
     public void TestDocumentProducer(){
         try {
@@ -28,6 +33,11 @@ public class TestDocumentProducer {
             e.printStackTrace();
         }
     }
+    /**
+     * description: 自定义FM配置测试
+     * @auther: SunBC
+     * @date: 2019/7/12 16:54
+     */
     @Test
     public void TestDocumentProducerCustomer(){
         try {
@@ -70,4 +80,5 @@ public class TestDocumentProducer {
         map.put("test1","word Export-test1");
         return map;
     }
+
 }

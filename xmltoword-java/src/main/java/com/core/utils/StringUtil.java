@@ -51,7 +51,8 @@ public class StringUtil extends StringUtils {
         int l = data.length();
 
         if (i>l-1) return data.substring(l-size, l);
-        if (i<=0) return data;
+        if (i<=0 && (data.length() < size)) return data;
+        if (i<=0 && (data.length() > size)) return data.substring(0,size);
 
         if (i <= size) pre = data.substring(0,i);
         else pre = data.substring(i-size,i);

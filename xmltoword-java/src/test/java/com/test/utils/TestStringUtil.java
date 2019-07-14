@@ -1,6 +1,7 @@
 package com.test.utils;
 
 import com.core.utils.StringUtil;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -11,13 +12,14 @@ import org.junit.Test;
 public class TestStringUtil {
     @Test
     public void testSubstringBeforeAfterSize(){
-        System.out.println(StringUtil.substringBeforeAfterSize("123456789",0,5));
-        System.out.println(StringUtil.substringBeforeAfterSize("123456789",4,5));
-        System.out.println(StringUtil.substringBeforeAfterSize("123456789",5,5));
-        System.out.println(StringUtil.substringBeforeAfterSize("123456789123",6,5));
-        System.out.println(StringUtil.substringBeforeAfterSize("123456789123",8,5));
-        System.out.println(StringUtil.substringBeforeAfterSize("123456789",9,5));
-        System.out.println(StringUtil.substringBeforeAfterSize("123456789",5,10));
+        Assert.assertEquals(StringUtil.substringBeforeAfterSize("123456789",0,5),"12345");
+        Assert.assertEquals(StringUtil.substringBeforeAfterSize("123456789",4,5),"123456789");
+        Assert.assertEquals(StringUtil.substringBeforeAfterSize("123456789",5,5),"123456789");
+        Assert.assertEquals(StringUtil.substringBeforeAfterSize("123456789",6,5),"23456789");
+        Assert.assertEquals(StringUtil.substringBeforeAfterSize("123456789123",6,5),"2345678912");
+        Assert.assertEquals(StringUtil.substringBeforeAfterSize("123456789123",8,5),"456789123");
+        Assert.assertEquals(StringUtil.substringBeforeAfterSize("123456789123",9,5),"56789123");
+        Assert.assertEquals(StringUtil.substringBeforeAfterSize("123456789",9,5),"56789");
 
     }
 
