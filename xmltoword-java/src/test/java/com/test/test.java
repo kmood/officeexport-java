@@ -18,16 +18,16 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class test {
     /**
-     * description:包装说明表（范例A）.xml  模板导出测试
+     * description:包装说明表（范例A）.xml  模板导出测试,验证格式，功能
      * @auther: SunBC
      * @date: 2019/7/12 16:58
      */
     @Test
     public  void test1(){
-        String path = this.getClass().getClassLoader().getResource("./model/").getPath();
-        String xmlPath = this.getClass().getClassLoader().getResource("./model/包装说明表（范例A）.xml").getPath();
-        String ExportFilePath = this.getClass().getClassLoader().getResource("./model/包装说明表（范例A）.xml").getPath()+".doc";
         try {
+            String path = this.getClass().getClassLoader().getResource("./model/").toURI().getPath();
+            String xmlPath = this.getClass().getClassLoader().getResource("./model/包装说明表（范例A）.xml").toURI().getPath();
+            String ExportFilePath = this.getClass().getClassLoader().getResource("./model/包装说明表（范例A）.xml").toURI().getPath()+".doc";
             HashMap<String, Object> map = new HashMap<>();
             map.put("zzdhm","kmood-导出-制造单号码");
             map.put("ydwcrq","kmood-导出-预定完成日期");
@@ -54,7 +54,7 @@ public class test {
             map.put("zxsm",zxsmList);
             map.put("sbsm","kmood-导出-商标说明");
             DocumentProducer dp = new DocumentProducer(path);
-            dp.Complie(xmlPath);
+            dp.Complie(xmlPath,true);
             dp.produce(map,ExportFilePath);
         } catch (Exception e) {
             e.printStackTrace();

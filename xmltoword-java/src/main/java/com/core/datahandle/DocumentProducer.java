@@ -24,13 +24,15 @@ public class DocumentProducer {
         ActualModelPathLocal.set(ActualModelPath);
     }
 
-    public String Complie(String XmlModelPath)throws DocumentException,IOException {
-        WordXmlModelHandlerImpl wordXmlModelHandler = new WordXmlModelHandlerImpl();
-        String path = wordXmlModelHandler.WordXmlModelHandle(XmlModelPath,ActualModelPathLocal.get());
-        File file = new File(path);
+    public String Complie(String XmlModelPath,boolean debugModel)throws DocumentException,IOException {
+        if (debugModel){
+            WordXmlModelHandlerImpl wordXmlModelHandler = new WordXmlModelHandlerImpl();
+            String path = wordXmlModelHandler.WordXmlModelHandle(XmlModelPath,ActualModelPathLocal.get());
+        }
+        File file = new File(XmlModelPath);
         String name = file.getName();
-        ActualModelNameLocal.set(name);
-        return path;
+        ActualModelNameLocal.set(name+".ftl");
+        return XmlModelPath+File.separator+name;
     }
     public void produce(Object data,String ProduceFilePath)throws IOException,TemplateException {
         Configuration configuration = FMConfiguration.getConfiguration();

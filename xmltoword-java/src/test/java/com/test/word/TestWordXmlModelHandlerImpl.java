@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,8 @@ import java.util.Map;
  * @Description:
  */
 public class TestWordXmlModelHandlerImpl {
-    String path = this.getClass().getClassLoader().getResource("./model/testWordTableList.xml").getPath();
+//    String path = this.getClass().getClassLoader().getResource("./model/testWordTableList.xml").getPath();
+URL Url = this.getClass().getClassLoader().getResource("./model/包装说明表（范例A）.xml");
     private  static WordXmlModelHandlerImpl w ;
     static {
         w = new WordXmlModelHandlerImpl();
@@ -26,6 +28,7 @@ public class TestWordXmlModelHandlerImpl {
     @Test
     public void TestVerifyModel(){
         try {
+            String path = Url.toURI().getPath();
             w.VerifyModel(path);
         } catch (Exception e) {
             e.printStackTrace();
@@ -34,6 +37,7 @@ public class TestWordXmlModelHandlerImpl {
     @Test
     public void TestConverToFreemaker(){
         try {
+            String path = Url.toURI().getPath();
             w.ConverToFreemaker(path,null);
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,6 +46,7 @@ public class TestWordXmlModelHandlerImpl {
     @Test
     public void TestXmlPlaceHolderHandler(){
         try {
+            String path = Url.toURI().getPath();
             String s = w.ConverToFreemaker(path, null);
             w.XmlPlaceHolderHandler(s);
         } catch (Exception e) {
@@ -52,7 +57,9 @@ public class TestWordXmlModelHandlerImpl {
     @Test
     public void TestVerifyModelTotal(){
         try {
+            String path = Url.toURI().getPath();
             String compile = XmlModelParser.Compile(path,null);
+            System.out.println(compile);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,6 +101,7 @@ public class TestWordXmlModelHandlerImpl {
         map.put("test5",mapList2);
         map.put("test0","word Export-test0");
         map.put("test1","word Export-test1");
+        String path = Url.toURI().getPath();
         String exportPath = path +".docx";
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(exportPath), "utf-8");
         Template template = FreemarkerUtil.configuration.getTemplate("testWordTableList.ftl");

@@ -60,10 +60,10 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
                 XmlParserUtils.PlaceHodlerHandle(WPNode);
             }
             //转换[ 到list标签
-            XmlParserUtils.BracketToListConversion(document);
-            if (ftlOutputPath == null) ftlOutputPath = xmlPath.replace(".xml", ".ftl");
             String name = file.getName();
-            ftlOutputPath = ftlOutputPath + name +".ftl";
+            XmlParserUtils.BracketToListConversion(document);
+            if (ftlOutputPath == null) ftlOutputPath = xmlPath+".ftl";
+            else ftlOutputPath = ftlOutputPath + name +".ftl";
             FileWriter fileWiter = new FileWriter(ftlOutputPath);
             writer = new XMLWriter(fileWiter);
             writer.write( document );
@@ -81,10 +81,12 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
         FileOutputStream out = null;
         try {
             String xmModelStr = FileUtils.readToStringByFilepath(xmlFtlPath);
-            xmModelStr = XmlParserUtils.IfTagHandle(xmModelStr);
-            xmModelStr = XmlParserUtils.ListTagHandle(xmModelStr);
-            xmModelStr = XmlParserUtils.BraceTagHandle(xmModelStr);
+            String body = StringUtil.substringBetween(xmModelStr, "<w:body>", "</w:body>");
+            body = XmlParserUtils.IfTagHandle(body);
+            body = XmlParserUtils.ListTagHandle(body);
+            body = XmlParserUtils.BraceTagHandle(body);
             out = new FileOutputStream(xmlFtlPath);
+            xmModelStr = xmModelStr.substring(0,xmModelStr.indexOf("<w:body>"))+"<w:body>"+body+"</w:body>"+xmModelStr.substring(xmModelStr.lastIndexOf("</w:body>")+9);
             out.write(xmModelStr.getBytes());
             out.flush();
         }finally {

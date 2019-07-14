@@ -22,5 +22,10 @@ public class TestStringUtil {
         Assert.assertEquals(StringUtil.substringBeforeAfterSize("123456789",9,5),"56789");
 
     }
+    @Test
+    public void testApi(){
 
+        System.out.println("0123aaa789aaa".indexOf("aaa"));
+        System.out.println("0123aaa789aaa".lastIndexOf("aaa"));
+    }
 }

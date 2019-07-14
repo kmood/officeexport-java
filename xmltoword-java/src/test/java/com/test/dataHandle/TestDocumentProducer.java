@@ -27,7 +27,7 @@ public class TestDocumentProducer {
         try {
             HashMap<String, Object> data = getData();
             DocumentProducer dp = new DocumentProducer(path);
-            dp.Complie(xmlPath);
+            dp.Complie(xmlPath,true);
             dp.produce(data,ExportFilePath);
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,7 +43,7 @@ public class TestDocumentProducer {
         try {
             HashMap<String, Object> data = getData();
             DocumentProducer dp = new DocumentProducer(FreemarkerUtil.configuration,path);
-            dp.Complie(xmlPath);
+            dp.Complie(xmlPath,true);
             dp.produce(data,ExportFilePath);
         } catch (Exception e) {
             e.printStackTrace();
