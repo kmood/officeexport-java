@@ -1,6 +1,10 @@
 # WordExport
 
- ![jdk1.6+](https://img.shields.io/badge/jdk-1.6%2B-orange.svg) ![jdk1.8](https://img.shields.io/badge/jdk-1.8-orange.svg) 
+ ![jdk1.6+](https://img.shields.io/badge/jdk-1.6%2B-orange.svg) 
+ ![freemarker-2.3.28+](https://img.shields.io/badge/freemarker-2.3.28%2B-orange.svg)
+ ![](https://img.shields.io/badge/platform-all-orange.svg)
+ ![](https://img.shields.io/badge/language-java-orange.svg)
+ 
 
 XmlToWord基于[Apache FreeMarker](https://freemarker.apache.org)，遵从*模板 + 数据模型 = 输出*的理念，
 通过极简API即可实现自定义模板Word的输出，可实现以下功能：
@@ -13,10 +17,10 @@ XmlToWord基于[Apache FreeMarker](https://freemarker.apache.org)，遵从*模�
 
 
 ## 快速开始
-### 代码示例
-   1、调整word模板，添加占位符，并转换到word 2003 xml文档（.xml）。
+>### 代码示例
+   >>1、调整word模板，添加占位符，并转换到word 2003 xml文档（.xml）。
    
-   2、Maven引入jar包，通过api导出
+   >>2、Maven引入jar包，通过api导出
 
    ```xml
 
@@ -31,7 +35,8 @@ XmlToWord基于[Apache FreeMarker](https://freemarker.apache.org)，遵从*模�
      dp.Complie("./xmlModelPath/",true);
      dp.produce(data,"./wordExportPath/test.doc");
    ```
-### 实现效果
+>### 实现效果
+
 
 ## 详细文档与示例
 
