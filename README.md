@@ -1,4 +1,4 @@
-# XmlToWord
+# WordExport
 
  ![jdk1.6+](https://img.shields.io/badge/jdk-1.6%2B-orange.svg) ![jdk1.8](https://img.shields.io/badge/jdk-1.8-orange.svg) 
 
@@ -13,21 +13,24 @@ XmlToWord基于[Apache FreeMarker](https://freemarker.apache.org)，遵从*模�
 
 
 ## 快速开始
-Maven
+### 代码示例
+   1、调整word模板，添加占位符，并转换到word 2003 xml文档（.xml）。
+   
+   2、Maven引入jar包，通过api导出
 
-```xml
+   ```xml
 
-```
-```java
-  HashMap<String, Object> data = new HashMap<>();
-  ...准备数据
-  data.put("zxsm",zxsmList);
-  data.put("sbsm","kmood-导出-商标说明");
-  
-  DocumentProducer dp = new DocumentProducer("./ActualModelGeneratePath/");
-  dp.Complie("./xmlModelPath/",true);
-  dp.produce(data,"./wordExportPath/test.doc");
-```
+   ```
+   ```java
+     HashMap<String, Object> data = new HashMap<>();
+     ...准备数据
+     data.put("zxsm",zxsmList);
+     data.put("sbsm","kmood-导出-商标说明");
+
+     DocumentProducer dp = new DocumentProducer("./ActualModelGeneratePath/");
+     dp.Complie("./xmlModelPath/",true);
+     dp.produce(data,"./wordExportPath/test.doc");
+   ```
 ### 实现效果
 
 ## 详细文档与示例
