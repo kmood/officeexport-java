@@ -1,4 +1,4 @@
-# WordExport
+# officeexport-java
 
  ![jdk1.6+](https://img.shields.io/badge/jdk-1.6%2B-orange.svg) 
  ![freemarker-2.3.28+](https://img.shields.io/badge/freemarker-2.3.28%2B-orange.svg)
@@ -6,8 +6,8 @@
  ![](https://img.shields.io/badge/language-java-orange.svg)
  
 
-XmlToWord基于[Apache FreeMarker](https://freemarker.apache.org)，遵从*模板 + 数据模型 = 输出*的理念，
-通过极简API实现javaBean即数据源，模板即样式的Word导出，提供以下功能：
+officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵从*模板 + 数据模型 = 输出*的理念，
+通过极简API实现javaBean即数据源，模板即样式的Word、Excel导出，提供以下功能：
 
   * 基本文本的输出，文本占位符样式即输出文本样式。
   * 文本行、表格行单行或多行的遍历输出，并能够进行循环嵌套输出。
