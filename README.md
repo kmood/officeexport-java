@@ -39,12 +39,6 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
 >### 实现效果
 ![](https://github.com/kmood/officeexport-java/blob/master/file/exportExample.png)
 
-## 详细文档与示例
-
-
-## 架构设计
-
-
 ## 建议和完善
-参见[常见问题]()，欢迎在GitHub Issue中提问和交流。
+欢迎在GitHub Issue中提问和交流。
 
