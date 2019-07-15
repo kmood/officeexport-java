@@ -19,8 +19,8 @@ import java.util.Map;
  * @Description:
  */
 public class TestWordXmlModelHandlerImpl {
-//    String path = this.getClass().getClassLoader().getResource("./model/testWordTableList.xml").getPath();
-URL Url = this.getClass().getClassLoader().getResource("./model/包装说明表（范例A）.xml");
+    URL Url = this.getClass().getClassLoader().getResource("./model/testWordTableList.xml");
+//URL Url = this.getClass().getClassLoader().getResource("./model/包装说明表（范例A）.xml");
     private  static WordXmlModelHandlerImpl w ;
     static {
         w = new WordXmlModelHandlerImpl();
@@ -103,8 +103,11 @@ URL Url = this.getClass().getClassLoader().getResource("./model/包装说明表�
         map.put("test1","word Export-test1");
         String path = Url.toURI().getPath();
         String exportPath = path +".docx";
+        String compile = XmlModelParser.Compile(path,null);
+
+
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(exportPath), "utf-8");
-        Template template = FreemarkerUtil.configuration.getTemplate("testWordTableList.ftl");
+        Template template = FreemarkerUtil.configuration.getTemplate("testWordTableList.xml.ftl");
         template.process(map,outputStreamWriter);
         System.out.println("-----导出文件路径-----"+exportPath);
     }

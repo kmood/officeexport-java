@@ -19,6 +19,16 @@ import java.util.Set;
  */
 public class XmlParserUtils {
 
+
+    public static void clearPictureContent(Document document) {
+        List pictureList = document.selectNodes(".//w:binData");
+        if (pictureList != null) {
+            for (int i = 0; i < pictureList.size(); i++) {
+                Node node = (Node) pictureList.get(i);
+                node.setText("   ");
+            }
+        }
+    }
     /**
      * description:
      * @auther: SunBC

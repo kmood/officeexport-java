@@ -30,6 +30,8 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
         SAXReader reader = new SAXReader();
         Document document = reader.read(new File(xmlPath));
         Element rootElement = document.getRootElement();
+        //清空占位图片数据
+        XmlParserUtils.clearPictureContent(document);
         //校验段落
         List ParagList = document.selectNodes(".//w:p");
         StringBuilder wpStr = new StringBuilder();
@@ -47,6 +49,8 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
         return ;
     }
 
+
+
     @Override
     public String ConverToFreemaker(String xmlPath,String ftlOutputPath)throws DocumentException,IOException {
         XMLWriter writer = null;
@@ -54,6 +58,8 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
             SAXReader reader = new SAXReader();
             File file = new File(xmlPath);
             Document document = reader.read(file);
+            //清空占位图片数据
+            XmlParserUtils.clearPictureContent(document);
             List list = document.selectNodes("//w:p");
             for (int i = 0; i <list.size() ; i++) {
                 Node WPNode = (Node)list.get(i);
@@ -62,6 +68,30 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
             //转换[ 到list标签
             String name = file.getName();
             XmlParserUtils.BracketToListConversion(document);
+            List pictureList = document.selectNodes("//w:pict");
+            if (pictureList != null ){
+                for (int i = 0; i < pictureList.size(); i++) {
+                    Element node = (Element)pictureList.get(i);
+                    Element shapeNode = (Element)node.selectSingleNode("./v:shape");
+                    Element binDataNode = (Element)node.selectSingleNode("./w:binData");
+                    if (binDataNode == null && shapeNode != null) {
+                        String alt = shapeNode.attributeValue("alt");
+                        if (StringUtil.isNotBlank(alt)){
+                            shapeNode.addAttribute("alt",alt.replaceAll("\\{\\^[\\s\\S]*\\^}",""));
+                        }
+                        continue;
+                    }
+                    if (binDataNode != null  && shapeNode != null){
+                        String alt = shapeNode.attributeValue("alt");
+                        if (StringUtil.isNotBlank(alt)){
+                            shapeNode.addAttribute("alt",alt.replaceAll("\\{\\^[\\s\\S]*\\^}",""));
+                        }
+                        String s = StringUtil.substringBetween(alt, "{^", "^}");
+                        binDataNode.setText("{"+s+"}");
+                    }
+
+                }
+            }
             if (ftlOutputPath == null) ftlOutputPath = xmlPath+".ftl";
             else ftlOutputPath = ftlOutputPath + name +".ftl";
             FileWriter fileWiter = new FileWriter(ftlOutputPath);
