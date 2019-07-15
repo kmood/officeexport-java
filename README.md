@@ -36,7 +36,7 @@ XmlToWord基于[Apache FreeMarker](https://freemarker.apache.org)，遵从*模�
      dp.produce(data,"./wordExportPath/test.doc");
    ```
 >### 实现效果
-
+![](https://github.com/kmood/officeexport-java/file/exportExample.png)
 
 ## 详细文档与示例
 
