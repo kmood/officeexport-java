@@ -1,5 +1,6 @@
 package com.test.word;
 
+import com.core.utils.FileUtils;
 import com.core.utils.FreemarkerUtil;
 import com.core.word.WordXmlModelHandlerImpl;
 import com.core.word.XmlModelParser;
@@ -111,5 +112,28 @@ public class TestWordXmlModelHandlerImpl {
         template.process(map,outputStreamWriter);
         System.out.println("-----导出文件路径-----"+exportPath);
     }
+    /**
+     * description:测试导出图片
+     * @auther: SunBC
+     * @date: 2019/7/16 17:29
+     */
+    @Test
+    public  void testexportPicture()throws Exception{
+        URL Url = this.getClass().getClassLoader().getResource("./model/picture.xml");
+        HashMap<String, Object> map = new HashMap<>();
+        URL IntroUrl = this.getClass().getClassLoader().getResource("./model/picture.xml");
+        URL CodeUrl = this.getClass().getClassLoader().getResource("./model/picture.xml");
+        FileUtils.readToBytesByFilepath("");
+        map.put("intro","word Export-test0");
+        map.put("test1","word Export-test1");
+        String path = Url.toURI().getPath();
+        String exportPath = path +".docx";
+        String compile = XmlModelParser.Compile(path,null);
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(exportPath), "utf-8");
+        Template template = FreemarkerUtil.configuration.getTemplate("picture.xml.ftl");
+        template.process(map,outputStreamWriter);
+        System.out.println("-----导出文件路径-----"+exportPath);
+    }
+
 
 }

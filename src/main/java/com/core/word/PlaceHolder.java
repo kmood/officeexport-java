@@ -10,8 +10,8 @@ import java.util.ArrayList;
  * @Description:
  */
 public class PlaceHolder {
-    public  static  final String[] PHARR = new String[]{"{","}","[","]","#","*","$","@"};
-    public  static  final String PHSTR = "[]{}*#$@";
+    public  static  final String[] PHARR = new String[]{"{","}","[","]","#","*","$","@","^"};
+    public  static  final String PHSTR = "[]{}*#$@^";
     //需要转义的字符
     //左大括号
     public static final  String BRACE_L = "\\{";
@@ -29,6 +29,8 @@ public class PlaceHolder {
     public static final  String A = "@";
     //$号
     public static final  String D = "$";
+    //^号
+    public static final  String P = "^";
 
     //需要转义的字符
     //左大括号
@@ -47,7 +49,8 @@ public class PlaceHolder {
     public static final  Character AC = '@';
     //$号
     public static final  Character DC = '$';
-
+    //^号
+    public static final  Character PC = '^';
     //转义后
     //左大括号
     public static final  String BRACE_L_ = "\\1";
@@ -65,6 +68,8 @@ public class PlaceHolder {
     public static final  String A_ = "\\7";
     //$号
     public static final  String D_ = "\\8";
+    //$号
+    public static final  String P_ = "\\9";
 
     //占位符匹配
     //标识表格行数组
@@ -82,6 +87,7 @@ public class PlaceHolder {
     public static final  String ARRLIST_TEXT_NAME = "*";
     public static final  String ARRLIST_TABLE_NAME = "#";
     public static final  String MERGE_UNIT = "$";
+    public static final  String PICT = "^";
 
     public static String ToESC(String xmlStr){
         if (StringUtils.isBlank(xmlStr)) return xmlStr;
@@ -107,6 +113,17 @@ public class PlaceHolder {
         xmlStr = xmlStr.replaceAll(D_, D);
         return xmlStr;
     }
+
+
+    public static   boolean PIsEffective(ArrayList<Character> charArr , ArrayList<Character> stack, int i){
+        int dl = charArr.size();
+        int l = stack.size();
+        if (l == 0 || dl == i+1 ) return false ;
+        if (stack.get(l-1) == '{' && charArr.get(i +1) == '^'&& dl> i+2 && charArr.get(i +2) == '}') return true;
+        if (l >= 2 && stack.get(l-1) == '^'&& stack.get(l-2) == '{' &&  charArr.get(i +1) == '}') return true;
+        return  false;
+    }
+
     public static   boolean DIsEffective(ArrayList<Character> charArr , ArrayList<Character> stack, int i){
         int dl = charArr.size();
         int l = stack.size();
@@ -126,7 +143,7 @@ public class PlaceHolder {
         int dl = charArr.size();
         int l = stack.size();
         if (dl == i+1 ) return false ;
-        if (charArr.get(i +1) == '}' || charArr.get(i +1) == '$') return true;
+        if (charArr.get(i +1) == '}' || charArr.get(i +1) == '$' || charArr.get(i +1) == '^') return true;
         return  false;
     }
 

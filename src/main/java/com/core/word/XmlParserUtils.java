@@ -62,7 +62,8 @@ public class XmlParserUtils {
                     c == PlaceHolder.BRACKET_RC||
                     c == PlaceHolder.XC||
                     c == PlaceHolder.POUNDC||
-                    c == PlaceHolder.DC)) {
+                    c == PlaceHolder.DC)||
+                    c == PlaceHolder.PC) {
                 errorChar = c;
                 errorIndex = i;
                 break;
@@ -114,11 +115,17 @@ public class XmlParserUtils {
                 errorIndex = i;
                 break;
             }
+            if (c == '^' &&  !PlaceHolder.PIsEffective(charArr,stack,i)){
+                errorChar = c;
+                errorIndex = i;
+                break;
+            }
             //进栈
             if (c == '[' || c == '{'
                     || (c == '*' && stack.get(s-1) != '*')
                     || (c == '#' && stack.get(s-1) != '#')
                     || (c == '$' && stack.get(s-1) != '$')
+                    || (c == '^' && stack.get(s-1) != '^')
                     )
                 stack.add(c);
             //出栈
@@ -126,6 +133,7 @@ public class XmlParserUtils {
                     || (c == '*' && stack.get(s-1) == '*')
                     || (c == '#' && stack.get(s-1) == '#')
                     || (c == '$' && stack.get(s-1) == '$')
+                    || (c == '^' && stack.get(s-1) == '^')
                     )
                 stack.remove(s - 1);
         }

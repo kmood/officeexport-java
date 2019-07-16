@@ -1,6 +1,8 @@
 package com.core.utils;
 
 import java.io.*;
+import java.nio.ByteBuffer;
+
 public class FileUtils {
 	/**
 	 * 
@@ -28,5 +30,23 @@ public class FileUtils {
 			reader.close();
 		}
 		return data.toString();
+	}
+
+	public static byte[] readToBytesByFilepath(String filePath)throws IOException {
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		FileInputStream reader  =  null;
+		try {
+			File file = new File(filePath);
+			reader = new FileInputStream(file);
+			int len = 0;
+			byte[] buffer = new byte[1024];
+			while ((len = reader.read(buffer)) != -1){
+				output.write(buffer, 0, len);
+			}
+		} finally {
+			if (reader != null)
+				reader.close();
+		}
+		return output.toByteArray();
 	}
 }
