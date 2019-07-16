@@ -3,10 +3,7 @@ package com.core.word;
 
 import com.core.utils.FileUtils;
 import com.core.utils.StringUtil;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.Node;
+import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import org.junit.Test;
@@ -32,6 +29,16 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
         Element rootElement = document.getRootElement();
         //清空占位图片数据
         XmlParserUtils.clearPictureContent(document);
+        List pictList = document.selectNodes(".//v:shape");
+        //校验图片
+        for (int i = 0; pictList != null &&i < pictList.size(); i++) {
+            Element node = (Element)pictList.get(i);
+            Attribute alt = node.attribute("alt");
+            if (alt == null || StringUtil.isBlank(alt.getText())) continue;
+            errorInfo = XmlParserUtils.VarifySyntax(StringUtil.removeInvisibleChar(alt.getText()));
+            if (errorInfo != null && errorInfo.length() != 0) throw new SyntaxException("(图片占位符)"+errorInfo);
+        }
+
         //校验段落
         List ParagList = document.selectNodes(".//w:p");
         StringBuilder wpStr = new StringBuilder();

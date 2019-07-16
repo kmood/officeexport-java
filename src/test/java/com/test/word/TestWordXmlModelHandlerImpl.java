@@ -1,15 +1,18 @@
 package com.test.word;
 
+import com.core.utils.FileUtils;
 import com.core.utils.FreemarkerUtil;
 import com.core.word.WordXmlModelHandlerImpl;
 import com.core.word.XmlModelParser;
 import freemarker.template.Template;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -111,5 +114,31 @@ public class TestWordXmlModelHandlerImpl {
         template.process(map,outputStreamWriter);
         System.out.println("-----导出文件路径-----"+exportPath);
     }
+    /**
+     * description:测试导出图片
+     * @auther: SunBC
+     * @date: 2019/7/16 17:29
+     */
+    @Test
+    public  void testexportPicture()throws Exception{
+
+        URL Url = this.getClass().getClassLoader().getResource("./model/picture.xml");
+        HashMap<String, Object> map = new HashMap<>();
+        URL introUrl = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-intro.png");
+        URL codeUrl = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-code.png");
+        URL titleUrl = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-title.png");
+        byte[] encode = Base64.getEncoder().encode(FileUtils.readToBytesByFilepath(introUrl.toURI().getPath()));
+        map.put("intro",String.valueOf(encode));
+        map.put("code",String.valueOf(Base64.getEncoder().encode(FileUtils.readToBytesByFilepath(codeUrl.toURI().getPath()))));
+        map.put("title",String.valueOf(Base64.getEncoder().encode(FileUtils.readToBytesByFilepath(titleUrl.toURI().getPath()))));
+        String path = Url.toURI().getPath();
+        String exportPath = path +".doc";
+        String compile = XmlModelParser.Compile(path,null);
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(exportPath), "utf-8");
+        Template template = FreemarkerUtil.configuration.getTemplate("picture.xml.ftl");
+        template.process(map,outputStreamWriter);
+        System.out.println("-----导出文件路径-----"+exportPath);
+    }
+
 
 }
