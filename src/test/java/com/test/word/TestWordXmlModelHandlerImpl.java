@@ -114,6 +114,7 @@ public class TestWordXmlModelHandlerImpl {
         template.process(map,outputStreamWriter);
         System.out.println("-----导出文件路径-----"+exportPath);
     }
+
     /**
      * description:测试导出图片
      * @auther: SunBC
@@ -139,6 +140,5 @@ public class TestWordXmlModelHandlerImpl {
         template.process(map,outputStreamWriter);
         System.out.println("-----导出文件路径-----"+exportPath);
     }
-
 
 }
