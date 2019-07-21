@@ -114,7 +114,6 @@ public class TestWordXmlModelHandlerImpl {
         template.process(map,outputStreamWriter);
         System.out.println("-----导出文件路径-----"+exportPath);
     }
-
     /**
      * description:测试导出图片
      * @auther: SunBC
@@ -128,10 +127,11 @@ public class TestWordXmlModelHandlerImpl {
         URL introUrl = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-intro.png");
         URL codeUrl = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-code.png");
         URL titleUrl = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-title.png");
-        byte[] encode = Base64.getEncoder().encode(FileUtils.readToBytesByFilepath(introUrl.toURI().getPath()));
-        map.put("intro",String.valueOf(encode));
-        map.put("code",String.valueOf(Base64.getEncoder().encode(FileUtils.readToBytesByFilepath(codeUrl.toURI().getPath()))));
-        map.put("title",String.valueOf(Base64.getEncoder().encode(FileUtils.readToBytesByFilepath(titleUrl.toURI().getPath()))));
+        String intro = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(introUrl.toURI().getPath()));
+        map.put("intro",intro);
+        String code = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(codeUrl.toURI().getPath()));
+        map.put("code",code);
+        map.put("title",Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(titleUrl.toURI().getPath())));
         String path = Url.toURI().getPath();
         String exportPath = path +".doc";
         String compile = XmlModelParser.Compile(path,null);
@@ -141,6 +141,7 @@ public class TestWordXmlModelHandlerImpl {
         System.out.println("-----导出文件路径-----"+exportPath);
     }
 
-    
+
+
 
 }
