@@ -1,7 +1,7 @@
 package com.test.dataHandle;
 
-import com.core.datahandle.DocumentProducer;
-import com.core.utils.FreemarkerUtil;
+import com.kmood.datahandle.DocumentProducer;
+import com.kmood.utils.FreemarkerUtil;
 import org.junit.Test;
 
 import java.util.ArrayList;

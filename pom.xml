@@ -7,6 +7,34 @@
 	<name>officeexport-java</name>
 	<packaging>jar</packaging>
 	<version>1.0.0-SNAPSHOT</version>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<scm>
+		<tag>master</tag>
+		<url>https://github.com/kmood/officeexport-java.git</url>
+		<connection>https://github.com/kmood/officeexport-java.git</connection>
+		<developerConnection>https://github.com/kmood/officeexport-java</developerConnection>
+	</scm>
+	<developers>
+		<developer>
+			<name>kmood</name>
+			<email>17611104164@163.com</email>
+			<organization>kmood</organization>
+		</developer>
+	</developers>
+
 	<properties>
 		<java-version>1.8</java-version>
 	</properties>

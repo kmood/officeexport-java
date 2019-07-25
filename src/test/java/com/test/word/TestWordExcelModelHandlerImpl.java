@@ -1,13 +1,12 @@
 package com.test.word;
 
-import com.core.utils.FileUtils;
-import com.core.utils.FreemarkerUtil;
-import com.core.word.WordXmlModelHandlerImpl;
-import com.core.word.XmlModelParser;
+import com.kmood.utils.FileUtils;
+import com.kmood.utils.FreemarkerUtil;
+import com.kmood.word.WordModelHandlerImpl;
+import com.kmood.word.WordModelParser;
 import freemarker.template.Template;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
@@ -21,12 +20,12 @@ import java.util.Map;
  * @Date: 2019/7/1 13:05
  * @Description:
  */
-public class TestWordXmlModelHandlerImpl {
+public class TestWordExcelModelHandlerImpl {
     URL Url = this.getClass().getClassLoader().getResource("./model/testWordTableList.xml");
 //URL Url = this.getClass().getClassLoader().getResource("./model/包装说明表（范例A）.xml");
-    private  static WordXmlModelHandlerImpl w ;
+    private  static WordModelHandlerImpl w ;
     static {
-        w = new WordXmlModelHandlerImpl();
+        w = new WordModelHandlerImpl();
     }
     @Test
     public void TestVerifyModel(){
@@ -61,7 +60,7 @@ public class TestWordXmlModelHandlerImpl {
     public void TestVerifyModelTotal(){
         try {
             String path = Url.toURI().getPath();
-            String compile = XmlModelParser.Compile(path,null);
+            String compile = WordModelParser.Compile(path,null);
             System.out.println(compile);
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,7 +105,7 @@ public class TestWordXmlModelHandlerImpl {
         map.put("test1","word Export-test1");
         String path = Url.toURI().getPath();
         String exportPath = path +".docx";
-        String compile = XmlModelParser.Compile(path,null);
+        String compile = WordModelParser.Compile(path,null);
 
 
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(exportPath), "utf-8");
@@ -134,7 +133,7 @@ public class TestWordXmlModelHandlerImpl {
         map.put("title",Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(titleUrl.toURI().getPath())));
         String path = Url.toURI().getPath();
         String exportPath = path +".doc";
-        String compile = XmlModelParser.Compile(path,null);
+        String compile = WordModelParser.Compile(path,null);
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(exportPath), "utf-8");
         Template template = FreemarkerUtil.configuration.getTemplate("picture.xml.ftl");
         template.process(map,outputStreamWriter);

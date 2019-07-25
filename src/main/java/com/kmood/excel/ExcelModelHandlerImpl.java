@@ -1,18 +1,19 @@
-package com.core.word;
+package com.kmood.excel;
 
 
-import com.core.utils.FileUtils;
-import com.core.utils.StringUtil;
+import com.kmood.basic.ModelHandler;
+import com.kmood.basic.SyntaxException;
+import com.kmood.utils.FileUtils;
+import com.kmood.utils.StringUtil;
+import com.kmood.word.WordParserUtils;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
-import org.junit.Test;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -20,25 +21,13 @@ import java.util.List;
  * @Date: 2019/6/18 11:09
  * @Description:
  */
-public class WordXmlModelHandlerImpl implements XmlModelHandler{
+public class ExcelModelHandlerImpl implements ModelHandler {
     @Override
     public  void VerifyModel(String xmlPath)throws DocumentException {
         String  errorInfo = null;
         SAXReader reader = new SAXReader();
         Document document = reader.read(new File(xmlPath));
         Element rootElement = document.getRootElement();
-        //清空占位图片数据
-        XmlParserUtils.clearPictureContent(document);
-        List pictList = document.selectNodes(".//v:shape");
-        //校验图片
-        for (int i = 0; pictList != null &&i < pictList.size(); i++) {
-            Element node = (Element)pictList.get(i);
-            Attribute alt = node.attribute("alt");
-            if (alt == null || StringUtil.isBlank(alt.getText())) continue;
-            errorInfo = XmlParserUtils.VarifySyntax(StringUtil.removeInvisibleChar(alt.getText()));
-            if (errorInfo != null && errorInfo.length() != 0) throw new SyntaxException("(图片占位符)"+errorInfo);
-        }
-
         //校验段落
         List ParagList = document.selectNodes(".//w:p");
         StringBuilder wpStr = new StringBuilder();
@@ -51,7 +40,7 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
                 wpStr.append(StringUtil.removeInvisibleChar(text));
             }
         }
-        errorInfo= XmlParserUtils.VarifySyntax(wpStr.toString());
+        errorInfo= WordParserUtils.VarifySyntax(wpStr.toString());
         if (errorInfo != null && errorInfo.length() != 0) throw new SyntaxException(errorInfo);
         return ;
     }
@@ -66,15 +55,15 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
             File file = new File(xmlPath);
             Document document = reader.read(file);
             //清空占位图片数据
-            XmlParserUtils.clearPictureContent(document);
+            WordParserUtils.clearPictureContent(document);
             List list = document.selectNodes("//w:p");
             for (int i = 0; i <list.size() ; i++) {
                 Node WPNode = (Node)list.get(i);
-                XmlParserUtils.PlaceHodlerHandle(WPNode);
+                WordParserUtils.PlaceHodlerHandle(WPNode);
             }
             //转换[ 到list标签
             String name = file.getName();
-            XmlParserUtils.BracketToListConversion(document);
+            WordParserUtils.BracketToListConversion(document);
             List pictureList = document.selectNodes("//w:pict");
             if (pictureList != null ){
                 for (int i = 0; i < pictureList.size(); i++) {
@@ -119,9 +108,9 @@ public class WordXmlModelHandlerImpl implements XmlModelHandler{
         try {
             String xmModelStr = FileUtils.readToStringByFilepath(xmlFtlPath);
             String body = StringUtil.substringBetween(xmModelStr, "<w:body>", "</w:body>");
-            body = XmlParserUtils.IfTagHandle(body);
-            body = XmlParserUtils.ListTagHandle(body);
-            body = XmlParserUtils.BraceTagHandle(body);
+            body = WordParserUtils.IfTagHandle(body);
+            body = WordParserUtils.ListTagHandle(body);
+            body = WordParserUtils.BraceTagHandle(body);
             out = new FileOutputStream(xmlFtlPath);
             xmModelStr = xmModelStr.substring(0,xmModelStr.indexOf("<w:body>"))+"<w:body>"+body+"</w:body>"+xmModelStr.substring(xmModelStr.lastIndexOf("</w:body>")+9);
             out.write(xmModelStr.getBytes());

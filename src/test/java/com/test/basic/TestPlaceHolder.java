@@ -1,6 +1,6 @@
-package com.test.word;
+package com.test.basic;
 
-import com.core.word.PlaceHolder;
+import com.kmood.basic.PlaceHolder;
 import org.junit.Test;
 
 import java.util.ArrayList;

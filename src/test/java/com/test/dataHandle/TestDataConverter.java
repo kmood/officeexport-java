@@ -1,8 +1,8 @@
 package com.test.dataHandle;
 
-import com.core.datahandle.Config;
-import com.core.datahandle.DataConverter;
-import com.core.datahandle.DataHandler;
+import com.kmood.datahandle.Config;
+import com.kmood.datahandle.DataConverter;
+import com.kmood.datahandle.DataHandler;
 import org.junit.Test;
 
 import javax.xml.crypto.Data;

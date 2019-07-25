@@ -1,9 +1,9 @@
 package com.test;
 
 
-import com.core.datahandle.DocumentProducer;
-import com.core.utils.ConvertionUtil;
-import com.core.utils.JsonBinder;
+import com.kmood.datahandle.DocumentProducer;
+import com.kmood.utils.ConvertionUtil;
+import com.kmood.utils.JsonBinder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.junit.Test;

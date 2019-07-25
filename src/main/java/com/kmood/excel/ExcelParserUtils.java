@@ -1,7 +1,9 @@
-package com.core.word;
+package com.kmood.excel;
 
 
-import com.core.utils.StringUtil;
+import com.kmood.basic.PlaceHolder;
+import com.kmood.basic.SyntaxException;
+import com.kmood.utils.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -17,7 +19,7 @@ import java.util.Set;
  * @Date: 2019/6/18 11:11
  * @Description:
  */
-public class XmlParserUtils {
+public class ExcelParserUtils {
 
 
     public static void clearPictureContent(Document document) {
@@ -362,8 +364,8 @@ public class XmlParserUtils {
         ifAttMap.put("content"," ("+StringUtil.substringBefore(value," " ).trim() +")??");
         String name = "#list";
 
-        Element element = XmlParserUtils.AddParentNode(beginEle, endEle, name, listAttMap);
-        XmlParserUtils.AddParentNode(element,"#if",ifAttMap);
+        Element element = ExcelParserUtils.AddParentNode(beginEle, endEle, name, listAttMap);
+        ExcelParserUtils.AddParentNode(element,"#if",ifAttMap);
     }
 
 

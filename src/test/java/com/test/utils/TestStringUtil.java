@@ -1,6 +1,6 @@
 package com.test.utils;
 
-import com.core.utils.StringUtil;
+import com.kmood.utils.StringUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
