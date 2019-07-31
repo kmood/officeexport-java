@@ -104,7 +104,7 @@ public class TestWordExcelModelHandlerImpl {
         map.put("test0","word Export-test0");
         map.put("test1","word Export-test1");
         String path = Url.toURI().getPath();
-        String exportPath = path +".docx";
+        String exportPath = path +".doc";
         String compile = WordModelParser.Compile(path,null);
 
 
