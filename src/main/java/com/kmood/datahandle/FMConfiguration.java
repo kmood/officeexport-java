@@ -11,11 +11,7 @@ import freemarker.template.Version;
 import java.io.File;
 import java.util.ArrayList;
 
-/**
- * @Auther: SunBC
- * @Date: 2019/7/5 15:09
- * @Description:
- */
+
 public class FMConfiguration {
     private static volatile Configuration configuration ;
     private static Version FMVersion = Configuration.VERSION_2_3_28;

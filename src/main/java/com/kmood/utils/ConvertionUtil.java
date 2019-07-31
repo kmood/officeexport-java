@@ -8,18 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-/**
- * @Auther: SunBC
- * @Date: 2019/7/10 09:17
- * @Description:
- */
 public class ConvertionUtil {
-    /**
-     * description: 对象转map键值对映射
-     * @auther: SunBC
-     * @date: 2019/6/13 14:55
-     */
+    //对象转map键值对映射
+
     public static Map<String, Object> objectToMap(Object obj) throws Exception {
         if(obj == null)
             return null;
@@ -41,11 +32,7 @@ public class ConvertionUtil {
         return map;
     }
 
-    /**
-     * description: Lsit对象列表转map键值对映射
-     * @auther: SunBC
-     * @date: 2019/6/13 14:54
-     */
+    //Lsit对象列表转map键值对映射
     public static <T> List<Map<String, Object>> objectListToMap(List<T> objectList) throws Exception {
         if(objectList == null)
             return null;

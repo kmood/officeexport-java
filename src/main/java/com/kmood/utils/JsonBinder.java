@@ -39,14 +39,6 @@ public class JsonBinder {
     }
 
 
-    /**
-     *
-     * @ClassName MapTypeAdapter
-     * @Description TODO
-     * @author sunBC
-     * @date 2018年8月30日
-     * @version V1.0
-     */
     public static class MapTypeAdapter extends TypeAdapter<Object> {
         @Override
         public Object read(JsonReader in) throws IOException {

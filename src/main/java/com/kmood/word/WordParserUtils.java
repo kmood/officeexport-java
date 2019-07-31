@@ -14,11 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-/**
- * @Auther: SunBC
- * @Date: 2019/6/18 11:11
- * @Description:
- */
 public class WordParserUtils {
 
 
@@ -31,11 +26,6 @@ public class WordParserUtils {
             }
         }
     }
-    /**
-     * description:
-     * @auther: SunBC
-     * @date: 2019/7/1 12:50
-     */
     public static String VarifySyntax(String data){
         data = StringUtil.removeInvisibleChar(data);
         String errorInfor = "";
@@ -143,11 +133,6 @@ public class WordParserUtils {
         return errorInfor;
     }
 
-    /**
-     * description:
-     * @auther: SunBC
-     * @date: 2019/7/1 13:00
-     */
     public static Element AddParentNode(Element beginEle, Element endEle, String name, HashMap<String, String> attMap) {
         if (beginEle == null || endEle == null) return null;
         Element beginEleParent = beginEle.getParent();
@@ -183,11 +168,6 @@ public class WordParserUtils {
         }
         return element;
     }
-    /**
-     * description:
-     * @auther: SunBC
-     * @date: 2019/7/1 13:04
-     */
     public static Element AddParentNode(Element ele, String parentName, HashMap<String ,String > Attr){
         if (ele == null) return null;
         Element parent = ele.getParent();
@@ -369,11 +349,6 @@ public class WordParserUtils {
     }
 
 
-    /**
-     * description: 整合占位符
-     * @auther: SunBC
-     * @date: 2019/7/3 10:16
-     */
     public static void PlaceHodlerHandle(Node WPNode){
         List WTList = WPNode.selectNodes(".//w:t");
         Node WTNodeNew = null;

@@ -15,11 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @Auther: SunBC
- * @Date: 2019/7/10 13:06
- * @Description:
- */
+
 public class DataConverter {
     public static Object convert(Object obj,Config conf){
         HashMap<String, DataHandler> keyConfMap = conf.getKeyConfMap();

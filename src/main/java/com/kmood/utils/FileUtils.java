@@ -4,16 +4,8 @@ import java.io.*;
 import java.nio.ByteBuffer;
 
 public class FileUtils {
-	/**
-	 * 
-	 * @Title readToStringByFilepath
-	 * @Description TODO
-	 * @param filePath
-	 * @return
-	 * @throws Exception
-	 * @author SunBC
-	 * @time 2018年10月16日 下午6:53:31
-	 */
+	//readToStringByFilepath
+
 	public static String readToStringByFilepath(String filePath)throws IOException {
 		StringBuilder data = new StringBuilder();
 		Reader reader  =  null;

@@ -36,13 +36,6 @@ public class StringUtil extends StringUtils {
 		return str.replaceAll("[\\x00-\\x1F | \\x7F ]","");
 	}
 
-    /**
-     *
-     * @param data  字符串
-     * @param i  字符串下标
-     * @param size 截取的长度
-     * @return 放回结果最大长度为2*size
-     */
     public static String substringBeforeAfterSize(String data, int i, int size) {
         String s;
         String pre = "";
@@ -101,18 +94,6 @@ public class StringUtil extends StringUtils {
         }
         return null;
     }
-    /**
-     ** <pre>
-     *      * (null, *)      = null
-     *      * ("", *)        = ""
-     *      * (*, null)      = ""
-     *      * ("abc", "a")   = "bc"
-     *      * ("abcba", "b") = "cba"
-     *      * ("abc", "c")   = ""
-     *      * ("abc", "d")   = ""
-     *      * ("abc", "")    = "abc"
-
-     */
     public static String substringAfter(final String str, final String separator) {
         if (str == null || str.length() == 0) {
             return str;

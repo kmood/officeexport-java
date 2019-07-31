@@ -14,12 +14,6 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-
-/**
- * @Auther: SunBC
- * @Date: 2019/6/18 11:09
- * @Description:
- */
 public class WordModelHandlerImpl implements ModelHandler {
     @Override
     public  void VerifyModel(String xmlPath)throws DocumentException {

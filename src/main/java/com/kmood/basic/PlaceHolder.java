@@ -4,11 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 
-/**
- * @Auther: SunBC
- * @Date: 2019/6/18 11:17
- * @Description:
- */
+
 public class PlaceHolder {
     public  static  final String[] PHARR = new String[]{"{","}","[","]","#","*","$","@","^"};
     public  static  final String PHSTR = "[]{}*#$@^";
@@ -132,13 +128,8 @@ public class PlaceHolder {
         if (l >= 2 && stack.get(l-1) == '$'&& stack.get(l-2) == '{' &&  charArr.get(i +1) == '}') return true;
         return  false;
     }
-    /**
-     * 判断{ 的有效性
-     * @param charArr
-     * @param stack
-     * @param i
-     * @return
-     */
+    //判断{ 的有效性
+
     public static   boolean BERIsEffective(ArrayList<Character> charArr , ArrayList<Character> stack, int i){
         int dl = charArr.size();
         int l = stack.size();
@@ -147,13 +138,7 @@ public class PlaceHolder {
         return  false;
     }
 
-    /**
-     * 判断}的有效性
-     * @param charArr
-     * @param stack
-     * @param i
-     * @return
-     */
+    //判断}的有效性
     public static   boolean BELIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i){
         int dl = charArr.size();
         int l = stack.size();
@@ -161,13 +146,7 @@ public class PlaceHolder {
         if (stack.get(l-1) == '{') return true;
         return  false;
     }
-    /**
-     * 判断[ 的有效性
-     * @param charArr
-     * @param stack
-     * @param i
-     * @return
-     */
+    //判断[ 的有效性
     public static   boolean BRIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i){
         int dl = charArr.size();
         int l = stack.size();
@@ -177,13 +156,7 @@ public class PlaceHolder {
         return  false;
     }
 
-    /**
-     * 判断】的有效性
-     * @param charArr
-     * @param stack
-     * @param i
-     * @return
-     */
+    //判断】的有效性
     public static   boolean BLIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i){
         int dl = charArr.size();
         int l = stack.size();
@@ -195,13 +168,7 @@ public class PlaceHolder {
         return  false;
     }
 
-    /**
-     * 判断@的有效性
-     * @param charArr
-     * @param stack
-     * @param i
-     * @return
-     */
+    //判断@的有效性
     public static   boolean AIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i){
         int dl = charArr.size();
         int l = stack.size();
@@ -211,14 +178,7 @@ public class PlaceHolder {
         return  false;
 
     }
-    /**
-     * 判断 * # 的有效性
-     * @param charArr
-     * @param stack
-     * @param i
-     * @param c
-     * @return
-     */
+    //判断 * # 的有效性
     public static   boolean XJIsEffective(ArrayList<Character> charArr ,ArrayList<Character> stack,int i,char c){
         int dl = charArr.size();
         int l = stack.size();
@@ -233,11 +193,7 @@ public class PlaceHolder {
     }
 
 
-    /**
-     * description: 验证是否存在占位符
-     * @auther: SunBC
-     * @date: 2019/6/18 19:13
-     */
+    // 验证是否存在占位符
     public static boolean ContainPlaceHolder(String data){
         for (String ph :PlaceHolder.PHARR) {
             if (data.contains(ph)) return true;
