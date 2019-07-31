@@ -6,7 +6,7 @@
 	<artifactId>officeexport-java</artifactId>
 	<name>officeexport-java</name>
 	<packaging>jar</packaging>
-	<version>1.0.0</version>
+	<version>1.0.0-RELEASE</version>
 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
