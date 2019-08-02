@@ -21,6 +21,11 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
    >>2、Maven引入jar包，通过api导出
 
    ```xml
+      <dependency>
+         <groupId>com.github.kmood</groupId>
+         <artifactId>officeexport-java</artifactId>
+      <version>1.0.0-RELEASE</version>
+</dependency>
 
    ```
    ```java
