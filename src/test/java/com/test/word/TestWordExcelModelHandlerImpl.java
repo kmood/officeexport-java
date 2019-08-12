@@ -113,34 +113,5 @@ public class TestWordExcelModelHandlerImpl {
         template.process(map,outputStreamWriter);
         System.out.println("-----导出文件路径-----"+exportPath);
     }
-    /**
-     * description:测试导出图片
-     * @auther: SunBC
-     * @date: 2019/7/16 17:29
-     */
-    @Test
-    public  void testexportPicture()throws Exception{
-
-        URL Url = this.getClass().getClassLoader().getResource("./model/picture.xml");
-        HashMap<String, Object> map = new HashMap<>();
-        URL introUrl = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-intro.png");
-        URL codeUrl = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-code.png");
-        URL titleUrl = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-title.png");
-        String intro = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(introUrl.toURI().getPath()));
-        map.put("intro",intro);
-        String code = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(codeUrl.toURI().getPath()));
-        map.put("code",code);
-        map.put("title",Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(titleUrl.toURI().getPath())));
-        String path = Url.toURI().getPath();
-        String exportPath = path +".doc";
-        String compile = WordModelParser.Compile(path,null);
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(exportPath), "utf-8");
-        Template template = FreemarkerUtil.configuration.getTemplate("picture.xml.ftl");
-        template.process(map,outputStreamWriter);
-        System.out.println("-----导出文件路径-----"+exportPath);
-    }
-
-
-
 
 }
