@@ -34,8 +34,8 @@ public class test {
     @Test
     public  void test1() throws IOException, TemplateException {
         try {
-            String path = this.getClass().getClassLoader().getResource("./model/").toURI().getPath();
-            String xmlPath = this.getClass().getClassLoader().getResource("./model/包装说明表（范例A）.xml").toURI().getPath();
+            String ActualModelPath = this.getClass().getClassLoader().getResource("./model/").toURI().getPath();
+            String xmlPath = this.getClass().getClassLoader().getResource("./model").toURI().getPath();
             String ExportFilePath = this.getClass().getClassLoader().getResource("./model/包装说明表（范例A）.xml").toURI().getPath() + ".doc";
             HashMap<String, Object> map = new HashMap<>();
             map.put("zzdhm", "kmood-制造单号码");
@@ -63,8 +63,8 @@ public class test {
             map.put("zxsm", zxsmList);
             map.put("sbsm", "kmood-商标说明");
             map.put("bt", "kmood OfficeExport 导出word");
-            DocumentProducer dp = new DocumentProducer(path);
-            dp.Complie(xmlPath, true);
+            DocumentProducer dp = new DocumentProducer(ActualModelPath);
+            dp.Complie(xmlPath, "包装说明表（范例A）.xml",true);
             dp.produce(map, ExportFilePath);
         } catch (Exception e) {
             e.printStackTrace();

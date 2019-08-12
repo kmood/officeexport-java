@@ -1,5 +1,6 @@
 package com.kmood.datahandle;
 
+import com.kmood.utils.StringUtil;
 import com.kmood.word.WordModelHandlerImpl;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -23,16 +24,20 @@ public class DocumentProducer {
         Configuration configuration = FMConfiguration.addFMModelPath(ActualModelPath);
         ActualModelPathLocal.set(ActualModelPath);
     }
-
-    public String Complie(String XmlModelPath,boolean debugModel)throws DocumentException,IOException {
+    public DocumentProducer()throws Exception{
+        FMConfiguration.Init();
+    }
+    public String Complie(String XmlModelPath,String XmlModelName,boolean debugModel)throws Exception {
+        if(StringUtil.isBlank(ActualModelPathLocal.get())){
+            FMConfiguration.addFMModelPath(XmlModelPath);
+            ActualModelPathLocal.set(XmlModelPath);
+        }
         if (debugModel){
             WordModelHandlerImpl wordXmlModelHandler = new WordModelHandlerImpl();
-            String path = wordXmlModelHandler.WordXmlModelHandle(XmlModelPath,ActualModelPathLocal.get());
+            String path = wordXmlModelHandler.WordXmlModelHandle(XmlModelPath+File.separator+XmlModelName,ActualModelPathLocal.get());
         }
-        File file = new File(XmlModelPath);
-        String name = file.getName();
-        ActualModelNameLocal.set(name+".ftl");
-        return XmlModelPath+File.separator+name;
+        ActualModelNameLocal.set(XmlModelName+".ftl");
+        return XmlModelPath+File.separator+XmlModelName+".ftl";
     }
     public void produce(Object data,String ProduceFilePath)throws IOException,TemplateException {
         Configuration configuration = FMConfiguration.getConfiguration();

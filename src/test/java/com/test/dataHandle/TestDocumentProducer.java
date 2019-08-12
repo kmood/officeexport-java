@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class TestDocumentProducer {
     String path = this.getClass().getClassLoader().getResource("./model/").getPath();
-    String xmlPath = this.getClass().getClassLoader().getResource("./model/testWordTableList.xml").getPath();
+    String xmlPath = this.getClass().getClassLoader().getResource("./model").getPath();
     String ExportFilePath = this.getClass().getClassLoader().getResource("./model/testWordTableList.xml").getPath()+".doc";
     /**
      * description: 基本导出测试
@@ -27,7 +27,7 @@ public class TestDocumentProducer {
         try {
             HashMap<String, Object> data = getData();
             DocumentProducer dp = new DocumentProducer(path);
-            dp.Complie(xmlPath,true);
+            dp.Complie(xmlPath,"testWordTableList.xml",true);
             dp.produce(data,ExportFilePath);
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,7 +43,7 @@ public class TestDocumentProducer {
         try {
             HashMap<String, Object> data = getData();
             DocumentProducer dp = new DocumentProducer(FreemarkerUtil.configuration,path);
-            dp.Complie(xmlPath,true);
+            dp.Complie(xmlPath,"testWordTableList.xml",true);
             dp.produce(data,ExportFilePath);
         } catch (Exception e) {
             e.printStackTrace();
