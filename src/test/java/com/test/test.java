@@ -36,7 +36,7 @@ public class test {
         try {
             String ActualModelPath = this.getClass().getClassLoader().getResource("./model/").toURI().getPath();
             String xmlPath = this.getClass().getClassLoader().getResource("./model").toURI().getPath();
-            String ExportFilePath = this.getClass().getClassLoader().getResource("./model/包装说明表（范例A）.xml").toURI().getPath() + ".doc";
+            String ExportFilePath = this.getClass().getClassLoader().getResource("./export").toURI().getPath() + "/包装说明表（范例A）.doc";
             HashMap<String, Object> map = new HashMap<>();
             map.put("zzdhm", "kmood-制造单号码");
             map.put("ydwcrq", "kmood-预定完成日期");
@@ -64,7 +64,8 @@ public class test {
             map.put("sbsm", "kmood-商标说明");
             map.put("bt", "kmood OfficeExport 导出word");
             DocumentProducer dp = new DocumentProducer(ActualModelPath);
-            dp.Complie(xmlPath, "包装说明表（范例A）.xml",true);
+            String complie = dp.Complie(xmlPath, "包装说明表（范例A）.xml", true);
+            System.out.println(complie);
             dp.produce(map, ExportFilePath);
         } catch (Exception e) {
             e.printStackTrace();
