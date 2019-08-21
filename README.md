@@ -39,6 +39,8 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
      dp.produce(data,"./wordExportPath/test.doc");
    ```
    >>[测试用例源码](https://github.com/kmood/officeexport-java/blob/master/src/test/java/com/test/test.java)
+   
+   >>[详细文档]（https://github.com/kmood/officeexport-java/wiki）
 >### 实现效果
 
 <div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/exportExample.png"/></div>
