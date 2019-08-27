@@ -7,7 +7,7 @@
  
 
 officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵从*模板 + 数据模型 = 输出*的理念，
-通过极简API实现javaBean即数据源，模板即样式的Word、Excel导出，提供以下功能：
+通过极简API实现javaBean即数据源，模板即样式的Word导出，提供以下功能：
 
   * 基本文本的输出，文本占位符样式即输出文本样式。
   * 文本行、表格行单行或多行的遍历输出，并能够进行循环嵌套。
@@ -39,9 +39,12 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
      dp.produce(data,"./wordExportPath/test.doc");
    ```
    >>[测试用例源码](https://github.com/kmood/officeexport-java/blob/master/src/test/java/com/test/test.java)
+   
+   >>[详细文档](https://github.com/kmood/officeexport-java/wiki)
 >### 实现效果
-![](https://github.com/kmood/officeexport-java/blob/master/file/exportExample.png)
+
+<div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/exportExample.png"/></div>
 
 ## 建议和完善
-欢迎在GitHub Issue中提问和交流。
+欢迎在GitHub Issue中提问和交流。有问题可通过QQ咨询： **2932808575**
 
