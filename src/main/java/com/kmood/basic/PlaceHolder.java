@@ -49,23 +49,34 @@ public class PlaceHolder {
     public static final  Character PC = '^';
     //转义后
     //左大括号
-    public static final  String BRACE_L_ = "\\1";
+    // \{
+    public static final  String BRACE_L_ = "\\1\\";
     //右大括号
-    public static final  String BRACE_R_ = "\\2";
+    // \}
+    public static final  String BRACE_R_ = "\\2\\";
     //左方括号
-    public static final  String BRACKET_L_ = "\\3";
+    // \[
+    public static final  String BRACKET_L_ = "\\3\\";
     //右方括号
-    public static final  String BRACKET_R_ = "\\4";
+    // \]
+    public static final  String BRACKET_R_ = "\\4\\";
     //#号
-    public static final  String POUND_ = "\\5";
+    // \#
+    public static final  String POUND_ = "\\5\\";
     //*号
-    public static final  String X_ = "\\6";
+    // \*
+    public static final  String X_ = "\\6\\";
     //@号
-    public static final  String A_ = "\\7";
+    // \@
+    public static final  String A_ = "\\7\\";
     //$号
-    public static final  String D_ = "\\8";
+    public static final  String D_ = "\\8\\";
     //$号
-    public static final  String P_ = "\\9";
+    // \$
+    public static final  String P_ = "\\9\\";
+    //^号
+    // \^
+    public static final  String F_ = "\\10\\";
 
     //占位符匹配
     //标识表格行数组
@@ -87,26 +98,30 @@ public class PlaceHolder {
 
     public static String ToESC(String xmlStr){
         if (StringUtils.isBlank(xmlStr)) return xmlStr;
-        xmlStr = xmlStr.replaceAll(BRACE_L, BRACE_L_);
-        xmlStr = xmlStr.replaceAll(BRACE_R, BRACE_R_);
-        xmlStr = xmlStr.replaceAll(BRACKET_L, BRACKET_L_);
-        xmlStr = xmlStr.replaceAll(BRACKET_R, BRACKET_R_);
-        xmlStr = xmlStr.replaceAll(POUND, POUND_);
-        xmlStr = xmlStr.replaceAll(X, X_);
-        xmlStr = xmlStr.replaceAll(A, A_);
-        xmlStr = xmlStr.replaceAll(D, D_);
+        xmlStr = xmlStr.replaceAll("\\\\", "\\0\\");
+        xmlStr = xmlStr.replaceAll("\\{", "\\1\\");
+        xmlStr = xmlStr.replaceAll("\\}", "\\2\\");
+        xmlStr = xmlStr.replaceAll("\\[", "\\3\\");
+        xmlStr = xmlStr.replaceAll("\\]", "\\4\\");
+        xmlStr = xmlStr.replaceAll("\\#", "\\5\\");
+        xmlStr = xmlStr.replaceAll("\\*", "\\6\\");
+        xmlStr = xmlStr.replaceAll("\\@", "\\7\\");
+        xmlStr = xmlStr.replaceAll("\\$", "\\8\\");
+        xmlStr = xmlStr.replaceAll("\\^", "\\9\\");
         return xmlStr;
     }
     public static String FromESC(String xmlStr){
         if (StringUtils.isBlank(xmlStr)) return xmlStr;
-        xmlStr = xmlStr.replaceAll(BRACE_L_, BRACE_L);
-        xmlStr = xmlStr.replaceAll(BRACE_R_, BRACE_R);
-        xmlStr = xmlStr.replaceAll(BRACKET_L_, BRACKET_L);
-        xmlStr = xmlStr.replaceAll(BRACKET_R_, BRACKET_R);
-        xmlStr = xmlStr.replaceAll(POUND_, POUND);
-        xmlStr = xmlStr.replaceAll(X_,X);
-        xmlStr = xmlStr.replaceAll(A_,A);
-        xmlStr = xmlStr.replaceAll(D_, D);
+        xmlStr = xmlStr.replaceAll( "\\0\\", "\\");
+        xmlStr = xmlStr.replaceAll("\\1\\","{");
+        xmlStr = xmlStr.replaceAll("\\2\\","}");
+        xmlStr = xmlStr.replaceAll("\\3\\","[");
+        xmlStr = xmlStr.replaceAll("\\4\\","]");
+        xmlStr = xmlStr.replaceAll("\\5\\","#");
+        xmlStr = xmlStr.replaceAll("\\6\\","*");
+        xmlStr = xmlStr.replaceAll("\\7\\","@");
+        xmlStr = xmlStr.replaceAll("\\8\\","$");
+        xmlStr = xmlStr.replaceAll("\\9\\","^");
         return xmlStr;
     }
 
