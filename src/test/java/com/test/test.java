@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class test {
     /**
-     * description:包装说明表（范例A）.xml  模板导出测试,验证格式，功能
+     * description:包装说明表（范例A）.xml  模板导出测试,验证格式，测试转义字符。
      * @auther: SunBC
      * @date: 2019/7/12 16:58
      */
@@ -56,8 +56,8 @@ public class test {
             HashMap<String, Object> zxsmmap1 = new HashMap<>();
             zxsmmap1.put("xh", "kmood-制造单号码");
             zxsmmap1.put("xs", "kmood-预定完成日期");
-            zxsmmap1.put("zrl", "kmood-产品名称");
-            zxsmmap1.put("zsl", "kmood-交运日期");
+            zxsmmap1.put("zrl","kmood-产品名称");
+            zxsmmap1.put("zsl","kmood-交运日期");
             zxsmmap1.put("sm", "kmood-交运日期");
             zxsmList.add(zxsmmap);
             map.put("zxsm", zxsmList);

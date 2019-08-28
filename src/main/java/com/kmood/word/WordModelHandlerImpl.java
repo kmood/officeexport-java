@@ -1,6 +1,7 @@
 package com.kmood.word;
 
 
+import com.kmood.basic.PlaceHolder;
 import com.kmood.basic.SyntaxException;
 import com.kmood.utils.FileUtils;
 import com.kmood.utils.StringUtil;
@@ -16,13 +17,13 @@ import java.io.IOException;
 import java.util.List;
 public class WordModelHandlerImpl implements ModelHandler {
     @Override
-    public  void VerifyModel(String xmlPath)throws Exception {
+    public  String  VerifyModel(String xmlPath,String ftlOutputPath)throws Exception {
         XMLWriter writer = null;
         String  errorInfo = null;
-
         try {
             SAXReader reader = new SAXReader();
             File xmlFile = new File(xmlPath);
+            String name = xmlFile.getName();
             Document document = reader.read(xmlFile);
             Element rootElement = document.getRootElement();
             //清空占位图片数据
@@ -54,24 +55,26 @@ public class WordModelHandlerImpl implements ModelHandler {
             }
             errorInfo= WordParserUtils.VarifySyntax(wpStr.toString());
             if (errorInfo != null && errorInfo.length() != 0) throw new SyntaxException(errorInfo);
-            FileWriter fileWiter = new FileWriter(xmlFile);
+            if (ftlOutputPath == null) ftlOutputPath = xmlPath+".ftl";
+            else ftlOutputPath = ftlOutputPath + name +".ftl";
+            FileWriter fileWiter = new FileWriter(ftlOutputPath);
             writer = new XMLWriter(fileWiter);
             writer.write( document );
         } finally {
             if (writer != null )
                 writer.close();
         }
-        return ;
+        return ftlOutputPath;
     }
 
 
 
     @Override
-    public String ConverToFreemaker(String xmlPath,String ftlOutputPath)throws DocumentException,IOException {
+    public String ConverToFreemaker(String ftlOutputPath)throws DocumentException,IOException {
         XMLWriter writer = null;
         try {
             SAXReader reader = new SAXReader();
-            File file = new File(xmlPath);
+            File file = new File(ftlOutputPath);
             Document document = reader.read(file);
             //清空占位图片数据
 //            WordParserUtils.clearPictureContent(document);
@@ -107,8 +110,6 @@ public class WordModelHandlerImpl implements ModelHandler {
 
                 }
             }
-            if (ftlOutputPath == null) ftlOutputPath = xmlPath+".ftl";
-            else ftlOutputPath = ftlOutputPath + name +".ftl";
             FileWriter fileWiter = new FileWriter(ftlOutputPath);
             writer = new XMLWriter(fileWiter);
             writer.write( document );
@@ -130,6 +131,7 @@ public class WordModelHandlerImpl implements ModelHandler {
             body = WordParserUtils.IfTagHandle(body);
             body = WordParserUtils.ListTagHandle(body);
             body = WordParserUtils.BraceTagHandle(body);
+            body = PlaceHolder.FromESC(body);
             out = new FileOutputStream(xmlFtlPath);
             xmModelStr = xmModelStr.substring(0,xmModelStr.indexOf("<w:body>"))+"<w:body>"+body+"</w:body>"+xmModelStr.substring(xmModelStr.lastIndexOf("</w:body>")+9);
             out.write(xmModelStr.getBytes());
@@ -140,12 +142,10 @@ public class WordModelHandlerImpl implements ModelHandler {
             }
         }
     }
-
-
     public String WordXmlModelHandle(String xmlPath,String ActualModelPath) throws Exception{
-        VerifyModel(xmlPath);
-        String xmlFtlpath = ConverToFreemaker(xmlPath,ActualModelPath);
-        XmlPlaceHolderHandler(xmlFtlpath);
-        return xmlFtlpath;
+        String actualModelPath = VerifyModel(xmlPath, ActualModelPath);
+        ConverToFreemaker(actualModelPath);
+        XmlPlaceHolderHandler(actualModelPath);
+        return actualModelPath;
     }
 }

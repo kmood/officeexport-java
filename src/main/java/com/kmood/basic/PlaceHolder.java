@@ -100,9 +100,9 @@ public class PlaceHolder {
         if (StringUtils.isBlank(xmlStr)) return xmlStr;
         xmlStr = xmlStr.replaceAll("\\\\\\\\",  "~0~");
         xmlStr = xmlStr.replaceAll("\\\\\\{", "~1~");
-        xmlStr = xmlStr.replaceAll("\\\\}",   "~2~");
+        xmlStr = xmlStr.replaceAll("\\\\\\}",   "~2~");
         xmlStr = xmlStr.replaceAll("\\\\\\[", "~3~");
-        xmlStr = xmlStr.replaceAll("\\\\]",   "~4~");
+        xmlStr = xmlStr.replaceAll("\\\\\\]",   "~4~");
         xmlStr = xmlStr.replaceAll("\\\\#",   "~5~");
         xmlStr = xmlStr.replaceAll("\\\\\\*",   "~6~");
         xmlStr = xmlStr.replaceAll("\\\\@",   "~7~");

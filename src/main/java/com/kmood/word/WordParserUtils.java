@@ -355,14 +355,17 @@ public class WordParserUtils {
             Node o = (Node)wtNodeList.get(i);
             String text = o.getText();
             text = PlaceHolder.ToESC(text);
-            if ((s -1) != i){
+            o.setText(text);
+            if ((s -1) != i && text.endsWith("\\")){
                 Node o_s = (Node)wtNodeList.get(i + 1);
                 String o_sText = o_s.getText();
-                if (text.endsWith("\\")){
-                    o.setText(text.substring(0,text.length()-1));
-                    if (o_sText.length() >0){
-                        o_s.setText(o_sText.substring(1,text.length()));
-                    }
+                int l = o_sText.length();
+                if (l==1){
+                    o_s.setText("");
+                    o.setText(PlaceHolder.ToESC(text+o_sText));
+                } else if (l>1){
+                    o_s.setText(o_sText.substring(1, o_sText.length()));
+                    o.setText(PlaceHolder.ToESC(text+o_sText.substring(0,1)));
                 }
             }
         }

@@ -45,11 +45,11 @@ public class TestPlaceHolder {
     }
     @Test
     public void  testToEsc(){
-        String x = PlaceHolder.ToESC("\\\\\\*   \\*  *  *");
+        String x = PlaceHolder.ToESC("\\*   \\#   \\{   \\}  \\[  \\@");
         System.out.println(x);
         String s = PlaceHolder.FromESC(x);
         System.out.println(s);
-        Assert.assertEquals("\\\\*   *  *  *",s);
+        Assert.assertEquals("*   #   {   }  [  @",s);
     }
 
 }

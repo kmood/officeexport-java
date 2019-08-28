@@ -31,7 +31,7 @@ public class TestWordExcelModelHandlerImpl {
     public void TestVerifyModel(){
         try {
             String path = Url.toURI().getPath();
-            w.VerifyModel(path);
+            w.VerifyModel(path,path+".ftl");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -40,7 +40,7 @@ public class TestWordExcelModelHandlerImpl {
     public void TestConverToFreemaker(){
         try {
             String path = Url.toURI().getPath();
-            w.ConverToFreemaker(path,null);
+            w.ConverToFreemaker(path+".ftl");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,7 +49,7 @@ public class TestWordExcelModelHandlerImpl {
     public void TestXmlPlaceHolderHandler(){
         try {
             String path = Url.toURI().getPath();
-            String s = w.ConverToFreemaker(path, null);
+            String s = w.ConverToFreemaker(path+".ftl");
             w.XmlPlaceHolderHandler(s);
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +69,9 @@ public class TestWordExcelModelHandlerImpl {
 
 
     /**
-     * description: 测试[# 表格循环嵌套
+     * description:
+     * 测试[# 表格循环嵌套
+     * 测试转义字符
      * @auther: SunBC
      * @date: 2019/7/4 21:16
      */
