@@ -16,37 +16,51 @@ import java.io.IOException;
 import java.util.List;
 public class WordModelHandlerImpl implements ModelHandler {
     @Override
-    public  void VerifyModel(String xmlPath)throws DocumentException {
+    public  void VerifyModel(String xmlPath)throws Exception {
+        XMLWriter writer = null;
         String  errorInfo = null;
-        SAXReader reader = new SAXReader();
-        Document document = reader.read(new File(xmlPath));
-        Element rootElement = document.getRootElement();
-        //清空占位图片数据
-        WordParserUtils.clearPictureContent(document);
-        List pictList = document.selectNodes(".//v:shape");
-        //校验图片
-        for (int i = 0; pictList != null &&i < pictList.size(); i++) {
-            Element node = (Element)pictList.get(i);
-            Attribute alt = node.attribute("alt");
-            if (alt == null || StringUtil.isBlank(alt.getText())) continue;
-            errorInfo = WordParserUtils.VarifySyntax(StringUtil.removeInvisibleChar(alt.getText()));
-            if (errorInfo != null && errorInfo.length() != 0) throw new SyntaxException("(图片占位符)"+errorInfo);
-        }
 
-        //校验段落
-        List ParagList = document.selectNodes(".//w:p");
-        StringBuilder wpStr = new StringBuilder();
-        for (int i = 0; i < ParagList.size(); i++) {
-            Node node = (Node)ParagList.get(i);
-            List TextNodeList = node.selectNodes(".//w:t");
-            for (int j = 0; j < TextNodeList.size(); j++) {
-                Node TextNode = (Node)TextNodeList.get(j);
-                String text = TextNode.getText();
-                wpStr.append(StringUtil.removeInvisibleChar(text));
+        try {
+            SAXReader reader = new SAXReader();
+            File xmlFile = new File(xmlPath);
+            Document document = reader.read(xmlFile);
+            Element rootElement = document.getRootElement();
+            //清空占位图片数据
+            WordParserUtils.clearPictureContent(document);
+            //处理转义字符
+            WordParserUtils.handleESC(document);
+
+            List pictList = document.selectNodes(".//v:shape");
+            //校验图片
+            for (int i = 0; pictList != null &&i < pictList.size(); i++) {
+                Element node = (Element)pictList.get(i);
+                Attribute alt = node.attribute("alt");
+                if (alt == null || StringUtil.isBlank(alt.getText())) continue;
+                errorInfo = WordParserUtils.VarifySyntax(StringUtil.removeInvisibleChar(alt.getText()));
+                if (errorInfo != null && errorInfo.length() != 0) throw new SyntaxException("(图片占位符)"+errorInfo);
             }
+
+            //校验段落
+            List ParagList = document.selectNodes(".//w:p");
+            StringBuilder wpStr = new StringBuilder();
+            for (int i = 0; i < ParagList.size(); i++) {
+                Node node = (Node)ParagList.get(i);
+                List TextNodeList = node.selectNodes(".//w:t");
+                for (int j = 0; j < TextNodeList.size(); j++) {
+                    Node TextNode = (Node)TextNodeList.get(j);
+                    String text = TextNode.getText();
+                    wpStr.append(StringUtil.removeInvisibleChar(text));
+                }
+            }
+            errorInfo= WordParserUtils.VarifySyntax(wpStr.toString());
+            if (errorInfo != null && errorInfo.length() != 0) throw new SyntaxException(errorInfo);
+            FileWriter fileWiter = new FileWriter(xmlFile);
+            writer = new XMLWriter(fileWiter);
+            writer.write( document );
+        } finally {
+            if (writer != null )
+                writer.close();
         }
-        errorInfo= WordParserUtils.VarifySyntax(wpStr.toString());
-        if (errorInfo != null && errorInfo.length() != 0) throw new SyntaxException(errorInfo);
         return ;
     }
 
@@ -60,7 +74,7 @@ public class WordModelHandlerImpl implements ModelHandler {
             File file = new File(xmlPath);
             Document document = reader.read(file);
             //清空占位图片数据
-            WordParserUtils.clearPictureContent(document);
+//            WordParserUtils.clearPictureContent(document);
             List list = document.selectNodes("//w:p");
             for (int i = 0; i <list.size() ; i++) {
                 Node WPNode = (Node)list.get(i);
@@ -128,8 +142,7 @@ public class WordModelHandlerImpl implements ModelHandler {
     }
 
 
-
-    public String WordXmlModelHandle(String xmlPath,String ActualModelPath) throws IOException,DocumentException{
+    public String WordXmlModelHandle(String xmlPath,String ActualModelPath) throws Exception{
         VerifyModel(xmlPath);
         String xmlFtlpath = ConverToFreemaker(xmlPath,ActualModelPath);
         XmlPlaceHolderHandler(xmlFtlpath);

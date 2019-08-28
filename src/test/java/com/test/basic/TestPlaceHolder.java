@@ -1,6 +1,7 @@
 package com.test.basic;
 
 import com.kmood.basic.PlaceHolder;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -42,4 +43,13 @@ public class TestPlaceHolder {
         boolean b = PlaceHolder.XJIsEffective(charArr, stack, 2,'*');
         System.out.println(b);
     }
+    @Test
+    public void  testToEsc(){
+        String x = PlaceHolder.ToESC("\\\\\\*   \\*  *  *");
+        System.out.println(x);
+        String s = PlaceHolder.FromESC(x);
+        System.out.println(s);
+        Assert.assertEquals("\\\\*   *  *  *",s);
+    }
+
 }

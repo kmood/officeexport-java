@@ -23,7 +23,9 @@ public class TestStringUtil {
     }
     @Test
     public void testApi(){
-        System.out.println("0123aaa789aaa".indexOf("aaa"));
-        System.out.println("0123aaa789aaa".lastIndexOf("aaa"));
+//        System.out.println("0123aaa789aaa".indexOf("aaa"));
+        System.out.println("123".substring(0,"123".length()-1));
     }
+
+
 }

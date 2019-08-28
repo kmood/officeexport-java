@@ -348,12 +348,25 @@ public class WordParserUtils {
         WordParserUtils.AddParentNode(element,"#if",ifAttMap);
     }
 
-//    public static void handleESC(Document document) {
-//        List wtNodeList = document.selectNodes(".//w:t");
-//        for (int i = 0; i < wtNodeList.size(); i++) {
-//            wtNodeList
-//        }
-//    }
+    public static void handleESC(Document document) {
+        List wtNodeList = document.selectNodes(".//w:t");
+        int s = wtNodeList.size();
+        for (int i = 0; i < s; i++) {
+            Node o = (Node)wtNodeList.get(i);
+            String text = o.getText();
+            text = PlaceHolder.ToESC(text);
+            if ((s -1) != i){
+                Node o_s = (Node)wtNodeList.get(i + 1);
+                String o_sText = o_s.getText();
+                if (text.endsWith("\\")){
+                    o.setText(text.substring(0,text.length()-1));
+                    if (o_sText.length() >0){
+                        o_s.setText(o_sText.substring(1,text.length()));
+                    }
+                }
+            }
+        }
+    }
 
 
     public static void PlaceHodlerHandle(Node WPNode){

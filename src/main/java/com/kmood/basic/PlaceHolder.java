@@ -98,30 +98,30 @@ public class PlaceHolder {
 
     public static String ToESC(String xmlStr){
         if (StringUtils.isBlank(xmlStr)) return xmlStr;
-        xmlStr = xmlStr.replaceAll("\\\\", "\\0\\");
-        xmlStr = xmlStr.replaceAll("\\{", "\\1\\");
-        xmlStr = xmlStr.replaceAll("\\}", "\\2\\");
-        xmlStr = xmlStr.replaceAll("\\[", "\\3\\");
-        xmlStr = xmlStr.replaceAll("\\]", "\\4\\");
-        xmlStr = xmlStr.replaceAll("\\#", "\\5\\");
-        xmlStr = xmlStr.replaceAll("\\*", "\\6\\");
-        xmlStr = xmlStr.replaceAll("\\@", "\\7\\");
-        xmlStr = xmlStr.replaceAll("\\$", "\\8\\");
-        xmlStr = xmlStr.replaceAll("\\^", "\\9\\");
+        xmlStr = xmlStr.replaceAll("\\\\\\\\",  "~0~");
+        xmlStr = xmlStr.replaceAll("\\\\\\{", "~1~");
+        xmlStr = xmlStr.replaceAll("\\\\}",   "~2~");
+        xmlStr = xmlStr.replaceAll("\\\\\\[", "~3~");
+        xmlStr = xmlStr.replaceAll("\\\\]",   "~4~");
+        xmlStr = xmlStr.replaceAll("\\\\#",   "~5~");
+        xmlStr = xmlStr.replaceAll("\\\\\\*",   "~6~");
+        xmlStr = xmlStr.replaceAll("\\\\@",   "~7~");
+        xmlStr = xmlStr.replaceAll("\\\\\\$",   "~8~");
+        xmlStr = xmlStr.replaceAll("\\\\\\^",   "~9~");
         return xmlStr;
     }
     public static String FromESC(String xmlStr){
         if (StringUtils.isBlank(xmlStr)) return xmlStr;
-        xmlStr = xmlStr.replaceAll( "\\0\\", "\\");
-        xmlStr = xmlStr.replaceAll("\\1\\","{");
-        xmlStr = xmlStr.replaceAll("\\2\\","}");
-        xmlStr = xmlStr.replaceAll("\\3\\","[");
-        xmlStr = xmlStr.replaceAll("\\4\\","]");
-        xmlStr = xmlStr.replaceAll("\\5\\","#");
-        xmlStr = xmlStr.replaceAll("\\6\\","*");
-        xmlStr = xmlStr.replaceAll("\\7\\","@");
-        xmlStr = xmlStr.replaceAll("\\8\\","$");
-        xmlStr = xmlStr.replaceAll("\\9\\","^");
+        xmlStr = xmlStr.replaceAll("~0~", "\\\\\\\\");
+        xmlStr = xmlStr.replaceAll("~1~","\\{");
+        xmlStr = xmlStr.replaceAll("~2~","}");
+        xmlStr = xmlStr.replaceAll("~3~","\\[");
+        xmlStr = xmlStr.replaceAll("~4~","]");
+        xmlStr = xmlStr.replaceAll("~5~","#");
+        xmlStr = xmlStr.replaceAll("~6~","\\*");
+        xmlStr = xmlStr.replaceAll("~7~","@");
+        xmlStr = xmlStr.replaceAll("~8~","\\$");
+        xmlStr = xmlStr.replaceAll("~9~","\\^");
         return xmlStr;
     }
 
