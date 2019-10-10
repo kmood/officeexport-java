@@ -5,6 +5,7 @@ import com.kmood.basic.PlaceHolder;
 import com.kmood.basic.SyntaxException;
 import com.kmood.utils.StringUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -18,10 +19,18 @@ public class WordParserUtils {
 
 
     public static void clearPictureContent(Document document) {
+
         List pictureList = document.selectNodes(".//w:binData");
         if (pictureList != null) {
             for (int i = 0; i < pictureList.size(); i++) {
                 Node node = (Node) pictureList.get(i);
+                Element parent = node.getParent();
+                Element vnode = (Element)parent.selectSingleNode("./v:shape");
+                if (vnode == null ) continue;
+                Attribute alt = vnode.attribute("alt");
+                if(alt == null) continue;
+                String text = alt.getText();
+                if (text.contains("{^"))
                 node.setText("   ");
             }
         }

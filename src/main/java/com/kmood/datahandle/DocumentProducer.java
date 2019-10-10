@@ -39,6 +39,7 @@ public class DocumentProducer {
         ActualModelNameLocal.set(XmlModelName+".ftl");
         return XmlModelPath+File.separator+XmlModelName+".ftl";
     }
+    //增加构造函数
     public void produce(Object data,String ProduceFilePath)throws IOException,TemplateException {
         Configuration configuration = FMConfiguration.getConfiguration();
         Template template = configuration.getTemplate(ActualModelNameLocal.get());

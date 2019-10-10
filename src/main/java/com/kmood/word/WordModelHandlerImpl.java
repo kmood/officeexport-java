@@ -6,6 +6,7 @@ import com.kmood.basic.SyntaxException;
 import com.kmood.utils.FileUtils;
 import com.kmood.utils.StringUtil;
 import com.kmood.basic.ModelHandler;
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
@@ -75,9 +76,8 @@ public class WordModelHandlerImpl implements ModelHandler {
         try {
             SAXReader reader = new SAXReader();
             File file = new File(ftlOutputPath);
+
             Document document = reader.read(file);
-            //清空占位图片数据
-//            WordParserUtils.clearPictureContent(document);
             List list = document.selectNodes("//w:p");
             for (int i = 0; i <list.size() ; i++) {
                 Node WPNode = (Node)list.get(i);
@@ -101,6 +101,7 @@ public class WordModelHandlerImpl implements ModelHandler {
                     }
                     if (binDataNode != null  && shapeNode != null){
                         String alt = shapeNode.attributeValue("alt");
+                        if (alt == null || !alt.contains("{^"))continue;
                         if (StringUtil.isNotBlank(alt)){
                             shapeNode.addAttribute("alt",alt.replaceAll("\\{\\^[\\s\\S]*\\^}",""));
                         }
