@@ -142,11 +142,45 @@ public class WordParserUtils {
         return errorInfor;
     }
 
-    public static Element AddParentNode(Element beginEle, Element endEle, String name, HashMap<String, String> attMap) {
+    //
+    public static Element AddParentNode_JH(Element beginEle, Element endEle, String name, HashMap<String, String> attMap) {
         if (beginEle == null || endEle == null) return null;
         Element beginEleParent = beginEle.getParent();
         Element endEleParent = endEle.getParent();
         if (!beginEleParent.equals(endEleParent))  throw new RuntimeException("模板占位符格式不正确：-----"+beginEle.getText()+"-----部分的占位符起始符与结束符不同级");
+        List elements = beginEleParent.elements();
+        ArrayList<Element> elementPrefixArr = new ArrayList<>();
+        ArrayList<Element> elementArr = new ArrayList<>();
+        ArrayList<Element> elementSubfixArr = new ArrayList<>();
+        int beginIndex = elements.indexOf(beginEle);
+        int endIndex = elements.indexOf(endEle);
+        for (int j = 0; j < elements.size(); j++) {
+            Element e = (Element)elements.get(j);
+            if (j<beginIndex)elementPrefixArr.add(e);
+            else if (j > endIndex) elementSubfixArr.add(e);
+            else elementArr.add(e);
+            beginEleParent.remove(e);
+        }
+        for (int j = 0; j < elementPrefixArr.size(); j++) {
+            beginEleParent.add(elementPrefixArr.get(j));
+        }
+
+        Element element = beginEleParent.addElement(name);
+        Set<String> keyset = attMap.keySet();
+        for (String key:keyset){
+            element.addAttribute(key,attMap.get(key));
+        }
+        for (int j = 0; j < elementArr.size(); j++) {
+            element.add(elementArr.get(j));
+        }
+        for (int j = 0; j < elementSubfixArr.size(); j++) {
+            beginEleParent.add(elementSubfixArr.get(j));
+        }
+        return element;
+    }
+    public static Element AddParentNode_XH(Element beginEle, Element endEle, String name, HashMap<String, String> attMap) {
+        if (beginEle == null || endEle == null) return null;
+        Element beginEleParent = beginEle.getParent();
         List elements = beginEleParent.elements();
         ArrayList<Element> elementPrefixArr = new ArrayList<>();
         ArrayList<Element> elementArr = new ArrayList<>();
@@ -299,13 +333,13 @@ public class WordParserUtils {
             if(Jarr != null){
                 String s = "#";
                 for (int g = 0; g < Jarr.length; g++) {
-                    converList(wpNodeList, i, (Element) wpNode, Jarr[g], s);
+                    converList_JH(wpNodeList, i, (Element) wpNode, Jarr[g], s);
                 }
             }
             if (Xarr != null ){
                 String s = "*";
                 for (int g = 0; g < Xarr.length; g++) {
-                    converList(wpNodeList, i, (Element) wpNode, Xarr[g], s);
+                    converList_XH(wpNodeList, i, (Element) wpNode, Xarr[g], s);
                 }
             }
 
@@ -313,10 +347,15 @@ public class WordParserUtils {
         }
     }
 
-    private static void converList(List wpNodeList, int i, Element wpNode, String value, String s) {
+    private static void converList_JH(List wpNodeList, int i, Element wpNode, String value, String s) {
         Element beginEle = wpNode;
         if ("#".equals(s)) {
             while (beginEle != null && !"tr".equals(beginEle.getName())){
+                beginEle = beginEle.getParent();
+            }
+        }
+        if ("*".equals(s)) {
+            while (beginEle != null && !"p".equals(beginEle.getName())){
                 beginEle = beginEle.getParent();
             }
         }
@@ -329,7 +368,7 @@ public class WordParserUtils {
             for (int k = 0; k < wtlisttemp.size(); k++) {
                 Node node = (Node)wtlisttemp.get(k);
                 String text1 = node.getText();
-                if (text1 != null && StringUtil.removeInvisibleChar(text1).contains(t)){
+                if (text1 != null && StringUtil.removeInvisibleChar(text1).contains(t)&& StringUtil.removeInvisibleChar(text1).contains(t)){
                     String[] vArr = StringUtil.substringsBetween(text1, s, "]");
                     for (String str : vArr){
                         String s1 = valueTrim + s;
@@ -345,6 +384,11 @@ public class WordParserUtils {
                 endEle = endEle.getParent();
             }
         }
+        if ("*".equals(s)) {
+            while (endEle != null && !"p".equals(endEle.getName())){
+                endEle = endEle.getParent();
+            }
+        }
         HashMap<String, String> listAttMap = new HashMap<>();
         listAttMap.put("type","list");
         listAttMap.put("content"," "+value+ " ");
@@ -353,7 +397,54 @@ public class WordParserUtils {
         ifAttMap.put("content"," ("+StringUtil.substringBefore(value," " ).trim() +")??");
         String name = "#list";
 
-        Element element = WordParserUtils.AddParentNode(beginEle, endEle, name, listAttMap);
+        Element element = WordParserUtils.AddParentNode_JH(beginEle, endEle, name, listAttMap);
+        WordParserUtils.AddParentNode(element,"#if",ifAttMap);
+    }
+    private static void converList_XH(List wpNodeList, int i, Element wpNode, String value, String s) {
+        Element beginEle = wpNode;
+        if ("*".equals(s)) {
+            while (beginEle != null && !"p".equals(beginEle.getName())){
+                beginEle = beginEle.getParent();
+            }
+        }
+        Element eLEEle_wp = null;
+        Element eLEEle = null;
+        String valueTrim = StringUtil.substringBefore(StringUtil.removeInvisibleChar(value), "@").trim();
+        String t = s + valueTrim + s+"]";
+        for (int j = i; j < wpNodeList.size(); j++) {
+            Node temp = (Node)wpNodeList.get(j);
+            List wtlisttemp = temp.selectNodes(".//w:t");
+            for (int k = 0; k < wtlisttemp.size(); k++) {
+                Node node = (Node)wtlisttemp.get(k);
+                String text1 = node.getText();
+                if (text1 != null && StringUtil.removeInvisibleChar(text1).contains(t)&& StringUtil.removeInvisibleChar(text1).contains(t)){
+                    String[] vArr = StringUtil.substringsBetween(text1, s, "]");
+                    for (String str : vArr){
+                        String s1 = valueTrim + s;
+                        if (s1.equals(StringUtil.removeInvisibleChar(str))) node.setText(text1.replace(s + str + "]", ""));
+                    }
+                    eLEEle_wp= (Element) temp; // wp标签
+                }
+            }
+        }
+
+        if (eLEEle_wp == null) throw new SyntaxException(beginEle.getText()+"-----'"+value+"'未匹配到结束符");
+        if ("*".equals(s)) {
+            eLEEle = eLEEle_wp.getParent();
+            while (eLEEle != null && eLEEle.equals(beginEle.getParent())){
+                eLEEle = eLEEle.getParent();
+            }
+        }
+        if (eLEEle == null ) throw new RuntimeException("模板占位符格式不正确：-----"+beginEle.getText()+"-----部分的占位符起始符与结束符不同级");
+        HashMap<String, String> listAttMap = new HashMap<>();
+        listAttMap.put("type","list");
+        listAttMap.put("content"," "+value+ " ");
+        HashMap<String, String> ifAttMap = new HashMap<>();
+        ifAttMap.put("type","if");
+        ifAttMap.put("content"," ("+StringUtil.substringBefore(value," " ).trim() +")??");
+        String name = "#list";
+
+        Element element = WordParserUtils.AddParentNode_XH(beginEle, eLEEle, name, listAttMap);
         WordParserUtils.AddParentNode(element,"#if",ifAttMap);
     }
 
@@ -398,6 +489,7 @@ public class WordParserUtils {
                 for (int i = j; i < s; i++) {
                     Node WTNodeNew_ = (Node)WTList.get(i);
                     String t = WTNodeNew_.getText();
+                    WTNodeNew_.setText(StringUtil.removeInvisibleChar(t));
                     temp += t;
                     int i1 = StringUtil.countMatches(temp, '*');
                     int i2 = StringUtil.countMatches(temp, '#');

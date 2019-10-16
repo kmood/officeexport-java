@@ -26,6 +26,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Description:
  */
 public class test {
+
+
     /**
      * description:包装说明表（范例A）.xml  模板导出测试,验证格式，测试转义字符。
      * @auther: SunBC
@@ -99,6 +101,69 @@ public class test {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public  void exportDb()throws Exception{
+
+
+        HashMap<String, Object> map_export = new HashMap<>();
+
+        ArrayList<Map<String, Object>> mapList = new ArrayList<>();
+        HashMap<String, Object> map1 = new HashMap<>();
+        map1.put("index",1);
+        map1.put("TABLE_NAME","test");
+        ArrayList<Map<String, Object>> mapList_c = new ArrayList<>();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("column_name","通用字段1");
+        map.put("column_type","varchar1");
+        map.put("column_comment","测试1");
+        mapList_c.add(map);
+
+        HashMap<String, Object> map2 = new HashMap<>();
+        map2.put("column_name","通用字段2");
+        map2.put("column_type","varchar2");
+        map2.put("column_comment","测试2");
+        mapList_c.add(map2);
+        map1.put("columns",mapList_c);
+
+
+        mapList.add(map1);
+
+        HashMap<String, Object> map5 = new HashMap<>();
+        map5.put("index",1);
+        map5.put("TABLE_NAME","test");
+        ArrayList<Map<String, Object>> mapList_c2 = new ArrayList<>();
+        HashMap<String, Object> map3 = new HashMap<>();
+        map3.put("column_name","通用字段1");
+        map3.put("column_type","varchar1");
+        map3.put("column_comment","测试1");
+        mapList_c2.add(map3);
+
+        HashMap<String, Object> map4 = new HashMap<>();
+        map4.put("column_name","通用字段2");
+        map4.put("column_type","varchar2");
+        map4.put("column_comment","测试2");
+        mapList_c2.add(map4);
+        map5.put("columns",mapList_c2);
+
+
+        mapList.add(map5);
+
+
+
+
+        map_export.put("tables",mapList);
+
+
+
+
+        DocumentProducer dp = new DocumentProducer("C:\\Users\\admin\\Desktop\\");
+        String complie = dp.Complie("C:\\Users\\admin\\Desktop\\", "gpm3-2018-08-01.xml", true);
+        System.out.println(complie);
+        dp.produce(map_export, "C:\\Users\\admin\\Desktop\\gpm3-2018-08-01-export.doc");
+
+
     }
 
 
