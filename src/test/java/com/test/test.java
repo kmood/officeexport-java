@@ -159,7 +159,7 @@ public class test {
 
 
         DocumentProducer dp = new DocumentProducer("C:\\Users\\admin\\Desktop\\");
-        String complie = dp.Complie("C:\\Users\\admin\\Desktop\\", "gpm3-2018-08-01.xml", true);
+        String complie = dp.Complie("C:\\Users\\admin\\Desktop\\", "DbExportModel.xml", true);
         System.out.println(complie);
         dp.produce(map_export, "C:\\Users\\admin\\Desktop\\gpm3-2018-08-01-export.doc");
 

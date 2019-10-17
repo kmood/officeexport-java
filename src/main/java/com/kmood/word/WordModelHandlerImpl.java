@@ -11,15 +11,12 @@ import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 public class WordModelHandlerImpl implements ModelHandler {
     @Override
     public  String  VerifyModel(String xmlPath,String ftlOutputPath)throws Exception {
-        XMLWriter writer = null;
+        Writer writer = null;
         String  errorInfo = null;
         try {
             SAXReader reader = new SAXReader();
@@ -58,9 +55,11 @@ public class WordModelHandlerImpl implements ModelHandler {
             if (errorInfo != null && errorInfo.length() != 0) throw new SyntaxException(errorInfo);
             if (ftlOutputPath == null) ftlOutputPath = xmlPath+".ftl";
             else ftlOutputPath = ftlOutputPath + name +".ftl";
-            FileWriter fileWiter = new FileWriter(ftlOutputPath);
-            writer = new XMLWriter(fileWiter);
-            writer.write( document );
+
+
+            writer=new OutputStreamWriter(new FileOutputStream(ftlOutputPath),"UTF-8");
+            document.write(writer);
+            writer.flush();
         } finally {
             if (writer != null )
                 writer.close();
@@ -72,15 +71,17 @@ public class WordModelHandlerImpl implements ModelHandler {
 
     @Override
     public String ConverToFreemaker(String ftlOutputPath)throws DocumentException,IOException {
-        XMLWriter writer = null;
+        Writer writer = null;
         try {
             SAXReader reader = new SAXReader();
             File file = new File(ftlOutputPath);
 
             Document document = reader.read(file);
             List list = document.selectNodes("//w:p");
+
             for (int i = 0; i <list.size() ; i++) {
                 Node WPNode = (Node)list.get(i);
+                //处理分离的占位符
                 WordParserUtils.PlaceHodlerHandle(WPNode);
             }
             //转换[ 到list标签
@@ -111,9 +112,8 @@ public class WordModelHandlerImpl implements ModelHandler {
 
                 }
             }
-            FileWriter fileWiter = new FileWriter(ftlOutputPath);
-            writer = new XMLWriter(fileWiter);
-            writer.write( document );
+            writer=new OutputStreamWriter(new FileOutputStream(ftlOutputPath),"UTF-8");
+            document.write(writer);
             writer.flush();
             return ftlOutputPath;
         }finally {
@@ -124,7 +124,6 @@ public class WordModelHandlerImpl implements ModelHandler {
 
     @Override
     public void XmlPlaceHolderHandler(String xmlFtlPath) throws IOException{
-        XMLWriter writer = null;
         FileOutputStream out = null;
         try {
             String xmModelStr = FileUtils.readToStringByFilepath(xmlFtlPath);
