@@ -28,9 +28,9 @@ public class FMConfiguration {
         if (configuration == null ){
             synchronized (FMConfiguration.class){
                 if (configuration == null ){
-                    if (FMVersion != null)configuration = new Configuration(Configuration.VERSION_2_3_28);
-                    if (encoding != null)configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-                    if (ExceptionHandler != null)configuration.setDefaultEncoding("UTF-8");
+                    if (FMVersion != null)configuration = new Configuration(FMVersion);
+                    if ( ExceptionHandler!= null)configuration.setTemplateExceptionHandler(ExceptionHandler);
+                    if ( encoding!= null)configuration.setDefaultEncoding(encoding);
                 }
             }
         }
@@ -39,9 +39,9 @@ public class FMConfiguration {
         if (configuration == null ){
             synchronized (FMConfiguration.class){
                 if (configuration == null ){
-                    configuration = new Configuration(Configuration.VERSION_2_3_28);
-                    configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-                    configuration.setDefaultEncoding("UTF-8");
+                    configuration = new Configuration(FMVersion);
+                    configuration.setTemplateExceptionHandler(FMExceptionHandler);
+                    configuration.setDefaultEncoding(FMEncoding);
                 }
             }
         }

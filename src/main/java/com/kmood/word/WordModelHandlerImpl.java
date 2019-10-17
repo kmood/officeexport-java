@@ -3,9 +3,11 @@ package com.kmood.word;
 
 import com.kmood.basic.PlaceHolder;
 import com.kmood.basic.SyntaxException;
+import com.kmood.datahandle.FMConfiguration;
 import com.kmood.utils.FileUtils;
 import com.kmood.utils.StringUtil;
 import com.kmood.basic.ModelHandler;
+import freemarker.template.Configuration;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
@@ -19,6 +21,7 @@ public class WordModelHandlerImpl implements ModelHandler {
         Writer writer = null;
         String  errorInfo = null;
         try {
+            Configuration configuration = FMConfiguration.getConfiguration();
             SAXReader reader = new SAXReader();
             File xmlFile = new File(xmlPath);
             String name = xmlFile.getName();
@@ -57,7 +60,7 @@ public class WordModelHandlerImpl implements ModelHandler {
             else ftlOutputPath = ftlOutputPath + name +".ftl";
 
 
-            writer=new OutputStreamWriter(new FileOutputStream(ftlOutputPath),"UTF-8");
+            writer=new OutputStreamWriter(new FileOutputStream(ftlOutputPath),configuration.getDefaultEncoding());
             document.write(writer);
             writer.flush();
         } finally {
@@ -73,6 +76,7 @@ public class WordModelHandlerImpl implements ModelHandler {
     public String ConverToFreemaker(String ftlOutputPath)throws DocumentException,IOException {
         Writer writer = null;
         try {
+            Configuration configuration = FMConfiguration.getConfiguration();
             SAXReader reader = new SAXReader();
             File file = new File(ftlOutputPath);
 
@@ -112,7 +116,7 @@ public class WordModelHandlerImpl implements ModelHandler {
 
                 }
             }
-            writer=new OutputStreamWriter(new FileOutputStream(ftlOutputPath),"UTF-8");
+            writer=new OutputStreamWriter(new FileOutputStream(ftlOutputPath),configuration.getDefaultEncoding());
             document.write(writer);
             writer.flush();
             return ftlOutputPath;
@@ -126,7 +130,8 @@ public class WordModelHandlerImpl implements ModelHandler {
     public void XmlPlaceHolderHandler(String xmlFtlPath) throws IOException{
         FileOutputStream out = null;
         try {
-            String xmModelStr = FileUtils.readToStringByFilepath(xmlFtlPath);
+            Configuration configuration = FMConfiguration.getConfiguration();
+            String xmModelStr = new String(FileUtils.readToBytesByFilepath(xmlFtlPath),configuration.getDefaultEncoding());
             String body = StringUtil.substringBetween(xmModelStr, "<w:body>", "</w:body>");
             body = WordParserUtils.IfTagHandle(body);
             body = WordParserUtils.ListTagHandle(body);
@@ -134,7 +139,7 @@ public class WordModelHandlerImpl implements ModelHandler {
             body = PlaceHolder.FromESC(body);
             out = new FileOutputStream(xmlFtlPath);
             xmModelStr = xmModelStr.substring(0,xmModelStr.indexOf("<w:body>"))+"<w:body>"+body+"</w:body>"+xmModelStr.substring(xmModelStr.lastIndexOf("</w:body>")+9);
-            out.write(xmModelStr.getBytes());
+            out.write(xmModelStr.getBytes(configuration.getDefaultEncoding()));
             out.flush();
         }finally {
             if(out != null){
