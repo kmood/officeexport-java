@@ -484,7 +484,7 @@ public class WordParserUtils {
             int ji = text.lastIndexOf("#");
 
             if (fi > xi || fi >ji){
-                WTNodeNew.setText(text.substring(0,fi));
+                WTNodeNew.setText(StringUtil.removeInvisibleChar(text.substring(0,fi)));
                 String temp = text.substring(fi, text.length());
                 for (int i = j; i < s; i++) {
                     Node WTNodeNew_ = (Node)WTList.get(i);
@@ -505,7 +505,7 @@ public class WordParserUtils {
                             temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) ;
                         }
                         WTNodeNew.setText(WTNodeNew.getText()+temp);
-                        WTNodeNew_.setText(t);
+                        WTNodeNew_.setText(StringUtil.removeInvisibleChar(t));
                         j = i;
                         break;
                     }else{
@@ -527,7 +527,7 @@ public class WordParserUtils {
                     temp += t;
                     if (StringUtil.countMatches(temp,'}') > 0 ){
                         WTNodeNew.setText(text.substring(0,di));
-                        WTNodeNew_.setText(temp);
+                        WTNodeNew_.setText(StringUtil.removeInvisibleChar(temp));
                         j = i;
                         break;
                     }else{
@@ -545,14 +545,14 @@ public class WordParserUtils {
             int i1 = StringUtil.countMatches(text_, '*');
             int i2 = StringUtil.countMatches(text_, '#');
             if (text_.contains("]") && ((i1 <2 && i1 >0) || (i2 <2 && i2 >0) || (i1 == 0 && i2 == 0))){
-                WTNodeNew.setText(text.substring(fi+1, text.length()));
+                WTNodeNew.setText(StringUtil.removeInvisibleChar(text.substring(fi+1, text.length())));
                 String temp = text.substring(0,fi+1);
                 for (int i = j; i >= 0; i--) {
                     Node WTNodeNew_ = (Node)WTList.get(i);
                     String t = WTNodeNew_.getText();
                     temp = t + temp;
                     if ((StringUtil.countMatches(temp,'*') > 1 || StringUtil.countMatches(temp,'#') > 1)){
-                        WTNodeNew_.setText(temp);
+                        WTNodeNew_.setText(StringUtil.removeInvisibleChar(temp));
                         j = i;
                         break;
                     }else{
