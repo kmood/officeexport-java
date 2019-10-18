@@ -25,7 +25,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
       <dependency>
           <groupId>com.github.kmood</groupId>
           <artifactId>officeexport-java</artifactId>
-          <version>1.0.1-RELEASE</version>
+          <version>1.0.1.1-RELEASE</version>
       </dependency>
 
    ```
