@@ -135,9 +135,9 @@ public class test {
         map5.put("TABLE_NAME","test");
         ArrayList<Map<String, Object>> mapList_c2 = new ArrayList<>();
         HashMap<String, Object> map3 = new HashMap<>();
-        map3.put("column_name","通用字段1");
-        map3.put("column_type","varchar1");
-        map3.put("column_comment","测试1");
+        map3.put("column_name","通用<字段1");
+        map3.put("column_type",">varchar1");
+        map3.put("column_comment","&测试1");
         mapList_c2.add(map3);
 
         HashMap<String, Object> map4 = new HashMap<>();

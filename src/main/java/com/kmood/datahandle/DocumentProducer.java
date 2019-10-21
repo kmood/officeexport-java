@@ -7,10 +7,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.dom4j.DocumentException;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 
 public class DocumentProducer {
     private ThreadLocal<String> ActualModelPathLocal = new ThreadLocal<>();
@@ -44,7 +41,22 @@ public class DocumentProducer {
         Configuration configuration = FMConfiguration.getConfiguration();
         Template template = configuration.getTemplate(ActualModelNameLocal.get());
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(ProduceFilePath), template.getEncoding());
-        template.process(data,outputStreamWriter);
+        Object dataConvert = DataConverter.convert(data, null);
+        template.process(dataConvert,outputStreamWriter);
+    }
+    public void produce(Object data,OutputStream ProduceFileout)throws IOException,TemplateException {
+        Configuration configuration = FMConfiguration.getConfiguration();
+        Template template = configuration.getTemplate(ActualModelNameLocal.get());
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(ProduceFileout, template.getEncoding());
+        Object dataConvert = DataConverter.convert(data, null);
+        template.process(dataConvert,outputStreamWriter);
+    }
+    public void produce(Object data,OutputStream ProduceFileout,Config config)throws IOException,TemplateException{
+        Configuration configuration = FMConfiguration.getConfiguration();
+        Template template = configuration.getTemplate(ActualModelNameLocal.get());
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(ProduceFileout, template.getEncoding());
+        Object dataConvert = DataConverter.convert(data, config);
+        template.process(dataConvert,outputStreamWriter);
     }
     public void produce(Object data,String ProduceFilePath,Config config)throws IOException,TemplateException{
         Configuration configuration = FMConfiguration.getConfiguration();
