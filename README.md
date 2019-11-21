@@ -13,8 +13,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
   * 文本行、表格行单行或多行的遍历输出，并能够进行循环嵌套。
   * 提供数据处理的插件，通过添加处理器可定制任意输出值，例如：特定项的日期、数字等文本格式转换
   * 图片保留样式的输出。
-  
-中文文档：[**https://github.com/kmood/officeexport-java/wiki**](https://github.com/kmood/officeexport-java/wiki)
+ 
 ## 解决的问题以及现有实现方案的对比
 
 工具主要解决word模板导出的复杂性，使用者无需了解众多poi Api、Freemarker语法等即可实现导出。
@@ -61,6 +60,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
 
 <div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/exportExample.png"/></div>
 
+中文文档：[**https://github.com/kmood/officeexport-java/wiki**](https://github.com/kmood/officeexport-java/wiki)
 ## 建议和完善
 欢迎在GitHub Issue中提问和交流。有问题可通过QQ咨询： **2932808575**
 
