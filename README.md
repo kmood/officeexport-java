@@ -16,7 +16,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
  
 ## 解决的问题以及现有实现方案的对比
 
-工具主要为减少word模板导出的复杂性而设计，使用者无需了解众多poi Api、Freemarker语法等即可实现导出。
+工具主要为减少word模板导出的复杂性而设计，使用者无需了解如poi Api、Freemarker等语法即可实现导出。
 
 现有方案对比：
 
