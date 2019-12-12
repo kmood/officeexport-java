@@ -57,8 +57,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
    
 
 >### 实现效果
-
-    <div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/exportExample.png"/></div>
+<div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/exportExample.png"/></div>
 
 中文文档：[**https://github.com/kmood/officeexport-java/wiki**](https://github.com/kmood/officeexport-java/wiki)
 ## 建议和完善
