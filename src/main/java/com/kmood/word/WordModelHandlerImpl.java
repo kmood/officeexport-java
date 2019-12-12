@@ -57,7 +57,7 @@ public class WordModelHandlerImpl implements ModelHandler {
             errorInfo= WordParserUtils.VarifySyntax(wpStr.toString());
             if (errorInfo != null && errorInfo.length() != 0) throw new SyntaxException(errorInfo);
             if (ftlOutputPath == null) ftlOutputPath = xmlPath+".ftl";
-            else ftlOutputPath = ftlOutputPath + name +".ftl";
+            else ftlOutputPath = ftlOutputPath+File.separator+ name +".ftl";
 
 
             writer=new OutputStreamWriter(new FileOutputStream(ftlOutputPath),configuration.getDefaultEncoding());
