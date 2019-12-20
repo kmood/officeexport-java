@@ -180,6 +180,7 @@ public class WordParserUtils {
     }
     public static Element AddParentNode_XH(Element beginEle, Element endEle, String name, HashMap<String, String> attMap) {
         if (beginEle == null || endEle == null) return null;
+
         Element beginEleParent = beginEle.getParent();
         List elements = beginEleParent.elements();
         ArrayList<Element> elementPrefixArr = new ArrayList<>();
@@ -400,8 +401,8 @@ public class WordParserUtils {
         Element element = WordParserUtils.AddParentNode_JH(beginEle, endEle, name, listAttMap);
         WordParserUtils.AddParentNode(element,"#if",ifAttMap);
     }
-    private static void converList_XH(List wpNodeList, int i, Element wpNode, String value, String s) {
-        Element beginEle = wpNode;
+    private static void converList_XH(List wpNodeList, int i, Element BwpNode, String value, String s) {
+        Element beginEle = BwpNode;
         if ("*".equals(s)) {
             while (beginEle != null && !"p".equals(beginEle.getName())){
                 beginEle = beginEle.getParent();
@@ -429,13 +430,14 @@ public class WordParserUtils {
         }
 
         if (eLEEle_wp == null) throw new SyntaxException(beginEle.getText()+"-----'"+value+"'未匹配到结束符");
-        if ("*".equals(s)) {
-            eLEEle = eLEEle_wp.getParent();
-            while (eLEEle != null && eLEEle.equals(beginEle.getParent())){
-                eLEEle = eLEEle.getParent();
-            }
-        }
-        if (eLEEle == null ) throw new RuntimeException("模板占位符格式不正确：-----"+beginEle.getText()+"-----部分的占位符起始符与结束符不同级");
+//        if ("*".equals(s)) {
+//            Element endEleparent = eLEEle_wp.getParent();
+//            while (eLEEle != null && endEleparent !=null ){
+//                if (endEleparent.equals(beginEle.getParent()))break;
+//                endEleparent = endEleparent.getParent();
+//            }
+            if (eLEEle_wp.getParent() == null || !eLEEle_wp.getParent().equals(beginEle.getParent()) ) throw new RuntimeException("模板占位符格式不正确：-----"+beginEle.getText()+"-----部分的占位符起始符与结束符不同级");
+//        }
         HashMap<String, String> listAttMap = new HashMap<>();
         listAttMap.put("type","list");
         listAttMap.put("content"," "+value+ " ");
@@ -444,7 +446,7 @@ public class WordParserUtils {
         ifAttMap.put("content"," ("+StringUtil.substringBefore(value," " ).trim() +")??");
         String name = "#list";
 
-        Element element = WordParserUtils.AddParentNode_XH(beginEle, eLEEle, name, listAttMap);
+        Element element = WordParserUtils.AddParentNode_XH(beginEle, eLEEle_wp, name, listAttMap);
         WordParserUtils.AddParentNode(element,"#if",ifAttMap);
     }
 
@@ -476,6 +478,7 @@ public class WordParserUtils {
         List WTList = WPNode.selectNodes(".//w:t");
         Node WTNodeNew = null;
         int s = WTList.size();
+        //算法分三种方式整合占位符，例 [*QF@t*   {t.QF}    *QF*] 需要将这三类整合 对于[*QF@t*遍历wt进行整合
         for (int j = 0; j < s; j++) {
             WTNodeNew = (Node)WTList.get(j);
             String text = WTNodeNew.getText();
@@ -486,14 +489,17 @@ public class WordParserUtils {
             if (fi > xi || fi >ji){
                 WTNodeNew.setText(StringUtil.removeInvisibleChar(text.substring(0,fi)));
                 String temp = text.substring(fi, text.length());
-                for (int i = j; i < s; i++) {
+                for (int i = j; i <=s; i++) {
                     Node WTNodeNew_ = (Node)WTList.get(i);
                     String t = WTNodeNew_.getText();
                     WTNodeNew_.setText(StringUtil.removeInvisibleChar(t));
                     temp += t;
                     int i1 = StringUtil.countMatches(temp, '*');
                     int i2 = StringUtil.countMatches(temp, '#');
-                    if (i1 > 1 || i2 > 1){
+                    int i3 = StringUtil.countMatches(temp, '[');
+                    int i4 = StringUtil.countMatches(temp, ']');
+
+                    if ((i1 > 1 || i2 > 1) ){
                         if (temp.contains("#")) {
                             int endIndex = temp.indexOf('#', temp.indexOf('#')+1)+1;
                             t = temp.substring(endIndex,temp.length());
@@ -504,8 +510,11 @@ public class WordParserUtils {
                             t = temp.substring(endIndex,temp.length());
                             temp = StringUtil.removeInvisibleChar(temp.substring(0, endIndex)) ;
                         }
-                        WTNodeNew.setText(WTNodeNew.getText()+temp);
-                        WTNodeNew_.setText(StringUtil.removeInvisibleChar(t));
+                        if (i==j ){WTNodeNew.setText(WTNodeNew.getText()+temp+StringUtil.removeInvisibleChar(t));}
+                        else {
+                            WTNodeNew_.setText(StringUtil.removeInvisibleChar(t));
+                            WTNodeNew.setText(WTNodeNew.getText()+temp);
+                        }
                         j = i;
                         break;
                     }else{
@@ -521,7 +530,7 @@ public class WordParserUtils {
             int di_ = text.lastIndexOf('}');
             if (di > di_){
                 String temp = text.substring(di, text.length());
-                for (int i = j+1; i < s; i++) {
+                for (int i = j+1; i <=s; i++) {
                     Node WTNodeNew_ = (Node)WTList.get(i);
                     String t = WTNodeNew_.getText();
                     temp += t;

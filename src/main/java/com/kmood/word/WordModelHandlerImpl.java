@@ -125,9 +125,10 @@ public class WordModelHandlerImpl implements ModelHandler {
                 writer.close();
         }
     }
-
+    //转化xml中list if 标签到ftl
     @Override
     public void XmlPlaceHolderHandler(String xmlFtlPath) throws IOException{
+
         FileOutputStream out = null;
         try {
             Configuration configuration = FMConfiguration.getConfiguration();
