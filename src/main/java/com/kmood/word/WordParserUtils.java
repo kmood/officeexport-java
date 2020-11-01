@@ -412,7 +412,6 @@ public class WordParserUtils {
         Element eLEEle = null;
         String valueTrim = StringUtil.substringBefore(StringUtil.removeInvisibleChar(value), "@").trim();
         String t = s + valueTrim + s+"]";
-        //查询**]关闭
         for (int j = i; j < wpNodeList.size(); j++) {
             Node temp = (Node)wpNodeList.get(j);
             List wtlisttemp = temp.selectNodes(".//w:t");
@@ -431,18 +430,14 @@ public class WordParserUtils {
         }
 
         if (eLEEle_wp == null) throw new SyntaxException(beginEle.getText()+"-----'"+value+"'未匹配到结束符");
-        if ("*".equals(s)) {
-            Element endEleparent = eLEEle_wp.getParent();
-            while ( endEleparent !=null ){
-                if (endEleparent.getParent().equals(beginEle.getParent())){
-                    eLEEle_wp = endEleparent;
-                    break;}
-                endEleparent = endEleparent.getParent();
-
-            }
-//            if (eLEEle_wp.getParent() == null || !eLEEle_wp.getParent().equals(beginEle.getParent()) )
-//                throw new RuntimeException("模板占位符格式不正确：-----"+beginEle.getText()+"-----部分的占位符起始符与结束符不同级");
-        }
+//        if ("*".equals(s)) {
+//            Element endEleparent = eLEEle_wp.getParent();
+//            while (eLEEle != null && endEleparent !=null ){
+//                if (endEleparent.equals(beginEle.getParent()))break;
+//                endEleparent = endEleparent.getParent();
+//            }
+            if (eLEEle_wp.getParent() == null || !eLEEle_wp.getParent().equals(beginEle.getParent()) ) throw new RuntimeException("模板占位符格式不正确：-----"+beginEle.getText()+"-----部分的占位符起始符与结束符不同级");
+//        }
         HashMap<String, String> listAttMap = new HashMap<>();
         listAttMap.put("type","list");
         listAttMap.put("content"," "+value+ " ");

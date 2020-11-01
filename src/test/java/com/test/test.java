@@ -87,6 +87,7 @@ public class test {
             URL codeUrl = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-code.png");
             URL titleUrl = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-title.png");
             String intro = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(introUrl.toURI().getPath()));
+
             map.put("intro", intro);
             String code = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(codeUrl.toURI().getPath()));
             map.put("code", code);
@@ -106,11 +107,9 @@ public class test {
     @Test
     public  void exportDb()throws Exception{
 
-        DocumentProducer dp = new DocumentProducer("C:\\Users\\admin\\Desktop\\");
-        String complie = dp.Complie("C:\\Users\\admin\\Desktop\\", "fwngnew.xml", true);
+        DocumentProducer dp = new DocumentProducer("D:\\intelliJ IDEA_workerspace\\ngccoa\\src\\main\\resources\\model");
+        String complie = dp.Complie("D:\\intelliJ IDEA_workerspace\\ngccoa\\src\\main\\resources\\model", "fwngnew.xml", true);
 
 
     }
-
-
 }

@@ -6,7 +6,7 @@
 	<artifactId>officeexport-java</artifactId>
 	<name>officeexport-java</name>
 	<packaging>jar</packaging>
-	<version>1.0.1.3-RELEASE</version>
+	<version>1.0.1.4-RELEASE</version>
 	<properties>
 		<java-version>1.8</java-version>
 	</properties>
@@ -246,7 +246,7 @@
 
 
 	<build>
-
+		<pluginManagement>
 		<plugins>
 			<plugin>
 				<!--配置src/main/resources目录的资源打包-->
@@ -399,5 +399,6 @@
 			</plugin>
 
 		</plugins>
+		</pluginManagement>
 	</build>
 </project>
