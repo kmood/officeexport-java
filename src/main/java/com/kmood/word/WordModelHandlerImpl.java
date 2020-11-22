@@ -85,8 +85,10 @@ public class WordModelHandlerImpl implements ModelHandler {
 
             for (int i = 0; i <list.size() ; i++) {
                 Node WPNode = (Node)list.get(i);
-                //处理分离的占位符
+                //处理分离的占位符　
                 WordParserUtils.PlaceHodlerHandle(WPNode);
+                //处理特殊占位
+                WordParserUtils.SpecialPlaceHodlerHandle(WPNode);
             }
             //转换[ 到list标签
             String name = file.getName();

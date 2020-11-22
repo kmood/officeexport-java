@@ -62,6 +62,91 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
 >### 实现效果
 <div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/exportExample.png"/></div>
 
+
+>### 文本输出
+>>#### 代码实例
+   ```java
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("text", "kmood-文本占位输出");
+            map.put("text1", "kmood-文本占位输出2");
+            DocumentProducer dp = new DocumentProducer(ActualModelPath);
+            String complie = dp.Complie(xmlPath, "text.xml", true);
+            dp.produce(map, ExportFilePath);
+   ```
+>>#### 实现效果
+<div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/text.png"/></div>
+
+>### 文本循环输出
+>>#### 代码实例
+   ```java
+           //准备数据
+           HashMap<String, Object> map = new HashMap<>();
+           ArrayList<Object> tables = new ArrayList<>();
+           HashMap<String, Object> map1 = new HashMap<>();
+           map1.put("text", "kmood-文本占位输出-循环1");
+           map1.put("text1", "kmood-文本占位输出2-循环1");
+           tables.add(map1);
+           HashMap<String, Object> map2 = new HashMap<>();
+           map2.put("text", "kmood-文本占位输出-循环2");
+           map2.put("text1", "kmood-文本占位输出2-循环2");
+           tables.add(map2);
+           map.put("tables",map);
+           //编译输出
+           DocumentProducer dp = new DocumentProducer(ActualModelPath);
+           String complie = dp.Complie(xmlPath, "textf.xml", true);
+           dp.produce(map, ExportFilePath);
+   ```
+>>#### 实现效果
+<div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/textf.png"/></div>
+
+>### 文本、表格循环输出
+>>#### 代码实例
+   ```java
+           //准备数据
+          HashMap<String, Object> map = new HashMap<>();
+          ArrayList<Object> tables = new ArrayList<>();
+          HashMap<String, Object> map1 = new HashMap<>();
+          map1.put("text", "kmood-文本占位输出-循环1");
+          map1.put("text1", "kmood-文本占位输出2-循环1");
+          //表格数据
+          ArrayList<Object> columns1= new ArrayList<>();
+          HashMap<String, Object> row = new HashMap<>();
+          row.put("column1", "kmood-table1-column1-row1");
+          row.put("column2", "kmood-table1-column2-row1");
+          columns1.add(row);
+          HashMap<String, Object> row2 = new HashMap<>();
+          row2.put("column1", "kmood-table1-column1-row2");
+          row2.put("column2", "kmood-table1-column2-row2");
+          columns1.add(row2);
+          map1.put("columns", columns1);
+          tables.add(map1);
+  
+          HashMap<String, Object> map2 = new HashMap<>();
+          map2.put("text", "kmood-文本占位输出-循环2");
+          map2.put("text1", "kmood-文本占位输出2-循环2");
+          //表格数据
+          ArrayList<Object> columns2= new ArrayList<>();
+          HashMap<String, Object> row3 = new HashMap<>();
+          row3.put("column1", "kmood-table2-column1-row1");
+          row3.put("column2", "kmood-table2-column2-row1");
+          columns2.add(row3);
+          HashMap<String, Object> row4 = new HashMap<>();
+          row4.put("column1", "kmood-table2-column1-row2");
+          row4.put("column2", "kmood-table2-column2-row2");
+          columns2.add(row4);
+          map2.put("columns", columns2);
+  
+          tables.add(map2);
+          map.put("tables",tables);
+          //编译输出
+          DocumentProducer dp = new DocumentProducer(ActualModelPath);
+          String complie = dp.Complie(xmlPath, "table.xml", true);
+          dp.produce(map, ExportFilePath);
+   ```
+>>#### 实现效果
+<div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/textf-table.png"/></div>
+
+
 中文文档：[**https://github.com/kmood/officeexport-java/wiki**](https://github.com/kmood/officeexport-java/wiki)
 ## 建议和完善
 欢迎在GitHub Issue中提问和交流。有问题可通过QQ咨询： **838979971**

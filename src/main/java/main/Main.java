@@ -9,13 +9,16 @@ import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args)throws Exception {
-
-//        testModel1();
-                testModel2();
+        //文本输出
+        testTextOutModel();
+        //文本循环输出
+        testTextFOutModel();
+        //文本、表格循环输出
+        testTextFTableOutModel();
         return;
     }
 
-    public static void testModel2() throws Exception {
+    public static void testModel3() throws Exception {
         Class<? extends Class> aClass = Main.class.getClass();
         ClassLoader classLoader = aClass.getClassLoader();
         if (classLoader == null){
@@ -24,56 +27,29 @@ public class Main {
 //        URL resource = classLoader.getResource(".");
         String ActualModelPath = classLoader.getResource("./model/").toURI().getPath();
         String xmlPath = classLoader.getResource("./model").toURI().getPath();
-        String ExportFilePath = classLoader.getResource(".").toURI().getPath() + "/test.doc";
-
+        String ExportFilePath = classLoader.getResource(".").toURI().getPath() + "/test-fy.doc";
 
         HashMap<String, Object> map = new HashMap<>();
         ArrayList<Object> columns = new ArrayList<>();
-        HashMap<String, Object> zxsmmap = new HashMap<>();
-        zxsmmap.put("column_name", "kmood-1");
-        zxsmmap.put("column_type", "kmood-column_type");
-        zxsmmap.put("column_comment","kmood-column_comment");
-        columns.add(zxsmmap);
-        HashMap<String, Object> zxsmmap1 = new HashMap<>();
-        zxsmmap1.put("column_name", "kmood-1");
-        zxsmmap1.put("column_type", "kmood-column_type");
-        zxsmmap1.put("column_comment","kmood-column_comment");
-        columns.add(zxsmmap);
-        map.put("columns", columns);
-        map.put("TABLE_NAME", "kmood-表名");
-        map.put("index", "kmood index");
+        HashMap<String, Object> map2 = new HashMap<>();
 
-
+        map2.put("tbrq", "kmood-表名");
+        columns.add(map2);
         HashMap<String, Object> map1 = new HashMap<>();
+        map1.put("tbrq", "kmood index");
+        columns.add(map1);
+        map.put("tables",columns);
 
-        ArrayList<Object> columns1 = new ArrayList<>();
-        HashMap<String, Object> zxsmmap2 = new HashMap<>();
-        zxsmmap2.put("column_name", "kmood-1");
-        zxsmmap2.put("column_type", "kmood-column_type");
-        zxsmmap2.put("column_comment","kmood-column_comment");
-        columns.add(zxsmmap);
-        HashMap<String, Object> zxsmmap3 = new HashMap<>();
-        zxsmmap3.put("column_name", "kmood-1");
-        zxsmmap3.put("column_type", "kmood-column_type");
-        zxsmmap3.put("column_comment","kmood-column_comment");
-        columns.add(zxsmmap);
-        map1.put("columns", columns1);
-        map1.put("TABLE_NAME", "kmood-表名1");
-        map1.put("index", "kmood index1");
-
-        HashMap<String, Object> data = new HashMap<>();
-        ArrayList<Object> tables = new ArrayList<>();
-        tables.add(map);
-        tables.add(map1);
-        data.put("tables",tables);
 
 
         DocumentProducer dp = new DocumentProducer(ActualModelPath);
-        String complie = dp.Complie(xmlPath, "DbExportModel.xml", true);
-        System.out.println(complie);
-        dp.produce(data, ExportFilePath);
+        String complie = dp.Complie(xmlPath, "test-fy.xml", true);
+        System.out.println(ExportFilePath);
+        dp.produce(map, ExportFilePath);
     }
-    public static void testModel1() throws Exception {
+
+  //测试表输出
+    public static void testTableOutModel() throws Exception {
         Class<? extends Class> aClass = Main.class.getClass();
         ClassLoader classLoader = aClass.getClassLoader();
         if (classLoader == null){
@@ -110,8 +86,109 @@ public class Main {
         map.put("sbsm", "kmood-商标说明");
         map.put("bt", "kmood OfficeExport 导出word");
         DocumentProducer dp = new DocumentProducer(ActualModelPath);
-        String complie = dp.Complie(xmlPath, "test.xml", true);
+        String complie = dp.Complie(xmlPath, "text.xml", true);
         System.out.println(complie);
         dp.produce(map, ExportFilePath);
     }
+    //文本输出
+    public static void testTextOutModel() throws Exception {
+        Class<? extends Class> aClass = Main.class.getClass();
+        ClassLoader classLoader = aClass.getClassLoader();
+        if (classLoader == null){
+            classLoader = ClassLoader.getSystemClassLoader();
+        }
+//        URL resource = classLoader.getResource(".");
+        String ActualModelPath = classLoader.getResource("./model/").toURI().getPath();
+        String xmlPath = classLoader.getResource("./model").toURI().getPath();
+        String ExportFilePath = classLoader.getResource(".").toURI().getPath() + "/testf.doc";
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("text", "kmood-文本占位输出");
+        map.put("text1", "kmood-文本占位输出2");
+        DocumentProducer dp = new DocumentProducer(ActualModelPath);
+        String complie = dp.Complie(xmlPath, "text.xml", true);
+        System.out.println(complie);
+        dp.produce(map, ExportFilePath);
+    }
+    //文本循环输出
+    public static void testTextFOutModel() throws Exception {
+        Class<? extends Class> aClass = Main.class.getClass();
+        ClassLoader classLoader = aClass.getClassLoader();
+        if (classLoader == null){
+            classLoader = ClassLoader.getSystemClassLoader();
+        }
+        String ActualModelPath = classLoader.getResource("./model/").toURI().getPath();
+        String xmlPath = classLoader.getResource("./model").toURI().getPath();
+        String ExportFilePath = classLoader.getResource(".").toURI().getPath() + "/textf.doc";
+        //准备数据
+        HashMap<String, Object> map = new HashMap<>();
+        ArrayList<Object> tables = new ArrayList<>();
+        HashMap<String, Object> map1 = new HashMap<>();
+        map1.put("text", "kmood-文本占位输出-循环1");
+        map1.put("text1", "kmood-文本占位输出2-循环1");
+        tables.add(map1);
+        HashMap<String, Object> map2 = new HashMap<>();
+        map2.put("text", "kmood-文本占位输出-循环2");
+        map2.put("text1", "kmood-文本占位输出2-循环2");
+        tables.add(map2);
+        map.put("tables",tables);
+        //编译输出
+        DocumentProducer dp = new DocumentProducer(ActualModelPath);
+        String complie = dp.Complie(xmlPath, "textf.xml", true);
+        dp.produce(map, ExportFilePath);
+    }
+
+    //文本表格循环输出
+    public static void testTextFTableOutModel() throws Exception {
+        Class<? extends Class> aClass = Main.class.getClass();
+        ClassLoader classLoader = aClass.getClassLoader();
+        if (classLoader == null){
+            classLoader = ClassLoader.getSystemClassLoader();
+        }
+        String ActualModelPath = classLoader.getResource("./model/").toURI().getPath();
+        String xmlPath = classLoader.getResource("./model").toURI().getPath();
+        String ExportFilePath = classLoader.getResource(".").toURI().getPath() + "/table.doc";
+        //准备数据
+        HashMap<String, Object> map = new HashMap<>();
+        ArrayList<Object> tables = new ArrayList<>();
+        HashMap<String, Object> map1 = new HashMap<>();
+        map1.put("text", "kmood-文本占位输出-循环1");
+        map1.put("text1", "kmood-文本占位输出2-循环1");
+        //表格数据
+        ArrayList<Object> columns1= new ArrayList<>();
+        HashMap<String, Object> row = new HashMap<>();
+        row.put("column1", "kmood-table1-column1-row1");
+        row.put("column2", "kmood-table1-column2-row1");
+        columns1.add(row);
+        HashMap<String, Object> row2 = new HashMap<>();
+        row2.put("column1", "kmood-table1-column1-row2");
+        row2.put("column2", "kmood-table1-column2-row2");
+        columns1.add(row2);
+        map1.put("columns", columns1);
+        tables.add(map1);
+
+        HashMap<String, Object> map2 = new HashMap<>();
+        map2.put("text", "kmood-文本占位输出-循环2");
+        map2.put("text1", "kmood-文本占位输出2-循环2");
+        //表格数据
+        ArrayList<Object> columns2= new ArrayList<>();
+        HashMap<String, Object> row3 = new HashMap<>();
+        row3.put("column1", "kmood-table2-column1-row1");
+        row3.put("column2", "kmood-table2-column2-row1");
+        columns2.add(row3);
+        HashMap<String, Object> row4 = new HashMap<>();
+        row4.put("column1", "kmood-table2-column1-row2");
+        row4.put("column2", "kmood-table2-column2-row2");
+        columns2.add(row4);
+        map2.put("columns", columns2);
+
+        tables.add(map2);
+        map.put("tables",tables);
+        //编译输出
+        DocumentProducer dp = new DocumentProducer(ActualModelPath);
+        String complie = dp.Complie(xmlPath, "table.xml", true);
+        dp.produce(map, ExportFilePath);
+    }
+
+
 }

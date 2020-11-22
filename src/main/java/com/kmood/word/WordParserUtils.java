@@ -579,4 +579,31 @@ public class WordParserUtils {
         }
     }
 
+
+    public static void SpecialPlaceHodlerHandle(Node WPNode){
+        List WTList = WPNode.selectNodes(".//w:t");
+        Node WTNodeNew = null;
+        int s = WTList.size();
+        for (int j = 0; j < s; j++) {
+            WTNodeNew = (Node)WTList.get(j);
+            String text = WTNodeNew.getText();
+            //包含分页符
+            boolean containsFY = text.contains("~");
+            if(containsFY){
+
+                WTNodeNew.setText(StringUtils.replaceAll(text,"~",""));
+
+                Element wrelement = WTNodeNew.getParent().addElement("w:r");
+                Element brelement = wrelement.addElement("w:br");
+                brelement.addAttribute("w:type","page");
+            }
+            //添加分页符
+//        <w:r>
+//				<w:br w:type="page"/>
+//		</w:r>
+
+        }
+
+    }
+
 }

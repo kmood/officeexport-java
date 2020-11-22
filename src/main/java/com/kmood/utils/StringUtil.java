@@ -33,7 +33,7 @@ public class StringUtil extends StringUtils {
 	public static  String removeInvisibleChar(String str){
 		if (str == null) return null;
 		if (str.trim().length() == 0) return "";
-		return str.replaceAll("[\\x00-\\x1F | \\x7F ]","");
+		return str.replaceAll("[\\x00-\\x1F | \\x7F ]","").replaceAll("　","");
 	}
 
     public static String substringBeforeAfterSize(String data, int i, int size) {
