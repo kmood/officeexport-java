@@ -53,17 +53,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
      dp.Complie(xmlPath, "filename.xml",true);
      dp.produce(map, ExportFilePath);
    ```
-   >>[测试用例源码](https://github.com/kmood/officeexport-java/blob/master/src/test/java/com/test/test.java)
-   
-   
-   >>[完整导出示例](https://github.com/kmood/officeexport-java/blob/master/src/main/java/main/Main.java)
-   
-
->### 实现效果
-<div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/exportExample.png"/></div>
-
-
->### 文本输出
+>### 示例-文本输出
 >>#### 代码实例
    ```java
             HashMap<String, Object> map = new HashMap<>();
@@ -76,7 +66,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
 >>#### 实现效果
 <div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/text.png"/></div>
 
->### 文本循环输出
+>### 示例-文本循环输出
 >>#### 代码实例
    ```java
            //准备数据
@@ -99,7 +89,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
 >>#### 实现效果
 <div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/textf.png"/></div>
 
->### 文本、表格循环输出
+>### 示例文本、表格循环输出
 >>#### 代码实例
    ```java
            //准备数据
@@ -145,6 +135,9 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
    ```
 >>#### 实现效果
 <div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/textf-table.png"/></div>
+
+
+  >>[完整导出示例](https://github.com/kmood/officeexport-java/blob/master/src/main/java/main/Main.java)
 
 
 中文文档：[**https://github.com/kmood/officeexport-java/wiki**](https://github.com/kmood/officeexport-java/wiki)
