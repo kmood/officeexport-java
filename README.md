@@ -4,8 +4,12 @@
  ![freemarker-2.3.28+](https://img.shields.io/badge/freemarker-2.3.28%2B-orange.svg)
  ![](https://img.shields.io/badge/platform-all-orange.svg)
  ![](https://img.shields.io/badge/language-java-orange.svg)
+ ## 解决哪些问题
+   * 开发中偶尔会有固定模板导出word的需求，常见的导出通常通过直接修改xml或者通过工具库代码调整样式输出，这些方式开发困难并且不利于后期维护。
+  * 一些有规则的文档需要人工填写，费时费力，此时配置数据库做模板渲染导出，如数据库设计文档等
+   
  
-
+## 简单介绍
 officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵从*模板 + 数据模型 = 输出*的理念，
 通过极简API实现javaBean即数据源，模板即样式的Word导出，提供以下功能：
 
