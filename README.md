@@ -53,7 +53,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
      dp.Complie(xmlPath, "filename.xml",true);
      dp.produce(map, ExportFilePath);
    ```
->### 示例-文本输出
+>### 示例1-文本输出
 >>#### 代码实例
    ```java
             HashMap<String, Object> map = new HashMap<>();
@@ -66,7 +66,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
 >>#### 实现效果
 <div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/text.png"/></div>
 
->### 示例-文本循环输出
+>### 示例2-文本循环输出
 >>#### 代码实例
    ```java
            //准备数据
@@ -89,7 +89,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
 >>#### 实现效果
 <div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/textf.png"/></div>
 
->### 示例-文本、表格循环输出
+>### 示例3-文本、表格循环输出
 >>#### 代码实例
    ```java
            //准备数据
