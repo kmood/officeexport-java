@@ -1,9 +1,17 @@
 package main;
 
 import com.kmood.datahandle.DocumentProducer;
+import com.kmood.utils.FileUtils;
+import com.kmood.utils.FreemarkerUtil;
+import com.kmood.word.WordModelParser;
+import freemarker.template.Template;
+import org.junit.Test;
 
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 
 
@@ -15,6 +23,8 @@ public class Main {
         testTextFOutModel();
         //文本、表格循环输出
         testTextFTableOutModel();
+        //测试图片导出
+        testPictureOutModel();
         return;
     }
 
@@ -188,6 +198,36 @@ public class Main {
         DocumentProducer dp = new DocumentProducer(ActualModelPath);
         String complie = dp.Complie(xmlPath, "table.xml", true);
         dp.produce(map, ExportFilePath);
+    }
+    public static void testPictureOutModel () {
+        try {
+            Class<? extends Class> aClass = Main.class.getClass();
+            ClassLoader classLoader = aClass.getClassLoader();
+            if (classLoader == null){
+                classLoader = ClassLoader.getSystemClassLoader();
+            }
+            String ActualModelPath = classLoader.getResource("./model/").toURI().getPath();
+            String xmlPath = classLoader.getResource("./model").toURI().getPath();
+            String ExportFilePath = classLoader.getResource(".").toURI().getPath() + "/picture.doc";
+
+            HashMap<String, Object> map = new HashMap<>();
+            //读取输出图片
+            URL introUrl = classLoader.getResource("./picture/exportTestPicture-intro.png");
+            URL codeUrl = classLoader.getResource("./picture/exportTestPicture-code.png");
+            URL titleUrl = classLoader.getResource("./picture/exportTestPicture-title.png");
+
+            String intro = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(introUrl.toURI().getPath()));
+            map.put("intro", intro);
+            String code = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(codeUrl.toURI().getPath()));
+            map.put("code", code);
+            map.put("title", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(titleUrl.toURI().getPath())));
+            //编译输出
+            DocumentProducer dp = new DocumentProducer(ActualModelPath);
+            String complie = dp.Complie(xmlPath, "picture.xml", true);
+            dp.produce(map, ExportFilePath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

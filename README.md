@@ -136,6 +136,36 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
 >>#### 实现效果
 <div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/textf-table.png"/></div>
 
+>### 示例4-图片输出
+>>#### 代码实例
+   ```java
+        Class<? extends Class> aClass = Main.class.getClass();
+        ClassLoader classLoader = aClass.getClassLoader();
+        if (classLoader == null){
+           classLoader = ClassLoader.getSystemClassLoader();
+        }
+        String ActualModelPath = classLoader.getResource("./model/").toURI().getPath();
+        String xmlPath = classLoader.getResource("./model").toURI().getPath();
+        String ExportFilePath = classLoader.getResource(".").toURI().getPath() + "/picture.doc";
+        
+        HashMap<String, Object> map = new HashMap<>();
+        //读取输出图片
+        URL introUrl = classLoader.getResource("./picture/exportTestPicture-intro.png");
+        URL codeUrl = classLoader.getResource("./picture/exportTestPicture-code.png");
+        URL titleUrl = classLoader.getResource("./picture/exportTestPicture-title.png");
+        
+        String intro = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(introUrl.toURI().getPath()));
+        map.put("intro", intro);
+        String code = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(codeUrl.toURI().getPath()));
+        map.put("code", code);
+        map.put("title", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(titleUrl.toURI().getPath())));
+        //编译输出
+        DocumentProducer dp = new DocumentProducer(ActualModelPath);
+        String complie = dp.Complie(xmlPath, "picture.xml", true);
+        dp.produce(map, ExportFilePath);
+   ```
+>>#### 实现效果
+<div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/picture.png"/></div>
 
   >>[完整导出示例](https://github.com/kmood/officeexport-java/blob/master/src/main/java/main/Main.java)
 
