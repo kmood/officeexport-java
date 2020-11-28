@@ -4,8 +4,12 @@
  ![freemarker-2.3.28+](https://img.shields.io/badge/freemarker-2.3.28%2B-orange.svg)
  ![](https://img.shields.io/badge/platform-all-orange.svg)
  ![](https://img.shields.io/badge/language-java-orange.svg)
+ ## 解决哪些问题
+   * 开发中偶尔会有固定模板导出word的需求，常见的导出通常通过直接修改xml或者通过工具库代码调整样式输出，这些方式开发困难并且不利于后期维护。
+  * 一些有规则的文档需要人工填写，费时费力，此时配置数据库做模板渲染导出，如数据库设计文档等
+   
  
-
+## 简单介绍
 officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵从*模板 + 数据模型 = 输出*的理念，
 通过极简API实现javaBean即数据源，模板即样式的Word导出，提供以下功能：
 
@@ -14,11 +18,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
   * 提供数据处理的插件，通过添加处理器可定制任意输出值，例如：特定项的日期、数字等文本格式转换
   * 图片保留样式的输出。
  
-## 解决的问题以及现有实现方案的对比
-
-工具主要为减少word模板导出的复杂性而设计，使用者无需了解如poi Api、Freemarker等语法即可实现导出。
-
-现有方案对比：
+## 现有实现方案的对比
 
 | 方案 | 跨平台 | 易用性
 | --- | --- | --- |
@@ -136,6 +136,36 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
 >>#### 实现效果
 <div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/textf-table.png"/></div>
 
+>### 示例4-图片输出
+>>#### 代码实例
+   ```java
+        Class<? extends Class> aClass = Main.class.getClass();
+        ClassLoader classLoader = aClass.getClassLoader();
+        if (classLoader == null){
+           classLoader = ClassLoader.getSystemClassLoader();
+        }
+        String ActualModelPath = classLoader.getResource("./model/").toURI().getPath();
+        String xmlPath = classLoader.getResource("./model").toURI().getPath();
+        String ExportFilePath = classLoader.getResource(".").toURI().getPath() + "/picture.doc";
+        
+        HashMap<String, Object> map = new HashMap<>();
+        //读取输出图片
+        URL introUrl = classLoader.getResource("./picture/exportTestPicture-intro.png");
+        URL codeUrl = classLoader.getResource("./picture/exportTestPicture-code.png");
+        URL titleUrl = classLoader.getResource("./picture/exportTestPicture-title.png");
+        
+        String intro = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(introUrl.toURI().getPath()));
+        map.put("intro", intro);
+        String code = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(codeUrl.toURI().getPath()));
+        map.put("code", code);
+        map.put("title", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(titleUrl.toURI().getPath())));
+        //编译输出
+        DocumentProducer dp = new DocumentProducer(ActualModelPath);
+        String complie = dp.Complie(xmlPath, "picture.xml", true);
+        dp.produce(map, ExportFilePath);
+   ```
+>>#### 实现效果
+<div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/picture.png"/></div>
 
   >>[完整导出示例](https://github.com/kmood/officeexport-java/blob/master/src/main/java/main/Main.java)
 
