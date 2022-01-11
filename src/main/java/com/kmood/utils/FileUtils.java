@@ -41,4 +41,12 @@ public class FileUtils {
 		}
 		return output.toByteArray();
 	}
+
+	public static String getFileSuffixByPath(String path){
+		File file = new File(path);
+		String fileName = file.getName();
+		String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+		return suffix;
+	}
+
 }
