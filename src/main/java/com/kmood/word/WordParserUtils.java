@@ -4,16 +4,12 @@ package com.kmood.word;
 import com.kmood.basic.PlaceHolder;
 import com.kmood.basic.SyntaxException;
 import com.kmood.utils.StringUtil;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.dom4j.Attribute;
-import org.dom4j.Document;
-import org.dom4j.Element;
-import org.dom4j.Node;
+import org.dom4j.*;
+import org.dom4j.dom.DOMElement;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class WordParserUtils {
 
@@ -605,5 +601,106 @@ public class WordParserUtils {
         }
 
     }
+
+    /**
+     * 处理图片占位符 {^picture^}
+     * @param WPNode
+     */
+    public static void MediaPlaceHodlerHandle(Node WPNode) throws DocumentException {
+        List WTList = WPNode.selectNodes(".//w:t");
+        Node WTNodeNew = null;
+        int s = WTList.size();
+        for (int j = 0; j < s; j++) {
+            WTNodeNew = (Node)WTList.get(j);
+            String text = WTNodeNew.getText();
+            //包含分页符
+            boolean containsFY = text.contains("{^");
+            if(containsFY){
+                // 这样只支持一个 w:t中存在一个图片占位
+                String picTemp = StringUtil.substringBetween(text, "{^", "^}"); // 图片占位
+                WTNodeNew.setText(text.replace("{^"+picTemp+"^}",""));
+                Element wrelement = WTNodeNew.getParent();
+                long picSizeX=new Double(13.34*360000).longValue()  ,picSizeY=new Double(8.23*360000).longValue();
+                if(picTemp.contains("(")){
+                    String sizeXy = StringUtil.substringBetween(picTemp, "(", ")");
+                    String[] split = sizeXy.split(",");
+                    picSizeX=new Double(360000*Double.valueOf(split[0])).longValue();
+                    picSizeY=new Double(360000*Double.valueOf(split[1])).longValue();
+                    picTemp=picTemp.replace("("+sizeXy+")","");
+                }
+                if(!picTemp.contains(".")){
+                    picTemp="rId"+picTemp;
+                }else{
+                    String[] split = picTemp.split("\\.");
+                    //picTemp=split[0]+".rld"+split[1]+"${"+split[0]+".xh}";
+                    picTemp="rId"+"{"+split[0]+"._xh}"+split[1];// ${t.xh}
+                }
+                int docprid=new Random().nextInt(10000); // 此处id可优化，不过目前重复不影响展示
+                Document document = DocumentHelper.parseText(
+                        "<w:r xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"  xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\"  xmlns:wp14=\"http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" w:rsidR=\"000342F3\">" +
+                                "<w:rPr>" +
+                                "<w:noProof/>" +
+                                "</w:rPr>" +
+                                "<w:drawing>" +
+                                "<wp:inline distT=\"0\"" +
+                                "           distB=\"0\"" +
+                                "           distL=\"0\"" +
+                                "           distR=\"0\"" +
+                                "           wp14:anchorId=\"060DCBCD\"" +
+                                "           wp14:editId=\"5A501A9D\">" +
+                                "<wp:extent cx=\""+picSizeX+"\"" +
+                                "           cy=\""+picSizeY+"\"/>" +
+//                                "<wp:effectExtent l=\"0\"" +
+//                                "                 t=\"0\"" +
+//                                "                 r=\"9525\"" +
+//                                "                 b=\"9525\"/>" +
+                                "<wp:docPr id=\""+docprid+"\"" +
+                                "          name=\"图片 1\"/>" +
+                                "<wp:cNvGraphicFramePr>" +
+                                "<a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"" +
+                                "                     noChangeAspect=\"1\"/>" +
+                                "</wp:cNvGraphicFramePr>" +
+                                "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\">" +
+                                "<a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">" +
+                                "<pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">" +
+                                "<pic:nvPicPr>" +
+                                "<pic:cNvPr id=\""+docprid+"\"" +
+                                "           name=\"\"/>" +
+                                "<pic:cNvPicPr/>" +
+                                "</pic:nvPicPr>" +
+                                "<pic:blipFill>" +
+                                "<a:blip r:embed=\""+picTemp+"\"/>" +
+                                "<a:stretch>" +
+                                "<a:fillRect/>" +
+                                "</a:stretch>" +
+                                "</pic:blipFill>" +
+                                "<pic:spPr>" +
+                                "<a:xfrm>" +
+                                "<a:off x=\"0\"" +
+                                "       y=\"0\"/>" +
+                                "<a:ext cx=\""+picSizeX+"\"" +
+                                "       cy=\""+picSizeY+"\"/>" +
+                                "</a:xfrm>" +
+                                "<a:prstGeom prst=\"rect\">" +
+                                "<a:avLst/>" +
+                                "</a:prstGeom>" +
+                                "</pic:spPr>" +
+                                "</pic:pic>" +
+                                "</a:graphicData>" +
+                                "</a:graphic>" +
+                                "</wp:inline>" +
+                                "</w:drawing>" +
+                                "</w:r>");
+                Element rootElement = document.getRootElement();
+                wrelement.add(rootElement);
+            }
+
+
+
+        }
+
+    }
+
+
 
 }

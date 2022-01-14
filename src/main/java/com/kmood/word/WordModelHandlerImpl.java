@@ -3,6 +3,7 @@ package com.kmood.word;
 
 import com.kmood.basic.PlaceHolder;
 import com.kmood.basic.SyntaxException;
+import com.kmood.datahandle.DocumentProducer;
 import com.kmood.datahandle.FMConfiguration;
 import com.kmood.utils.FileUtils;
 import com.kmood.utils.StringUtil;
@@ -89,35 +90,40 @@ public class WordModelHandlerImpl implements ModelHandler {
                 WordParserUtils.PlaceHodlerHandle(WPNode);
                 //处理特殊占位
                 WordParserUtils.SpecialPlaceHodlerHandle(WPNode);
+                // 如果为docx,处理图片引用
+                WordParserUtils.MediaPlaceHodlerHandle(WPNode);
             }
             //转换[ 到list标签
-            String name = file.getName();
-            WordParserUtils.BracketToListConversion(document);
-            List pictureList = document.selectNodes("//w:pict");
-            if (pictureList != null ){
-                for (int i = 0; i < pictureList.size(); i++) {
-                    Element node = (Element)pictureList.get(i);
-                    Element shapeNode = (Element)node.selectSingleNode("./v:shape");
-                    Element binDataNode = (Element)node.selectSingleNode("./w:binData");
-                    if (binDataNode == null && shapeNode != null) {
-                        String alt = shapeNode.attributeValue("alt");
-                        if (StringUtil.isNotBlank(alt)){
-                            shapeNode.addAttribute("alt",alt.replaceAll("\\{\\^[\\s\\S]*\\^}",""));
+            //if(!"docx".equalsIgnoreCase(DocumentProducer.ModelSuffixFlagLocal.get())  ){
+                WordParserUtils.BracketToListConversion(document);
+                List pictureList = document.selectNodes("//w:pict");
+                if (pictureList != null ){
+                    for (int i = 0; i < pictureList.size(); i++) {
+                        Element node = (Element)pictureList.get(i);
+                        Element shapeNode = (Element)node.selectSingleNode("./v:shape");
+                        Element binDataNode = (Element)node.selectSingleNode("./w:binData");
+                        if (binDataNode == null && shapeNode != null) {
+                            String alt = shapeNode.attributeValue("alt");
+                            if (StringUtil.isNotBlank(alt)){
+                                shapeNode.addAttribute("alt",alt.replaceAll("\\{\\^[\\s\\S]*\\^}",""));
+                            }
+                            continue;
                         }
-                        continue;
-                    }
-                    if (binDataNode != null  && shapeNode != null){
-                        String alt = shapeNode.attributeValue("alt");
-                        if (alt == null || !alt.contains("{^"))continue;
-                        if (StringUtil.isNotBlank(alt)){
-                            shapeNode.addAttribute("alt",alt.replaceAll("\\{\\^[\\s\\S]*\\^}",""));
+                        if (binDataNode != null  && shapeNode != null){
+                            String alt = shapeNode.attributeValue("alt");
+                            if (alt == null || !alt.contains("{^"))continue;
+                            if (StringUtil.isNotBlank(alt)){
+                                shapeNode.addAttribute("alt",alt.replaceAll("\\{\\^[\\s\\S]*\\^}",""));
+                            }
+                            String s = StringUtil.substringBetween(alt, "{^", "^}");
+                            binDataNode.setText("{"+s+"}");
                         }
-                        String s = StringUtil.substringBetween(alt, "{^", "^}");
-                        binDataNode.setText("{"+s+"}");
-                    }
 
+                    }
                 }
-            }
+            //}
+            String name = file.getName();
+
             writer=new OutputStreamWriter(new FileOutputStream(ftlOutputPath),configuration.getDefaultEncoding());
             document.write(writer);
             writer.flush();
