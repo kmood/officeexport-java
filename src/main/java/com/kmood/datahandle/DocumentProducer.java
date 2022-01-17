@@ -13,17 +13,16 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class DocumentProducer {
     private ThreadLocal<String> ActualModelPathLocal = new ThreadLocal<>();
     private ThreadLocal<String> ActualModelNameLocal = new ThreadLocal<>();
     private ThreadLocal<String> ActualModelOriginPathLocal = new ThreadLocal<>(); // 记录模板文件绝对路径
     private ThreadLocal<String> ActualModelDocxPathLocal = new ThreadLocal<>(); // 记录docx文件解压后的xml文件路径
+    private ThreadLocal<String> ActualExtractDocxPathLocal = new ThreadLocal<>(); // 记录通过模板解压后文件路径
     public static ThreadLocal<String> ModelSuffixFlagLocal = new ThreadLocal<>(); // 记录当前模板类型[xml,docx]
+
     public static ThreadLocal<Integer> PicCountLocal=new ThreadLocal<>();
     public DocumentProducer(Configuration CustomerConfig,String ActualModelPath){
         FMConfiguration.Init(CustomerConfig);
@@ -41,13 +40,15 @@ public class DocumentProducer {
         // 增加支持docx文件模板渲染
         ModelSuffixFlagLocal.set("xml");
         if("docx".equalsIgnoreCase(FileUtils.getFileSuffixByPath(XmlModelPath+File.separator+XmlModelName))){
+            String uid= UUID.randomUUID().toString();
             ModelSuffixFlagLocal.set("docx");
-            ActualModelOriginPathLocal.set(XmlModelPath+File.separator+XmlModelName);
+            ActualModelOriginPathLocal.set(XmlModelPath+File.separator+XmlModelName);//  eg: G:/qgzhdc/officeexport-java/target/test-classes/model\包装说明表（范例A）.docx
             String docxFilePath=XmlModelPath+File.separator+XmlModelName;
-            String compressPath=XmlModelPath+File.separator+XmlModelName.substring(0,XmlModelName.lastIndexOf(".") );
+            String compressPath=XmlModelPath+File.separator+XmlModelName.substring(0,XmlModelName.lastIndexOf(".") )+"_"+uid; // G:/qgzhdc/officeexport-java/target/test-classes/model\包装说明表（范例A）
+            ActualExtractDocxPathLocal.set(compressPath);
+           // new ZipFile(docxFilePath).extractAll(compressPath);
             new ZipFile(docxFilePath).extractAll(compressPath);
-            new ZipFile(docxFilePath).extractAll(compressPath+"_back");
-            XmlModelPath=XmlModelPath+File.separator+XmlModelName.substring(0,XmlModelName.lastIndexOf(".")) +File.separator+"word"+File.separator;
+            XmlModelPath=XmlModelPath+File.separator+XmlModelName.substring(0,XmlModelName.lastIndexOf(".")) +"_"+uid+File.separator+"word"+File.separator;
             XmlModelName="document.xml";
             FMConfiguration.clearFMModelPathArr();
             ActualModelPathLocal.remove();
@@ -85,14 +86,16 @@ public class DocumentProducer {
             dealPicture(renderData,modelPath);
         }
 
-
         Object dataConvert = DataConverter.convert(data, null);
         template.process(dataConvert,outputStreamWriter);
-
+        outputStreamWriter.flush();
+        outputStreamWriter.close();
         if("docx".equalsIgnoreCase(ModelSuffixFlagLocal.get())  ){
-            String sourceFolderPath=ActualModelOriginPathLocal.get().substring(0,ActualModelOriginPathLocal.get().lastIndexOf("."));
+            String sourceFolderPath=ActualExtractDocxPathLocal.get();
             new File(ProduceFilePath+".ftl").delete();
             ZipUtils.compress(produceFilePathOrigin,sourceFolderPath);
+            // 删除生成的临时文件
+            System.out.println(FileUtils.deleteDir(new File(sourceFolderPath))) ;
         }
     }
     public void produce(Object data,OutputStream ProduceFileout)throws IOException,TemplateException {
@@ -117,6 +120,12 @@ public class DocumentProducer {
         template.process(dataConvert,outputStreamWriter);
     }
 
+    /**
+     *
+     * @param renderData
+     * @param modelPath
+     * @throws Exception
+     */
     private void dealPicture(HashMap renderData,String modelPath) throws Exception {
         for(Object key : renderData.keySet()){ // 这块应该使用递归，获取所有的图片并输出
             Object obj= renderData.get(key);
@@ -129,12 +138,14 @@ public class DocumentProducer {
             String base64png= renderData.get(key).toString();
             String bas64flag=FileUtils.checkImageBase64Format(base64png);
             if("png".equalsIgnoreCase(bas64flag)){
+                // 新建图片
                 if(renderData.containsKey("_xh")){
                     FileUtils.convertBase64DataToImage(base64png,modelPath+File.separator+"media"+File.separator+"image"+renderData.get("_xh")+key+".png");
                 }else{
                     FileUtils.convertBase64DataToImage(base64png,modelPath+File.separator+"media"+File.separator+"image"+key+".png");
                 }
 
+                // 在docx文件中增加png的引用
                 SAXReader reader = new SAXReader();
                 File relsDocumentXmlFile = new File(modelPath+File.separator+"_rels"+File.separator+"document.xml.rels");
                 Document document = reader.read(relsDocumentXmlFile);
@@ -164,7 +175,6 @@ public class DocumentProducer {
                 Document documentnew = readernew.read(contentTypesXmlFile);
                 Element rootElementnew = documentnew.getRootElement();
                 List<Element> elementsnew = rootElementnew.elements();
-
                 List<Element> elementDeaultList = rootElementnew.elements("Default");
                 boolean sfczpng=false;
                 for(Element elementitem:elementDeaultList){
@@ -175,7 +185,7 @@ public class DocumentProducer {
                    }
                 }
                 if(!sfczpng){
-                    System.out.println("增加png");
+                    // docx中在[Content_types].xml文件增加 png配置，并且需要将Default节点放到前面，否则docx格式不正确
                     Element pictureRelationshipnew =  DocumentHelper.createElement(QName.get("Default", rootElementnew.getNamespace ()));
                     pictureRelationshipnew.addAttribute("Extension","png");
                     pictureRelationshipnew.addAttribute("ContentType","image/png");
