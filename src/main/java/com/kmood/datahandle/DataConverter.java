@@ -10,10 +10,7 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class DataConverter {
@@ -106,6 +103,26 @@ public class DataConverter {
         Object o = gson.fromJson(s, new TypeToken<HashMap<String, Object>>() {
         }.getType());
         return o;
+    }
+
+
+    // 循环数据增加序号，导出图片使用。   {arr:[{id:"第一个"},{id:"第2个"}]} => {arr:[{id:"第一个",_xh:"-1"},{id:"第2个",_xh:"-2"}]}
+    public static Object addPictureXh(Object obj,String index){
+        HashMap renderData= (HashMap) obj;
+        Set<String> sets = renderData.keySet();
+        for(Object key :sets){ // 这块应该使用递归，获取所有的图片并输出
+            Object objMap=  renderData.get(key);
+            if(objMap.getClass().equals(ArrayList.class)){
+                ArrayList<HashMap> arrList=(ArrayList)objMap;
+                int i=0;
+                for(HashMap mapItem :arrList){
+                    i++;
+                    mapItem.put("_xh",index+"-"+i);
+                    addPictureXh(mapItem,index+"-"+i);
+                }
+            }
+        }
+        return obj;
     }
 
 }

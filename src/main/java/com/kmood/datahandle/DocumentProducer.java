@@ -40,6 +40,7 @@ public class DocumentProducer {
         // 增加支持docx文件模板渲染
         ModelSuffixFlagLocal.set("xml");
         if("docx".equalsIgnoreCase(FileUtils.getFileSuffixByPath(XmlModelPath+File.separator+XmlModelName))){
+            // 如果是docx文件，先解压到临时目录
             String uid= UUID.randomUUID().toString();
             ModelSuffixFlagLocal.set("docx");
             ActualModelOriginPathLocal.set(XmlModelPath+File.separator+XmlModelName);//  eg: G:/qgzhdc/officeexport-java/target/test-classes/model\包装说明表（范例A）.docx
@@ -78,6 +79,7 @@ public class DocumentProducer {
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(ProduceFilePath), template.getEncoding());
         // 如果是docx,模拟图片插入
         if("docx".equalsIgnoreCase(ModelSuffixFlagLocal.get())  ){
+            data = DataConverter.addPictureXh(data,"");
             File metaFolder=new File(modelPath+File.separator+"media");
             if(!metaFolder.exists()){
                 metaFolder.mkdir();
@@ -179,10 +181,10 @@ public class DocumentProducer {
                 boolean sfczpng=false;
                 for(Element elementitem:elementDeaultList){
                     Attribute extension = elementitem.attribute("Extension");
-                   System.out.println(extension.getData());
-                   if("png".equalsIgnoreCase(extension.getData().toString())){
+                    // System.out.println(extension.getData());
+                    if("png".equalsIgnoreCase(extension.getData().toString())){
                        sfczpng=true;
-                   }
+                    }
                 }
                 if(!sfczpng){
                     // docx中在[Content_types].xml文件增加 png配置，并且需要将Default节点放到前面，否则docx格式不正确

@@ -112,7 +112,7 @@ public class test {
     }
 
     @Test
-    public  void exportDb()throws Exception{
+    public void exportDb()throws Exception{
 
         DocumentProducer dp = new DocumentProducer("D:\\intelliJ IDEA_workerspace\\ngccoa\\src\\main\\resources\\model");
         String complie = dp.Complie("D:\\intelliJ IDEA_workerspace\\ngccoa\\src\\main\\resources\\model", "fwngnew.xml", true);
@@ -121,7 +121,7 @@ public class test {
     }
 
     @Test
-    public  void testdocx() throws IOException, TemplateException {
+    public void testdocx() throws IOException, TemplateException {
         try {
             String ActualModelPath = this.getClass().getClassLoader().getResource("./model/").toURI().getPath();
             String xmlPath = this.getClass().getClassLoader().getResource("./model").toURI().getPath();
@@ -137,7 +137,6 @@ public class test {
             ArrayList<Object> zxsmList = new ArrayList<>();
             HashMap<String, Object> zxsmmap = new HashMap<>();
             zxsmmap.put("xh", "1tett");
-            zxsmmap.put("_xh", "1test2");
             zxsmmap.put("xs", "yangzh-箱数");
             zxsmmap.put("zrl", "yangzh-梅香");
             zxsmmap.put("zsl", "kmood-交运日期");
@@ -146,7 +145,6 @@ public class test {
 
             zxsmList.add(zxsmmap);
             HashMap<String, Object> zxsmmap1 = new HashMap<>();
-            zxsmmap1.put("_xh", "2test3");
             zxsmmap1.put("xh", "yangzh-制造单号码");
             zxsmmap1.put("xs", "kmood-预定完成日期");
             zxsmmap1.put("zrl","kmood-产品名称");
@@ -162,7 +160,7 @@ public class test {
             map.put("test2",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://image2.png")));
 
             DocumentProducer dp = new DocumentProducer(ActualModelPath);
-            String complie = dp.Complie(xmlPath, "包装说明表（范例A）.docx", true);
+            String complie = dp.Complie(xmlPath, "包装说明表（范例A）.docx", true); // 这个参数为false时，docx的会报错，没有复用模板，每次都是生成加载
             System.out.println(complie);
             dp.produce(map, ExportFilePath);
         } catch (Exception e) {
