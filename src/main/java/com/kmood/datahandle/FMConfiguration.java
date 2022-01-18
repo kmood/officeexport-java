@@ -69,4 +69,10 @@ public class FMConfiguration {
     public static Configuration getConfiguration() {
         return configuration;
     }
+
+    // docx时 清理FmModelPathArr
+    public static void clearFMModelPathArr(){
+        FMModelPathArr=new ArrayList();
+
+    }
 }
