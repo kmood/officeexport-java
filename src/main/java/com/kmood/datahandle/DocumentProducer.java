@@ -128,16 +128,16 @@ public class DocumentProducer {
      * @param modelPath
      * @throws Exception
      */
-    private void dealPicture(HashMap renderData,String modelPath) throws Exception {
+    private void dealPicture(Map renderData,String modelPath) throws Exception {
         for(Object key : renderData.keySet()){ // 这块应该使用递归，获取所有的图片并输出
             Object obj= renderData.get(key);
-            if(obj.getClass().equals(ArrayList.class)){
+            if(obj!=null&&obj.getClass().equals(ArrayList.class)){
                 ArrayList mapList=(ArrayList)obj;
                 for(Object mapItem :mapList){
-                    dealPicture((HashMap)mapItem,modelPath);
+                    dealPicture((Map)mapItem,modelPath);
                 }
             }
-            String base64png= renderData.get(key).toString();
+            String base64png=renderData.get(key)!=null? renderData.get(key).toString():"";
             String bas64flag=FileUtils.checkImageBase64Format(base64png);
             if("png".equalsIgnoreCase(bas64flag)){
                 // 新建图片
