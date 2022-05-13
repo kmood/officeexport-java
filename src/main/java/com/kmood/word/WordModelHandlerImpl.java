@@ -15,6 +15,8 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 public class WordModelHandlerImpl implements ModelHandler {
     @Override
@@ -93,8 +95,8 @@ public class WordModelHandlerImpl implements ModelHandler {
                 // 如果为docx,处理图片引用
                 WordParserUtils.MediaPlaceHodlerHandle(WPNode);
             }
-            //转换[ 到list标签
-            //if(!"docx".equalsIgnoreCase(DocumentProducer.ModelSuffixFlagLocal.get())  ){
+            // 转换[ 到list标签
+            // if(!"docx".equalsIgnoreCase(DocumentProducer.ModelSuffixFlagLocal.get())  ){
                 WordParserUtils.BracketToListConversion(document);
                 List pictureList = document.selectNodes("//w:pict");
                 if (pictureList != null ){
@@ -122,6 +124,50 @@ public class WordModelHandlerImpl implements ModelHandler {
                     }
                 }
             //}
+            // docx 文档，支持图片占位
+            if("docx".equalsIgnoreCase(DocumentProducer.ModelSuffixFlagLocal.get())  ){
+                List docxPictureList = document.selectNodes("//w:drawing");
+                for(Element picEle : (List<Element>)docxPictureList){
+                    picEle.addNamespace("pic","http://schemas.openxmlformats.org/drawingml/2006/picture");
+                    picEle.addNamespace("a","http://schemas.openxmlformats.org/drawingml/2006/main");                    Element picNode=(Element)picEle.selectSingleNode(".//pic:cNvPr");
+                    String pic_descr = picNode.attributeValue("descr");
+
+                    // 图片中存在与freemarker冲突的字符  <a:ext uri="{28A0092B-C50C-407E-A947-70E740481C1C}">    暂时先设置为空字符传（目前没有发现影响）
+                    Element aExtNode=(Element)picEle.selectSingleNode(".//a:ext");
+                    if(aExtNode!=null){
+                        Attribute aExtNodeUriAttr = aExtNode.attribute("uri");
+                        if(aExtNodeUriAttr!=null)aExtNodeUriAttr.setValue("");
+                    }
+                    if(pic_descr!=null&&!pic_descr.equalsIgnoreCase("")){
+                        String picTemp = StringUtil.substringBetween(pic_descr, "{^", "^}"); // 图片占位
+
+                        // 清理图片模板占位
+                        Attribute descrAttr = picNode.attribute("descr");
+                        descrAttr.setValue("");
+
+                        Element wpDocprNode=(Element)picEle.selectSingleNode(".//wp:docPr");
+                        Attribute wpDocprNodeAttr = wpDocprNode.attribute("descr");
+                        wpDocprNodeAttr.setValue("");
+
+                        // 设置模板占位
+
+                        if(!picTemp.contains(".")){
+                            picTemp="rId"+picTemp;
+                        }else{
+                            String[] split = picTemp.split("\\.");
+                            //picTemp=split[0]+".rld"+split[1]+"${"+split[0]+".xh}";
+                            picTemp="rId"+"{"+split[0]+"._xh}"+split[1];// ${t.xh}
+                        }
+
+                        Element aBlipNode=(Element)picEle.selectSingleNode(".//a:blip");
+                        Attribute aBlipNodeEmbedAttr = aBlipNode.attribute("embed");
+                        aBlipNodeEmbedAttr.setValue(picTemp);
+                    }
+
+
+
+                }
+            }
             String name = file.getName();
 
             writer=new OutputStreamWriter(new FileOutputStream(ftlOutputPath),configuration.getDefaultEncoding());
