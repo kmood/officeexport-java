@@ -138,10 +138,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
 <div align=center><img src="https://github.com/kmood/officeexport-java/blob/master/file/textf-table.png"/></div>
 
 >### 示例4-图片输出
-docx文档中图片占位使用 
-{mypicture}  或 {(5,5)mypicture} 
-
-`（5,5）` 用于标识图片的长、宽 （可修改），单位为厘米
+ docx文档中图片占位 : 文本占位： {^mypicture^} ;图片占位:（在图片的可选文字中配置占位符{^mypicture^}）详见[**wiki**](https://github.com/kmood/officeexport-java/wiki) 
 
 >>#### 代码实例
    ```java

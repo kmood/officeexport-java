@@ -16,9 +16,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.junit.Test;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -80,6 +79,7 @@ public class test {
             e.printStackTrace();
         }
     }
+
     /**
      * description:测试导出图片
      * @auther: SunBC
@@ -117,7 +117,6 @@ public class test {
         DocumentProducer dp = new DocumentProducer("D:\\intelliJ IDEA_workerspace\\ngccoa\\src\\main\\resources\\model");
         String complie = dp.Complie("D:\\intelliJ IDEA_workerspace\\ngccoa\\src\\main\\resources\\model", "fwngnew.xml", true);
 
-
     }
 
     @Test
@@ -141,7 +140,7 @@ public class test {
             zxsmmap.put("zrl", "yangzh-梅香");
             zxsmmap.put("zsl", "kmood-交运日期");
             zxsmmap.put("sm", "yangzh-交运日期");
-            zxsmmap.put("lp", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://image2.png")));
+            zxsmmap.put("pictest", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://image2.png")));
 
             zxsmList.add(zxsmmap);
             HashMap<String, Object> zxsmmap1 = new HashMap<>();
@@ -150,17 +149,19 @@ public class test {
             zxsmmap1.put("zrl","kmood-产品名称");
             zxsmmap1.put("zsl","kmood-交运日期");
             zxsmmap1.put("sm", "kmood-交运日期");
-            zxsmmap1.put("lp", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://111.png")));
+            zxsmmap1.put("pictest", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://111.png")));
 
             zxsmList.add(zxsmmap1);
             map.put("zxsm", zxsmList);
             map.put("sbsm", "yangzh-商标说明");
             map.put("bt", "kmood OfficeExport 导出word");
-            map.put("test",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://111.png")));
-            map.put("test2",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://image2.png")));
+//            map.put("test",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://111.png")));
+            map.put("yangzh",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://yuan.png")));
+
+            map.put("pictext",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://image1.png")));
 
             DocumentProducer dp = new DocumentProducer(ActualModelPath);
-            String complie = dp.Complie(xmlPath, "包装说明表（范例A）.docx", true); // 这个参数为false时，docx的会报错，没有复用模板，每次都是生成加载
+            String complie = dp.Complie(xmlPath, "包装说明表（范例A）-v2.docx", true); // 这个参数为false时，docx的会报错，没有复用模板，每次都是生成加载
             System.out.println(complie);
             dp.produce(map, ExportFilePath);
         } catch (Exception e) {
@@ -168,66 +169,65 @@ public class test {
         }
     }
 
+    /**
+     * 测试导出图片 doc文档
+     * @throws Exception
+     */
     @Test
-    public void testDom4j() throws DocumentException {
+    public void testpic() throws Exception {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        if (classLoader == null){
+            classLoader = ClassLoader.getSystemClassLoader();
+        }
+        String ActualModelPath = classLoader.getResource("./model/").toURI().getPath();
+        String xmlPath = classLoader.getResource("./model").toURI().getPath();
+        String ExportFilePath = classLoader.getResource(".").toURI().getPath() + "/picture.doc";
 
-        String xmlStr = "<wr xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" ><wp:inline><empname>@残缺的孤独</empname><age>25</age><title>软件开发工程师</title></wp:inline></wr>";
-        Document document = DocumentHelper.parseText(xmlStr);
-//   String xmlStr2 = "<wp:inline distT=\"0\"\n" +
-//                "           distB=\"0\"\n" +
-//                "           distL=\"114300\"\n" +
-//                "           distR=\"114300\">\n" +
-//                "<wp:extent cx=\"5272405\"\n" +
-//                "           cy=\"3484245\"/>\n" +
-//                "<wp:effectExtent l=\"0\"\n" +
-//                "                 t=\"0\"\n" +
-//                "                 r=\"4445\"\n" +
-//                "                 b=\"1905\"/>\n" +
-//                "<wp:docPr id=\"2\"\n" +
-//                "          name=\"test 666\"\n" +
-//                "  descr=\"image1\"\n" +
-//                "  />\n" +
-//                "<wp:cNvGraphicFramePr>\n" +
-//                "<a:graphicFrameLocks xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"\n" +
-//                "                     noChangeAspect=\"1\"/>\n" +
-//                "</wp:cNvGraphicFramePr>\n" +
-//                "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\">\n" +
-//                "<a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">\n" +
-//                "<pic:pic xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">\n" +
-//                "<pic:nvPicPr>\n" +
-//                "<pic:cNvPr id=\"1\"\n" +
-//                "           name=\"tesst 66\"\n" +
-//                "   descr=\"image1\"\n" +
-//                "  />\n" +
-//                "<pic:cNvPicPr>\n" +
-//                "<a:picLocks noChangeAspect=\"1\"/>\n" +
-//                "</pic:cNvPicPr>\n" +
-//                "</pic:nvPicPr>\n" +
-//                "<pic:blipFill>\n" +
-//                "<a:blip r:embed=\"rId5\"/>\n" +
-//                "<a:stretch>\n" +
-//                "<a:fillRect/>\n" +
-//                "</a:stretch>\n" +
-//                "</pic:blipFill>\n" +
-//                "<pic:spPr>\n" +
-//                "<a:xfrm>\n" +
-//                "<a:off x=\"0\"\n" +
-//                "       y=\"0\"/>\n" +
-//                "<a:ext cx=\"5272405\"\n" +
-//                "       cy=\"3484245\"/>\n" +
-//                "</a:xfrm>\n" +
-//                "<a:prstGeom prst=\"rect\">\n" +
-//                "<a:avLst/>\n" +
-//                "</a:prstGeom>\n" +
-//                "<a:noFill/>\n" +
-//                "<a:ln>\n" +
-//                "<a:noFill/>\n" +
-//                "</a:ln>\n" +
-//                "</pic:spPr>\n" +
-//                "</pic:pic>\n" +
-//                "</a:graphicData>\n" +
-//                "</a:graphic>\n" +
-//                "</wp:inline>";
-//        Document document2= DocumentHelper.parseText(xmlStr2);
+        HashMap<String, Object> map = new HashMap<>();
+        //读取输出图片
+        URL introUrl = classLoader.getResource("./picture/exportTestPicture-intro.png");
+        URL codeUrl = classLoader.getResource("./picture/exportTestPicture-code.png");
+        URL titleUrl = classLoader.getResource("./picture/exportTestPicture-title.png");
+
+        String intro = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(introUrl.toURI().getPath()));
+        map.put("intro", intro);
+        String code = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(codeUrl.toURI().getPath()));
+        map.put("code", code);
+        map.put("title", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(titleUrl.toURI().getPath())));
+        //编译输出
+        DocumentProducer dp = new DocumentProducer(ActualModelPath);
+        String complie = dp.Complie(xmlPath, "picture.xml", true);
+        dp.produce(map, ExportFilePath);
+    }
+
+    /**
+     * 测试导出图片 docx文档
+     * @throws Exception
+     */
+    @Test
+    public void testpic_docx() throws Exception {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        if (classLoader == null){
+            classLoader = ClassLoader.getSystemClassLoader();
+        }
+        String ActualModelPath = classLoader.getResource("./model/").toURI().getPath();
+        String xmlPath = classLoader.getResource("./model").toURI().getPath();
+        String ExportFilePath = classLoader.getResource(".").toURI().getPath() + "/picture_new.docx";
+
+        HashMap<String, Object> map = new HashMap<>();
+        //读取输出图片
+        URL introUrl = classLoader.getResource("./picture/exportTestPicture-intro.png");
+        URL codeUrl = classLoader.getResource("./picture/exportTestPicture-code.png");
+        URL titleUrl = classLoader.getResource("./picture/exportTestPicture-title.png");
+
+        String intro = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(introUrl.toURI().getPath()));
+        map.put("intro", intro);
+        String code = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(codeUrl.toURI().getPath()));
+        map.put("code", code);
+        map.put("title", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(titleUrl.toURI().getPath())));
+        //编译输出
+        DocumentProducer dp = new DocumentProducer(ActualModelPath);
+        String complie = dp.Complie(xmlPath, "picture.docx", true);
+        dp.produce(map, ExportFilePath);
     }
 }
