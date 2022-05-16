@@ -129,9 +129,14 @@ public class WordModelHandlerImpl implements ModelHandler {
                 List docxPictureList = document.selectNodes("//w:drawing");
                 for(Element picEle : (List<Element>)docxPictureList){
                     picEle.addNamespace("pic","http://schemas.openxmlformats.org/drawingml/2006/picture");
-                    picEle.addNamespace("a","http://schemas.openxmlformats.org/drawingml/2006/main");                    Element picNode=(Element)picEle.selectSingleNode(".//pic:cNvPr");
+                    picEle.addNamespace("a","http://schemas.openxmlformats.org/drawingml/2006/main");
+                    Element picNode=(Element)picEle.selectSingleNode(".//pic:cNvPr");
                     String pic_descr = picNode.attributeValue("descr");
 
+                    if(pic_descr==null||"".equalsIgnoreCase(pic_descr)){
+                        Element wcdocprNode=(Element)picEle.selectSingleNode(".//wp:docPr");
+                        pic_descr = wcdocprNode.attributeValue("descr");
+                    }
                     // 图片中存在与freemarker冲突的字符  <a:ext uri="{28A0092B-C50C-407E-A947-70E740481C1C}">    暂时先设置为空字符传（目前没有发现影响）
                     Element aExtNode=(Element)picEle.selectSingleNode(".//a:ext");
                     if(aExtNode!=null){
@@ -143,7 +148,9 @@ public class WordModelHandlerImpl implements ModelHandler {
 
                         // 清理图片模板占位
                         Attribute descrAttr = picNode.attribute("descr");
-                        descrAttr.setValue("");
+                        if(descrAttr!=null){
+                            descrAttr.setValue("");
+                        }
 
                         Element wpDocprNode=(Element)picEle.selectSingleNode(".//wp:docPr");
                         Attribute wpDocprNodeAttr = wpDocprNode.attribute("descr");
