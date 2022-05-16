@@ -40,7 +40,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
       <dependency>
           <groupId>com.github.kmood</groupId>
           <artifactId>officeexport-java</artifactId>
-          <version>1.0.2.0-RELEASE</version>
+          <version>1.0.3.0-RELEASE</version>
       </dependency>
 
    ```
@@ -175,7 +175,7 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
 
 中文文档：[**https://github.com/kmood/officeexport-java/wiki**](https://github.com/kmood/officeexport-java/wiki)
 ## 建议和完善
-欢迎在GitHub Issue中提问和交流。有问题可通过微信咨询： **1761104164**
+欢迎在GitHub Issue中提问和交流。有问题可通过微信咨询： **1761104164、18330019132**
 ## 贡献者
 
 
