@@ -139,12 +139,15 @@ public class DocumentProducer {
             }
             String base64png=renderData.get(key)!=null? renderData.get(key).toString():"";
             String bas64flag=FileUtils.checkImageBase64Format(base64png);
-            if("png".equalsIgnoreCase(bas64flag)){
+            if("png".equalsIgnoreCase(bas64flag) || "jpg".equalsIgnoreCase(bas64flag) ||"jpeg".equalsIgnoreCase(bas64flag)){
+                if("jpg".equalsIgnoreCase(bas64flag)){
+                    bas64flag = "jpeg";
+                }
                 // 新建图片
                 if(renderData.containsKey("_xh")){
-                    FileUtils.convertBase64DataToImage(base64png,modelPath+File.separator+"media"+File.separator+"image"+renderData.get("_xh")+key+".png");
+                    FileUtils.convertBase64DataToImage(base64png,modelPath+File.separator+"media"+File.separator+"image"+renderData.get("_xh")+key+"."+bas64flag);
                 }else{
-                    FileUtils.convertBase64DataToImage(base64png,modelPath+File.separator+"media"+File.separator+"image"+key+".png");
+                    FileUtils.convertBase64DataToImage(base64png,modelPath+File.separator+"media"+File.separator+"image"+key+"."+bas64flag);
                 }
 
                 // 在docx文件中增加png的引用
@@ -159,10 +162,10 @@ public class DocumentProducer {
 
                 if(renderData.containsKey("_xh")){
                     pictureRelationship.addAttribute("Id","rId"+renderData.get("_xh")+key);
-                    pictureRelationship.addAttribute("Target","media/image"+renderData.get("_xh")+key+".png");
+                    pictureRelationship.addAttribute("Target","media/image"+renderData.get("_xh")+key+"."+bas64flag);
                 }else{
                     pictureRelationship.addAttribute("Id","rId"+key);
-                    pictureRelationship.addAttribute("Target","media/image"+key+".png");
+                    pictureRelationship.addAttribute("Target","media/image"+key+"."+bas64flag);
                 }
 
                 FileOutputStream fos=new FileOutputStream(modelPath+File.separator+"_rels"+File.separator+"document.xml.rels");
@@ -179,18 +182,33 @@ public class DocumentProducer {
                 List<Element> elementsnew = rootElementnew.elements();
                 List<Element> elementDeaultList = rootElementnew.elements("Default");
                 boolean sfczpng=false;
+                boolean sfczjpeg=false;
                 for(Element elementitem:elementDeaultList){
                     Attribute extension = elementitem.attribute("Extension");
                     // System.out.println(extension.getData());
                     if("png".equalsIgnoreCase(extension.getData().toString())){
                        sfczpng=true;
                     }
+                    if("jpeg".equalsIgnoreCase(extension.getData().toString())){
+                        sfczjpeg=true;
+                    }
                 }
-                if(!sfczpng){
+                if(!sfczpng&&"png".equalsIgnoreCase(bas64flag)){
                     // docx中在[Content_types].xml文件增加 png配置，并且需要将Default节点放到前面，否则docx格式不正确
                     Element pictureRelationshipnew =  DocumentHelper.createElement(QName.get("Default", rootElementnew.getNamespace ()));
                     pictureRelationshipnew.addAttribute("Extension","png");
                     pictureRelationshipnew.addAttribute("ContentType","image/png");
+                    elementsnew.add(0,pictureRelationshipnew);
+                    FileOutputStream fosnew=new FileOutputStream(contentTypesFolderFile.getAbsolutePath()+File.separator+"[Content_Types].xml");
+                    XMLWriter writernew = new XMLWriter(fosnew); //创建xml输出流
+                    writernew.write(documentnew);
+                    writernew.close();
+                }
+                if(!sfczjpeg&&"jpeg".equalsIgnoreCase(bas64flag)){
+                    // docx中在[Content_types].xml文件增加 png配置，并且需要将Default节点放到前面，否则docx格式不正确
+                    Element pictureRelationshipnew =  DocumentHelper.createElement(QName.get("Default", rootElementnew.getNamespace ()));
+                    pictureRelationshipnew.addAttribute("Extension","jpeg");
+                    pictureRelationshipnew.addAttribute("ContentType","image/jpeg");
                     elementsnew.add(0,pictureRelationshipnew);
                     FileOutputStream fosnew=new FileOutputStream(contentTypesFolderFile.getAbsolutePath()+File.separator+"[Content_Types].xml");
                     XMLWriter writernew = new XMLWriter(fosnew); //创建xml输出流
