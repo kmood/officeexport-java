@@ -73,6 +73,6 @@ public class FMConfiguration {
     // docx时 清理FmModelPathArr
     public static void clearFMModelPathArr(){
         FMModelPathArr=new ArrayList();
-
+        FMModelPathArr.clear();
     }
 }

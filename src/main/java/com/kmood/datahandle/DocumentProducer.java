@@ -98,6 +98,7 @@ public class DocumentProducer {
             ZipUtils.compress(produceFilePathOrigin,sourceFolderPath);
             // 删除生成的临时文件
             System.out.println(FileUtils.deleteDir(new File(sourceFolderPath))) ;
+            FMConfiguration.clearFMModelPathArr();
         }
     }
     public void produce(Object data,OutputStream ProduceFileout)throws IOException,TemplateException {
