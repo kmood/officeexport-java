@@ -174,6 +174,19 @@ officeexport-java基于[Apache FreeMarker](https://freemarker.apache.org)，遵�
 
 
 中文文档：[**https://github.com/kmood/officeexport-java/wiki**](https://github.com/kmood/officeexport-java/wiki)
+## 注意！
+>>#### 模板配置注意
+   ```规范：
+
+     变量命名只能使用：字母 数字 $ _ （下划线）
+     
+     中文也可以用来命名变量，但最好不这样写。
+     
+     变量第一个字符只能使用：字母 $ _ （下划线）
+     
+     变量第一个字符不能使用：数字
+
+   ```
 ## 建议和完善
 欢迎在GitHub Issue中提问和交流。有问题可通过微信咨询： **1761104164、18330019132**
 ## 贡献者
