@@ -131,6 +131,9 @@ public class WordModelHandlerImpl implements ModelHandler {
                     picEle.addNamespace("pic","http://schemas.openxmlformats.org/drawingml/2006/picture");
                     picEle.addNamespace("a","http://schemas.openxmlformats.org/drawingml/2006/main");
                     Element picNode=(Element)picEle.selectSingleNode(".//pic:cNvPr");
+                    if(picNode==null){
+                        continue;
+                    }
                     String pic_descr = picNode.attributeValue("descr");
 
                     if(pic_descr==null||"".equalsIgnoreCase(pic_descr)){
