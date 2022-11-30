@@ -33,6 +33,12 @@ public class WordParserUtils {
     }
     public static String VarifySyntax(String data){
         data = StringUtil.removeInvisibleChar(data);
+        String errorInfor = varifySyntax_base(data);
+        if (errorInfor == null) return null;
+        return errorInfor;
+    }
+    //校验*#@ ]}
+    private static String varifySyntax_base(String data) {
         String errorInfor = "";
         Character errorChar = null ;
         int errorIndex = 0;
@@ -305,9 +311,11 @@ public class WordParserUtils {
     }
 
     public static void BracketToListConversion(Document document) {
+//        列举所有wp
         List wpNodeList = document.selectNodes("//w:p");
         for (int i = 0; i < wpNodeList.size(); i++) {
             Node wpNode = (Node)wpNodeList.get(i);
+//          列举所有wp下wt
             List wtlist = wpNode.selectNodes(".//w:t");
             String[] Xarr = null;
             String[] Jarr = null;
@@ -481,7 +489,8 @@ public class WordParserUtils {
         List WTList = WPNode.selectNodes(".//w:t");
         Node WTNodeNew = null;
         int s = WTList.size();
-        //算法分三种方式整合占位符，例 [*QF@t*   {t.QF}    *QF*] 需要将这三类整合 对于[*QF@t*遍历wt进行整合
+        /**算法分三种方式整合占位符，例 [*QF@t*   {t.QF}    *QF*] 需要将这三类整合 对于[*QF@t*遍历wt进行整合**/
+//        处理所有左前缀如：[*  [#
         for (int j = 0; j < s; j++) {
             WTNodeNew = (Node)WTList.get(j);
             String text = WTNodeNew.getText();
@@ -499,8 +508,6 @@ public class WordParserUtils {
                     temp += t;
                     int i1 = StringUtil.countMatches(temp, '*');
                     int i2 = StringUtil.countMatches(temp, '#');
-                    int i3 = StringUtil.countMatches(temp, '[');
-                    int i4 = StringUtil.countMatches(temp, ']');
 
                     if ((i1 > 1 || i2 > 1) ){
                         if (temp.contains("#")) {

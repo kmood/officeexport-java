@@ -95,9 +95,10 @@ public class WordModelHandlerImpl implements ModelHandler {
                 // 如果为docx,处理图片引用
                 WordParserUtils.MediaPlaceHodlerHandle(WPNode);
             }
-            // 转换[ 到list标签
+            // 转换[ 到list标签，1.2.1-RELEASE 版本后增加 | 流程控制占位符
             // if(!"docx".equalsIgnoreCase(DocumentProducer.ModelSuffixFlagLocal.get())  ){
                 WordParserUtils.BracketToListConversion(document);
+            //图片处理
                 List pictureList = document.selectNodes("//w:pict");
                 if (pictureList != null ){
                     for (int i = 0; i < pictureList.size(); i++) {
