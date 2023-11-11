@@ -68,6 +68,8 @@ public class FileUtils {
 			type = "png";
 		} else if (0xFFD8 == ((b[0] & 0xff) << 8 | (b[1] & 0xff))) {
 			type = "jpg";
+		}else{
+			type = "png";
 		}
 		return type;}catch(Exception ex){
 			return "";

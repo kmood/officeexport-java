@@ -8,6 +8,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import net.lingala.zip4j.ZipFile;
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
@@ -30,7 +31,7 @@ public class DocumentProducer {
     }
     public DocumentProducer(String ActualModelPath)throws Exception{
         FMConfiguration.Init();
-        Configuration configuration = FMConfiguration.addFMModelPath(ActualModelPath);
+//        Configuration configuration = FMConfiguration.addFMModelPath(ActualModelPath);
         ActualModelPathLocal.set(ActualModelPath);
     }
     public DocumentProducer()throws Exception{
@@ -68,6 +69,9 @@ public class DocumentProducer {
     }
     //增加构造函数
     public void produce(Object data,String ProduceFilePath) throws Exception {
+        Writer outputStreamWriter = null;
+
+        try{
         String produceFilePathOrigin=ProduceFilePath;
         if("docx".equalsIgnoreCase(ModelSuffixFlagLocal.get())  ){
             ProduceFilePath=ActualModelDocxPathLocal.get();
@@ -91,7 +95,31 @@ public class DocumentProducer {
         Object dataConvert = DataConverter.convert(data, null);
         template.process(dataConvert,outputStreamWriter);
         outputStreamWriter.flush();
-        outputStreamWriter.close();
+        //处理换行
+        SAXReader reader = new SAXReader();
+        File file = new File(ProduceFilePath);
+        Document document = reader.read(file);
+        List ParagList = document.selectNodes(".//w:p");
+        StringBuilder wpStr = new StringBuilder();
+        for (int i = 0; i < ParagList.size(); i++) {
+            Node node = (Node)ParagList.get(i);
+            List TextNodeList = node.selectNodes(".//w:t");
+            for (int j = 0; j < TextNodeList.size(); j++) {
+                Node TextNode = (Node)TextNodeList.get(j);
+                String text = TextNode.getText();
+                String[] split = StringUtils.split("\n");
+                if(split.length > 1){
+                    
+                    for (String t:split) {
+
+                    }
+                }
+            }
+        }
+
+        document.write(outputStreamWriter);
+        outputStreamWriter.flush();
+
         if("docx".equalsIgnoreCase(ModelSuffixFlagLocal.get())  ){
             String sourceFolderPath=ActualExtractDocxPathLocal.get();
             new File(ProduceFilePath+".ftl").delete();
@@ -99,6 +127,10 @@ public class DocumentProducer {
             // 删除生成的临时文件
             System.out.println(FileUtils.deleteDir(new File(sourceFolderPath))) ;
             FMConfiguration.clearFMModelPathArr();
+        }
+        }finally {
+            if (outputStreamWriter != null )
+                outputStreamWriter.close();
         }
     }
     public void produce(Object data,OutputStream ProduceFileout)throws IOException,TemplateException {

@@ -124,6 +124,7 @@ public class test {
         try {
             String ActualModelPath = this.getClass().getClassLoader().getResource("./model/").toURI().getPath();
             String xmlPath = this.getClass().getClassLoader().getResource("./model").toURI().getPath();
+            String filePath = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-code.png").toURI().getPath();
             String ExportFilePath = this.getClass().getClassLoader().getResource("./export").toURI().getPath() + "/包装说明表（范例A）yangzhtest.docx";
             HashMap<String, Object> map = new HashMap<>();
             map.put("zzdhm", "yangzh-制造单号码");
@@ -140,7 +141,7 @@ public class test {
             zxsmmap.put("zrl", "yangzh-梅香");
             zxsmmap.put("zsl", "kmood-交运日期");
             zxsmmap.put("sm", "yangzh-交运日期");
-            zxsmmap.put("pictest", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://image2.png")));
+            zxsmmap.put("pictest", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( filePath)));
 
             zxsmList.add(zxsmmap);
             HashMap<String, Object> zxsmmap1 = new HashMap<>();
@@ -149,16 +150,16 @@ public class test {
             zxsmmap1.put("zrl","kmood-产品名称");
             zxsmmap1.put("zsl","kmood-交运日期");
             zxsmmap1.put("sm", "kmood-交运日期");
-            zxsmmap1.put("pictest", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://111.png")));
+            zxsmmap1.put("pictest", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( filePath)));
 
             zxsmList.add(zxsmmap1);
             map.put("zxsm", zxsmList);
             map.put("sbsm", "yangzh-商标说明");
             map.put("bt", "kmood OfficeExport 导出word");
 //            map.put("test",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://111.png")));
-            map.put("yangzh",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://yuan.png")));
+            map.put("yangzh",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( filePath)));
 
-            map.put("pictext",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://image1.png")));
+            map.put("pictext",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( filePath)));
 
             DocumentProducer dp = new DocumentProducer(ActualModelPath);
             String complie = dp.Complie(xmlPath, "包装说明表（范例A）-v2.docx", true); // 这个参数为false时，docx的会报错，没有复用模板，每次都是生成加载
@@ -230,4 +231,13 @@ public class test {
         String complie = dp.Complie(xmlPath, "picture.docx", true);
         dp.produce(map, ExportFilePath);
     }
+
+
+    @Test
+    public void endPic() throws Exception {
+
+        String intro = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath("E:\\project\\gitlab\\qgzhdc\\qgzhdc-towordpdf-java\\test.png"));
+        System.out.println(intro);
+    }
+
 }
