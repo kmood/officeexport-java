@@ -162,9 +162,9 @@ public class test {
             String filePath = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-code.png").toURI().getPath();
             String ExportFilePath = this.getClass().getClassLoader().getResource("./export").toURI().getPath() + "/包装说明表（范例A）-export.docx";
             HashMap<String, Object> map = new HashMap<>();
-            map.put("zzdhm", "yangzh-制造单号码");
-            map.put("ydwcrq", "yangzh-预定完成日期");
-            map.put("cpmc", "yangzh-产品名称");
+            map.put("zzdhm", "yangzh-\n制造单\n号码");
+            map.put("ydwcrq", "yangzh-预\n定完成日期");
+            map.put("cpmc", "yangzh-产品\n名称");
             map.put("jyrq", "yangzh-交运日期");
             map.put("sl", "yangzh-数量");
             map.put("xs", "yangzh-箱数");
@@ -172,7 +172,7 @@ public class test {
             ArrayList<Object> zxsmList = new ArrayList<>();
             HashMap<String, Object> zxsmmap = new HashMap<>();
             zxsmmap.put("xh", "1tett");
-            zxsmmap.put("xs", "yangzh-箱数");
+            zxsmmap.put("xs", "yangzh\n-箱数");
             zxsmmap.put("zrl", "yangzh-梅香");
             zxsmmap.put("zsl", "kmood-交运日期");
             zxsmmap.put("sm", "yangzh-交运日期");

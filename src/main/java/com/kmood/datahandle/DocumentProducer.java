@@ -3,6 +3,7 @@ package com.kmood.datahandle;
 import com.kmood.utils.FileUtils;
 import com.kmood.utils.StringUtil;
 import com.kmood.utils.ZipUtils;
+import com.kmood.utils.dom4jUtils;
 import com.kmood.word.WordModelHandlerImpl;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -96,31 +97,56 @@ public class DocumentProducer {
         Object dataConvert = DataConverter.convert(data, null);
         template.process(dataConvert,outputStreamWriter);
         outputStreamWriter.flush();
+        outputStreamWriter.close();
         //处理换行
-//        SAXReader reader = new SAXReader();
-//        File file = new File(ProduceFilePath);
-//        Document document = reader.read(file);
-//        List ParagList = document.selectNodes(".//w:p");
-//        StringBuilder wpStr = new StringBuilder();
-//        for (int i = 0; i < ParagList.size(); i++) {
-//            Node node = (Node)ParagList.get(i);
-//            List TextNodeList = node.selectNodes(".//w:t");
-//            for (int j = 0; j < TextNodeList.size(); j++) {
-//                Node TextNode = (Node)TextNodeList.get(j);
-//                String text = TextNode.getText();
-//                String[] split = StringUtils.split("\n");
-//                if(split.length > 1){
-//
-//                    for (String t:split) {
-//
-//                    }
-//                }
-//            }
-//        }
 
-//        document.write(outputStreamWriter);
+        SAXReader reader = new SAXReader();
+        File file = new File(ProduceFilePath);
+        Document document = reader.read(file);
+
+        List ParagList = document.selectNodes(".//w:p");
+
+        for (int i = 0; i < ParagList.size(); i++) {
+            Element WPNode = (Element) ParagList.get(i);
+            List WPChildList = WPNode.elements();
+            for (int j = 0; j < WPChildList.size(); j++) {
+                Element childEle = (Element)WPChildList.get(j);
+                Element ele = null;
+                String name = childEle.getName();
+                if(StringUtils.equals(name,"r")){
+                    List<Element> wtList = childEle.selectNodes("w:t");
+                    for (Element wtEle:wtList) {
+                        String text = wtEle.getText();
+                        if(text.contains("yangzh-制造单")){
+                            System.out.println("");
+                        }
+                        if(text.contains("\n")){
+                            String[] strArr = text.split("\n");
+                            if(strArr.length>1){
+                                for (int k = 0; k < strArr.length; k++) {
+                                    String s = strArr[k];
+                                    if(k==0){
+                                        wtEle.setText(s);
+                                    }else{
+                                        ele = DocumentHelper.createElement("w:br");
+                                        dom4jUtils.addSiblingElement(wtEle, ele);
+                                        Element copyWtEle = wtEle.createCopy();
+                                        copyWtEle.setText(s);
+                                        dom4jUtils.addSiblingElement(ele, copyWtEle);
+                                        ele = copyWtEle;
+                                    }
+
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+        outputStreamWriter = new OutputStreamWriter(new FileOutputStream(ProduceFilePath,false), template.getEncoding());
+        document.write(outputStreamWriter);
         outputStreamWriter.flush();
-
         if("docx".equalsIgnoreCase(ModelSuffixFlagLocal.get())  ){
             String sourceFolderPath=ActualExtractDocxPathLocal.get();
             new File(ProduceFilePath+".ftl").delete();
