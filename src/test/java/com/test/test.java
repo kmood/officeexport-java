@@ -118,14 +118,49 @@ public class test {
         String complie = dp.Complie("D:\\intelliJ IDEA_workerspace\\ngccoa\\src\\main\\resources\\model", "fwngnew.xml", true);
 
     }
+    /**
+     * 测试2003 版导出图片 doc文档
+     * @throws Exception
+     */
+    @Test
+    public void testpic() throws Exception {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        if (classLoader == null){
+            classLoader = ClassLoader.getSystemClassLoader();
+        }
+        String ActualModelPath = classLoader.getResource("./model/").toURI().getPath();
+        String xmlPath = classLoader.getResource("./model").toURI().getPath();
+        String ExportFilePath = classLoader.getResource("./export").toURI().getPath() + "/picture.doc";
 
+        HashMap<String, Object> map = new HashMap<>();
+        //读取输出图片
+        URL introUrl = classLoader.getResource("./picture/exportTestPicture-intro.png");
+        URL codeUrl = classLoader.getResource("./picture/exportTestPicture-code.png");
+        URL titleUrl = classLoader.getResource("./picture/exportTestPicture-title.png");
+
+        String intro = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(introUrl.toURI().getPath()));
+        map.put("intro", intro);
+        String code = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(codeUrl.toURI().getPath()));
+        map.put("code", code);
+        map.put("title", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(titleUrl.toURI().getPath())));
+        //编译输出
+        DocumentProducer dp = new DocumentProducer(ActualModelPath);
+        String complie = dp.Complie(xmlPath, "picture.xml", true);
+        dp.produce(map, ExportFilePath);
+    }
+
+    /**
+     * 测试docx 模板导出
+     * @throws IOException
+     * @throws TemplateException
+     */
     @Test
     public void testdocx() throws IOException, TemplateException {
         try {
             String ActualModelPath = this.getClass().getClassLoader().getResource("./model/").toURI().getPath();
             String xmlPath = this.getClass().getClassLoader().getResource("./model").toURI().getPath();
             String filePath = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-code.png").toURI().getPath();
-            String ExportFilePath = this.getClass().getClassLoader().getResource("./export").toURI().getPath() + "/包装说明表（范例A）yangzhtest.docx";
+            String ExportFilePath = this.getClass().getClassLoader().getResource("./export").toURI().getPath() + "/包装说明表（范例A）-export.docx";
             HashMap<String, Object> map = new HashMap<>();
             map.put("zzdhm", "yangzh-制造单号码");
             map.put("ydwcrq", "yangzh-预定完成日期");
@@ -155,14 +190,11 @@ public class test {
             zxsmList.add(zxsmmap1);
             map.put("zxsm", zxsmList);
             map.put("sbsm", "yangzh-商标说明");
-            map.put("bt", "kmood OfficeExport 导出word");
-//            map.put("test",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( "F://111.png")));
-            map.put("yangzh",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( filePath)));
-
+            map.put("mp", "kmood OfficeExport 导出word");
             map.put("pictext",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( filePath)));
 
             DocumentProducer dp = new DocumentProducer(ActualModelPath);
-            String complie = dp.Complie(xmlPath, "包装说明表（范例A）-v2.docx", true); // 这个参数为false时，docx的会报错，没有复用模板，每次都是生成加载
+            String complie = dp.Complie(xmlPath, "包装说明表（范例A）.docx", false);
             System.out.println(complie);
             dp.produce(map, ExportFilePath);
         } catch (Exception e) {
@@ -170,69 +202,13 @@ public class test {
         }
     }
 
-    /**
-     * 测试导出图片 doc文档
-     * @throws Exception
-     */
-    @Test
-    public void testpic() throws Exception {
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        if (classLoader == null){
-            classLoader = ClassLoader.getSystemClassLoader();
-        }
-        String ActualModelPath = classLoader.getResource("./model/").toURI().getPath();
-        String xmlPath = classLoader.getResource("./model").toURI().getPath();
-        String ExportFilePath = classLoader.getResource(".").toURI().getPath() + "/picture.doc";
 
-        HashMap<String, Object> map = new HashMap<>();
-        //读取输出图片
-        URL introUrl = classLoader.getResource("./picture/exportTestPicture-intro.png");
-        URL codeUrl = classLoader.getResource("./picture/exportTestPicture-code.png");
-        URL titleUrl = classLoader.getResource("./picture/exportTestPicture-title.png");
 
-        String intro = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(introUrl.toURI().getPath()));
-        map.put("intro", intro);
-        String code = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(codeUrl.toURI().getPath()));
-        map.put("code", code);
-        map.put("title", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(titleUrl.toURI().getPath())));
-        //编译输出
-        DocumentProducer dp = new DocumentProducer(ActualModelPath);
-        String complie = dp.Complie(xmlPath, "picture.xml", true);
-        dp.produce(map, ExportFilePath);
-    }
 
     /**
-     * 测试导出图片 docx文档
+     * 测试 图片编码
      * @throws Exception
      */
-    @Test
-    public void testpic_docx() throws Exception {
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        if (classLoader == null){
-            classLoader = ClassLoader.getSystemClassLoader();
-        }
-        String ActualModelPath = classLoader.getResource("./model/").toURI().getPath();
-        String xmlPath = classLoader.getResource("./model").toURI().getPath();
-        String ExportFilePath = classLoader.getResource(".").toURI().getPath() + "/picture_new.docx";
-
-        HashMap<String, Object> map = new HashMap<>();
-        //读取输出图片
-        URL introUrl = classLoader.getResource("./picture/exportTestPicture-intro.png");
-        URL codeUrl = classLoader.getResource("./picture/exportTestPicture-code.png");
-        URL titleUrl = classLoader.getResource("./picture/exportTestPicture-title.png");
-
-        String intro = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(introUrl.toURI().getPath()));
-        map.put("intro", intro);
-        String code = Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(codeUrl.toURI().getPath()));
-        map.put("code", code);
-        map.put("title", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath(titleUrl.toURI().getPath())));
-        //编译输出
-        DocumentProducer dp = new DocumentProducer(ActualModelPath);
-        String complie = dp.Complie(xmlPath, "picture.docx", true);
-        dp.produce(map, ExportFilePath);
-    }
-
-
     @Test
     public void endPic() throws Exception {
 

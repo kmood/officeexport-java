@@ -7,7 +7,7 @@ import org.junit.Test;
 /**
  * @Auther: SunBC
  * @Date: 2019/7/1 13:00
- * @Description:
+ * @Description: 测试utils
  */
 public class TestStringUtil {
     @Test

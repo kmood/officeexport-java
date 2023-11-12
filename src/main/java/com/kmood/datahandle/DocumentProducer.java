@@ -40,7 +40,8 @@ public class DocumentProducer {
     public String Complie(String XmlModelPath,String XmlModelName,boolean debugModel)throws Exception {
         // 增加支持docx文件模板渲染
         ModelSuffixFlagLocal.set("xml");
-        if("docx".equalsIgnoreCase(FileUtils.getFileSuffixByPath(XmlModelPath+File.separator+XmlModelName))){
+        boolean isDocx = "docx".equalsIgnoreCase(FileUtils.getFileSuffixByPath(XmlModelPath + File.separator + XmlModelName));
+        if(isDocx){
             // 如果是docx文件，先解压到临时目录
             String uid= UUID.randomUUID().toString();
             ModelSuffixFlagLocal.set("docx");
@@ -60,7 +61,7 @@ public class DocumentProducer {
             FMConfiguration.addFMModelPath(XmlModelPath);
             ActualModelPathLocal.set(XmlModelPath);
         }
-        if (debugModel){
+        if (debugModel || isDocx){
             WordModelHandlerImpl wordXmlModelHandler = new WordModelHandlerImpl();
             String path = wordXmlModelHandler.WordXmlModelHandle(XmlModelPath+File.separator+XmlModelName,ActualModelPathLocal.get());
         }
@@ -80,7 +81,7 @@ public class DocumentProducer {
         String modelFileName=ActualModelNameLocal.get();
         String modelPath=ActualModelPathLocal.get();
         Template template = configuration.getTemplate(modelFileName);
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(ProduceFilePath), template.getEncoding());
+        outputStreamWriter = new OutputStreamWriter(new FileOutputStream(ProduceFilePath), template.getEncoding());
         // 如果是docx,模拟图片插入
         if("docx".equalsIgnoreCase(ModelSuffixFlagLocal.get())  ){
             data = DataConverter.addPictureXh(data,"");
@@ -96,28 +97,28 @@ public class DocumentProducer {
         template.process(dataConvert,outputStreamWriter);
         outputStreamWriter.flush();
         //处理换行
-        SAXReader reader = new SAXReader();
-        File file = new File(ProduceFilePath);
-        Document document = reader.read(file);
-        List ParagList = document.selectNodes(".//w:p");
-        StringBuilder wpStr = new StringBuilder();
-        for (int i = 0; i < ParagList.size(); i++) {
-            Node node = (Node)ParagList.get(i);
-            List TextNodeList = node.selectNodes(".//w:t");
-            for (int j = 0; j < TextNodeList.size(); j++) {
-                Node TextNode = (Node)TextNodeList.get(j);
-                String text = TextNode.getText();
-                String[] split = StringUtils.split("\n");
-                if(split.length > 1){
-                    
-                    for (String t:split) {
+//        SAXReader reader = new SAXReader();
+//        File file = new File(ProduceFilePath);
+//        Document document = reader.read(file);
+//        List ParagList = document.selectNodes(".//w:p");
+//        StringBuilder wpStr = new StringBuilder();
+//        for (int i = 0; i < ParagList.size(); i++) {
+//            Node node = (Node)ParagList.get(i);
+//            List TextNodeList = node.selectNodes(".//w:t");
+//            for (int j = 0; j < TextNodeList.size(); j++) {
+//                Node TextNode = (Node)TextNodeList.get(j);
+//                String text = TextNode.getText();
+//                String[] split = StringUtils.split("\n");
+//                if(split.length > 1){
+//
+//                    for (String t:split) {
+//
+//                    }
+//                }
+//            }
+//        }
 
-                    }
-                }
-            }
-        }
-
-        document.write(outputStreamWriter);
+//        document.write(outputStreamWriter);
         outputStreamWriter.flush();
 
         if("docx".equalsIgnoreCase(ModelSuffixFlagLocal.get())  ){
@@ -173,15 +174,15 @@ public class DocumentProducer {
             String base64png=renderData.get(key)!=null? renderData.get(key).toString():"";
             String bas64flag=FileUtils.checkImageBase64Format(base64png);
             if("png".equalsIgnoreCase(bas64flag) || "jpg".equalsIgnoreCase(bas64flag) ||"jpeg".equalsIgnoreCase(bas64flag)){
-                if("jpg".equalsIgnoreCase(bas64flag)){
-                    bas64flag = "jpeg";
-                }
-                // 新建图片
-                if(renderData.containsKey("_xh")){
-                    FileUtils.convertBase64DataToImage(base64png,modelPath+File.separator+"media"+File.separator+"image"+renderData.get("_xh")+key+"."+bas64flag);
-                }else{
-                    FileUtils.convertBase64DataToImage(base64png,modelPath+File.separator+"media"+File.separator+"image"+key+"."+bas64flag);
-                }
+                    if("jpg".equalsIgnoreCase(bas64flag)){
+                        bas64flag = "jpeg";
+                    }
+                    // 新建图片
+                    if(renderData.containsKey("_xh")){
+                        FileUtils.convertBase64DataToImage(base64png,modelPath+File.separator+"media"+File.separator+"image"+renderData.get("_xh")+key+"."+bas64flag);
+                    }else{
+                        FileUtils.convertBase64DataToImage(base64png,modelPath+File.separator+"media"+File.separator+"image"+key+"."+bas64flag);
+                    }
 
                 // 在docx文件中增加png的引用
                 SAXReader reader = new SAXReader();

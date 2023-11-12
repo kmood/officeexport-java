@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * @Auther: SunBC
  * @Date: 2019/7/1 13:05
- * @Description:
+ * @Description:测试2003版word word 导出
  */
 public class TestWordExcelModelHandlerImpl {
     URL Url = this.getClass().getClassLoader().getResource("./model/testWordTableList.xml");

@@ -6,7 +6,7 @@ import org.junit.Test;
 /**
  * @Auther: SunBC
  * @Date: 2019/7/1 12:57
- * @Description:
+ * @Description: 测试2003 版xml 占位符解析
  */
 public class TestWordParserUtils {
 

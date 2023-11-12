@@ -1594,6 +1594,10 @@
 			</w:tbl>
 			<w:p>
 			<w:r>
+					<w:rPr>
+						<w:rFonts w:hint="fareast"/>
+						<wx:font wx:val="宋体"/>
+					</w:rPr>
 					<w:t>商标说明：{sbsm}</w:t>
 				</w:r>
 			</w:p>
