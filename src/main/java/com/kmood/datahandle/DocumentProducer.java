@@ -127,12 +127,14 @@ public class DocumentProducer {
                                     String s = strArr[k];
                                     if(k==0){
                                         wtEle.setText(s);
+                                        ele = wtEle;
                                     }else{
-                                        ele = DocumentHelper.createElement("w:br");
-                                        dom4jUtils.addSiblingElement(wtEle, ele);
+                                        Element wbrEle = DocumentHelper.createElement("w:br");
+                                        wbrEle.addAttribute("w:clear","right");
+                                        dom4jUtils.addSiblingElement(ele, wbrEle);
                                         Element copyWtEle = wtEle.createCopy();
                                         copyWtEle.setText(s);
-                                        dom4jUtils.addSiblingElement(ele, copyWtEle);
+                                        dom4jUtils.addSiblingElement(wbrEle, copyWtEle);
                                         ele = copyWtEle;
                                     }
 
