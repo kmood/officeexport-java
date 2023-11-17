@@ -160,6 +160,8 @@ public class test {
             String ActualModelPath = this.getClass().getClassLoader().getResource("./model/").toURI().getPath();
             String xmlPath = this.getClass().getClassLoader().getResource("./model").toURI().getPath();
             String filePath = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-code.png").toURI().getPath();
+            String filePath2 = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-intro.png").toURI().getPath();
+            String filePath3 = this.getClass().getClassLoader().getResource("./picture/exportTestPicture-title.png").toURI().getPath();
             String ExportFilePath = this.getClass().getClassLoader().getResource("./export").toURI().getPath() + "/包装说明表（范例A）-export.docx";
             HashMap<String, Object> map = new HashMap<>();
             map.put("zzdhm", "yangzh-\n制造单\n号码测试号码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试码测试");
@@ -176,7 +178,8 @@ public class test {
             zxsmmap.put("zrl", "yangzh-梅香");
             zxsmmap.put("zsl", "kmood-交运日期");
             zxsmmap.put("sm", "yangzh-交运日期");
-            zxsmmap.put("pictest", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( filePath)));
+            zxsmmap.put("pictest", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( filePath3)));
+            zxsmmap.put("pictext_loop", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( filePath3)));
 
             zxsmList.add(zxsmmap);
             HashMap<String, Object> zxsmmap1 = new HashMap<>();
@@ -186,12 +189,13 @@ public class test {
             zxsmmap1.put("zsl","kmood-交运日期");
             zxsmmap1.put("sm", "kmood-交运日期");
             zxsmmap1.put("pictest", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( filePath)));
+            zxsmmap1.put("pictext_loop", Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( filePath)));
 
             zxsmList.add(zxsmmap1);
             map.put("zxsm", zxsmList);
             map.put("sbsm", "yangzh-商标说明");
             map.put("mp", "kmood OfficeExport 导出word");
-            map.put("pictext",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( filePath)));
+            map.put("pictext",  Base64.getEncoder().encodeToString(FileUtils.readToBytesByFilepath( filePath2)));
 
             DocumentProducer dp = new DocumentProducer(ActualModelPath);
             String complie = dp.Complie(xmlPath, "包装说明表（范例A）.docx", false);
