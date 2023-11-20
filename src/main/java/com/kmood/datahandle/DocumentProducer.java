@@ -103,47 +103,7 @@ public class DocumentProducer {
         SAXReader reader = new SAXReader();
         File file = new File(ProduceFilePath);
         Document document = reader.read(file);
-
-        List ParagList = document.selectNodes(".//w:p");
-
-        for (int i = 0; i < ParagList.size(); i++) {
-            Element WPNode = (Element) ParagList.get(i);
-            List WPChildList = WPNode.elements();
-            for (int j = 0; j < WPChildList.size(); j++) {
-                Element childEle = (Element)WPChildList.get(j);
-                Element ele = null;
-                String name = childEle.getName();
-                if(StringUtils.equals(name,"r")){
-                    List<Element> wtList = childEle.selectNodes("w:t");
-                    for (Element wtEle:wtList) {
-                        String text = wtEle.getText();
-                        if(text.contains("yangzh-制造单")){
-                            System.out.println("");
-                        }
-                        if(text.contains("\n")){
-                            String[] strArr = text.split("\n");
-                            if(strArr.length>1){
-                                for (int k = 0; k < strArr.length; k++) {
-                                    String s = strArr[k];
-                                    if(k==0){
-                                        wtEle.setText(s);
-                                    }else{
-                                        ele = DocumentHelper.createElement("w:br");
-                                        dom4jUtils.addSiblingElement(wtEle, ele);
-                                        Element copyWtEle = wtEle.createCopy();
-                                        copyWtEle.setText(s);
-                                        dom4jUtils.addSiblingElement(ele, copyWtEle);
-                                        ele = copyWtEle;
-                                    }
-
-                                }
-                            }
-
-                        }
-                    }
-                }
-            }
-        }
+        dom4jUtils.handleSwitchLine(document);
         outputStreamWriter = new OutputStreamWriter(new FileOutputStream(ProduceFilePath,false), template.getEncoding());
         document.write(outputStreamWriter);
         outputStreamWriter.flush();
@@ -160,6 +120,7 @@ public class DocumentProducer {
                 outputStreamWriter.close();
         }
     }
+
     public void produce(Object data,OutputStream ProduceFileout)throws IOException,TemplateException {
         Configuration configuration = FMConfiguration.getConfiguration();
         Template template = configuration.getTemplate(ActualModelNameLocal.get());

@@ -2,10 +2,7 @@ package com.test;
 
 
 import com.kmood.datahandle.DocumentProducer;
-import com.kmood.utils.ConvertionUtil;
-import com.kmood.utils.FileUtils;
-import com.kmood.utils.FreemarkerUtil;
-import com.kmood.utils.JsonBinder;
+import com.kmood.utils.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kmood.word.WordModelParser;
@@ -14,6 +11,7 @@ import freemarker.template.TemplateException;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.junit.Test;
 
 import java.io.*;
@@ -201,6 +199,7 @@ public class test {
             e.printStackTrace();
         }
     }
+
 
 
 
