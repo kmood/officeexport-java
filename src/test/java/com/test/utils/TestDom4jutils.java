@@ -1,9 +1,7 @@
 package com.test.utils;
 
 import com.kmood.utils.dom4jUtils;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 import org.junit.Test;
@@ -47,16 +45,18 @@ public class TestDom4jutils {
     public void testHandleSwitchLine(){
         try{
             Document document = DocumentHelper.createDocument();
+
             Element root = document.addElement("root");
             Element root1 = root.addElement("p");
+            root1.addElement("r").addElement("a").setText("孙柏超");
             root1.addElement("r").addElement("t").setText("孙柏超");
-            root1.addElement("r").addElement("t").setText("孙柏超2\nsdfsdfsdfsdfsdfsdf");
+            root1.addElement("r").addElement("t").setText("孙柏超2\nsdfsdfs\ndfsdfsdfsdf");
 
             Element root2 = root.addElement("p");
-            root2.addElement("r").addElement("t").setText("孙柏超");
-            root2.addElement("r").addElement("t").setText("孙柏超2sdfsdfsdfsdfsdfsdf");
+            root2.addElement("r").addElement("t").setText("孙柏\n超");
+            root2.addElement("r").addElement("t").setText("孙柏超2sd\nfsdfsdfsdfsdfsdf");
 
-dom4jUtils.handleSwitchLine(document);
+
             // 保存XML文档
             // Saving the XML document to a String
             OutputFormat format = OutputFormat.createPrettyPrint();
@@ -69,9 +69,27 @@ dom4jUtils.handleSwitchLine(document);
             String xmlString = stringWriter.toString();
 
             // Output the XML string to console
-            System.out.println(xmlString);}
-        catch(Exception e){
+            System.out.println(xmlString+"\n-----------------------------------------------------------");
 
+
+            dom4jUtils.handleSwitchLinetemp(document);
+            // 保存XML文档
+            // Saving the XML document to a String
+            format = OutputFormat.createPrettyPrint();
+            format.setEncoding("UTF-8");
+            stringWriter = new StringWriter();
+            writer = new XMLWriter(stringWriter, format);
+            writer.write(document);
+            writer.flush();
+
+            xmlString = stringWriter.toString();
+
+            // Output the XML string to console
+            System.out.println(xmlString);
+        }
+        catch(Exception e){
+        e.printStackTrace();
         }
     }
+
 }

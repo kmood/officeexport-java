@@ -30,44 +30,87 @@ public class dom4jUtils {
         List ParagList = document.selectNodes(".//w:p");
 
         for (int i = 0; i < ParagList.size(); i++) {
-            Element WPNode = (Element) ParagList.get(i);
-            List WPChildList = WPNode.elements();
-            for (int j = 0; j < WPChildList.size(); j++) {
-
-                Element WPEle = (Element)WPChildList.get(j);
-                List WrList = WPEle.selectNodes("w:r");
-                dom4jUtils.removeChildElementByName(WPEle,"w:r");
-                Element WPEleClear = WPEle.createCopy();
-                ArrayList<Element> WpListnew = new ArrayList<>();
-                WpListnew.add(WPEleClear);
-                int wpNum = 0;
-                for (int k = 0; k < WrList.size(); k++) {
-                    Element WrEle = (Element)WrList.get(k);
-                    List WtList = WrEle.selectNodes("w:t");
-                    String text = "";
-                    for (int m = 0; m < WtList.size(); m++) {
-                        Element WtEle = (Element)WtList.get(m);
-                        text += WtEle.getText();
-                    }
-                    if(text.contains("\n")){
-                        String[] split = text.split("\n");
-                        for (int l = 0; l < split.length ; l++) {
-                            Element wrEleCopy = WrEle.createCopy();
-                            dom4jUtils.removeChildElementByName(wrEleCopy,"w:t");
-                            wrEleCopy.addElement("w:t").setText(split[l]);
-                            wpNum++;
-                            Element element = WpListnew.get(wpNum);
-                            dom4jUtils.addSiblingElement(element,WPEleClear);
-                            element.add(wrEleCopy);
-                            WpListnew.add(WPEleClear);
-                        }
-                    }else {
+            Element WPEle = (Element) ParagList.get(i);
+            List WrList = WPEle.selectNodes("w:r");
+            dom4jUtils.removeChildElementByName(WPEle,"r");
+            Element WPEleClear = WPEle.createCopy();
+            ArrayList<Element> WpListnew = new ArrayList<>();
+            WpListnew.add(WPEle);
+            int wpNum = 0;
+            for (int k = 0; k < WrList.size(); k++) {
+                Element WrEle = (Element)WrList.get(k);
+                List WtList = WrEle.selectNodes("w:t");
+                String text = "";
+                for (int m = 0; m < WtList.size(); m++) {
+                    Element WtEle = (Element)WtList.get(m);
+                    text += WtEle.getText();
+                }
+                if(text.contains("\n")){
+                    String[] split = text.split("\n");
+                    for (int l = 0; l < split.length ; l++) {
+                        Element wrEleCopy = WrEle.createCopy();
+                        dom4jUtils.removeChildElementByName(wrEleCopy,"t");
+                        wrEleCopy.addElement("w:t").setText(split[l]);
                         Element element = WpListnew.get(wpNum);
-                        element.add(WrEle);
-
+                        element.add(wrEleCopy);
+                        if(l<split.length-1){
+                            wpNum++;
+                            Element WPEleClearcopy = WPEleClear.createCopy();
+                            dom4jUtils.addSiblingElement(element, WPEleClearcopy);
+                            WpListnew.add(WPEleClearcopy);
+                        }
                     }
+                }else {
+                    Element element = WpListnew.get(wpNum);
+                    element.add(WrEle);
+
                 }
             }
         }
+    }
+
+
+    public static void handleSwitchLinetemp(Document document) {
+        List ParagList = document.selectNodes(".//w:p");
+
+        for (int i = 0; i < ParagList.size(); i++) {
+            Element WPEle = (Element) ParagList.get(i);
+            List WrList = WPEle.selectNodes("w:r");
+            dom4jUtils.removeChildElementByName(WPEle,"r");
+            Element WPEleClear = WPEle.createCopy();
+            ArrayList<Element> WpListnew = new ArrayList<>();
+            WpListnew.add(WPEle);
+            int wpNum = 0;
+            for (int k = 0; k < WrList.size(); k++) {
+                Element WrEle = (Element)WrList.get(k);
+                List WtList = WrEle.selectNodes("w:t");
+                String text = "";
+                for (int m = 0; m < WtList.size(); m++) {
+                    Element WtEle = (Element)WtList.get(m);
+                    text += WtEle.getText();
+                }
+                if(text.contains("\n")){
+                    String[] split = text.split("\n");
+                    for (int l = 0; l < split.length ; l++) {
+                        Element wrEleCopy = WrEle.createCopy();
+                        dom4jUtils.removeChildElementByName(wrEleCopy,"t");
+                        wrEleCopy.addElement("w:t").setText(split[l]);
+                        Element element = WpListnew.get(wpNum);
+                        element.add(wrEleCopy);
+                        if(l<split.length-1){
+                            wpNum++;
+                            Element WPEleClearcopy = WPEleClear.createCopy();
+                            dom4jUtils.addSiblingElement(element, WPEleClearcopy);
+                            WpListnew.add(WPEleClearcopy);
+                        }
+                    }
+                }else {
+                    Element element = WpListnew.get(wpNum);
+                    element.add(WrEle);
+
+                }
+            }
+        }
+
     }
 }
