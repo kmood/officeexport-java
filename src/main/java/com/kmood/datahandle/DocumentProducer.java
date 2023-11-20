@@ -103,7 +103,9 @@ public class DocumentProducer {
         SAXReader reader = new SAXReader();
         File file = new File(ProduceFilePath);
         Document document = reader.read(file);
+
         dom4jUtils.handleSwitchLine(document);
+
         outputStreamWriter = new OutputStreamWriter(new FileOutputStream(ProduceFilePath,false), template.getEncoding());
         document.write(outputStreamWriter);
         outputStreamWriter.flush();

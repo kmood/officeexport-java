@@ -72,7 +72,7 @@ public class TestDom4jutils {
             System.out.println(xmlString+"\n-----------------------------------------------------------");
 
 
-            dom4jUtils.handleSwitchLinetemp(document);
+            dom4jUtils.handleSwitchLine(document);
             // 保存XML文档
             // Saving the XML document to a String
             format = OutputFormat.createPrettyPrint();
